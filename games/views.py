@@ -280,6 +280,7 @@ def add_game(request):
 
     return render(request, "games/add_game.html")
 @login_required(login_url='/login/')
+
 def buy_game(request, game_id):
 
     game = get_object_or_404(Game, id=game_id)
