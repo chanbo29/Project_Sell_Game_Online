@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Download {{ game.title }} - SellGame</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#05080d;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+.bg{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+}
+
+.bg img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:blur(26px) brightness(.28);
+    transform:scale(1.15);
+}
+
+.bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    radial-gradient(circle at top left,rgba(102,192,244,.22),transparent 35%),
+    radial-gradient(circle at top right,rgba(139,197,63,.13),transparent 35%),
+    linear-gradient(180deg,rgba(5,8,13,.75),#05080d 88%);
+}
+
+/* TOPBAR */
+.topbar{
+    height:84px;
+    padding:0 38px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(5,11,18,.72);
+    border-bottom:1px solid rgba(102,192,244,.18);
+    backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:31px;
+    font-weight:900;
+}
+
+.logo span:first-child{
+    color:#66c0f4;
+}
+
+.logo span:last-child{
+    color:white;
+}
+
+.top-actions{
+    display:flex;
+    gap:12px;
+}
+
+.top-btn{
+    height:46px;
+    padding:0 18px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+    color:#c7d5e0;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    font-weight:900;
+    transition:.25s;
+}
+
+.top-btn:hover{
+    color:white;
+    border-color:#66c0f4;
+    transform:translateY(-2px);
+}
+
+/* PAGE */
+.wrapper{
+    max-width:1300px;
+    margin:auto;
+    padding:42px 28px;
+}
+
+.launch-shell{
+    display:grid;
+    grid-template-columns:.95fr 1.05fr;
+    background:rgba(7,16,26,.86);
+    border:1px solid rgba(102,192,244,.22);
+    border-radius:38px;
+    overflow:hidden;
+    box-shadow:0 45px 120px rgba(0,0,0,.68);
+    backdrop-filter:blur(22px);
+}
+
+/* HERO IMAGE */
+.poster{
+    min-height:640px;
+    position:relative;
+    background:#111827;
+    overflow:hidden;
+}
+
+.poster img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:1s;
+}
+
+.launch-shell:hover .poster img{
+    transform:scale(1.06);
+}
+
+.poster::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(to top,rgba(5,8,13,.96),transparent 55%),
+    linear-gradient(to right,transparent,rgba(7,16,26,.32));
+}
+
+.poster-content{
+    position:absolute;
+    left:32px;
+    right:32px;
+    bottom:32px;
+    z-index:2;
+}
+
+.badge{
+    display:inline-flex;
+    padding:12px 18px;
+    border-radius:999px;
+    background:rgba(139,197,63,.16);
+    border:1px solid rgba(139,197,63,.36);
+    color:#9cff45;
+    font-weight:900;
+    margin-bottom:14px;
+}
+
+.category{
+    display:inline-flex;
+    margin-bottom:18px;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(102,192,244,.12);
+    border:1px solid rgba(102,192,244,.28);
+    color:#66c0f4;
+    font-weight:900;
+}
+
+.poster-title{
+    font-size:40px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.poster-sub{
+    color:#c7d5e0;
+    line-height:1.7;
+}
+
+/* CONTENT */
+.content{
+    padding:52px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.kicker{
+    width:max-content;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(102,192,244,.12);
+    border:1px solid rgba(102,192,244,.32);
+    color:#75d2ff;
+    font-weight:900;
+    margin-bottom:20px;
+}
+
+.title{
+    font-size:54px;
+    line-height:1;
+    font-weight:900;
+    letter-spacing:-2px;
+    margin-bottom:18px;
+}
+
+.title span{
+    color:#66c0f4;
+}
+
+.desc{
+    color:#c7d5e0;
+    line-height:1.8;
+    margin-bottom:26px;
+}
+
+/* INFO GRID */
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-bottom:26px;
+}
+
+.info-card{
+    padding:18px;
+    border-radius:18px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.info-card small{
+    color:#8f98a0;
+    font-weight:800;
+}
+
+.info-card strong{
+    display:block;
+    margin-top:7px;
+    color:white;
+}
+
+/* ACTION */
+.action-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-bottom:24px;
+}
+
+.download-btn,
+.library-btn{
+    height:56px;
+    padding:0 28px;
+    border-radius:18px;
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    color:white;
+    transition:.25s;
+}
+
+.download-btn{
+    background:linear-gradient(135deg,#8bc53f,#5d9122);
+    box-shadow:0 18px 35px rgba(139,197,63,.22);
+}
+
+.library-btn{
+    background:#1b2838;
+    border:1px solid #2a475e;
+    color:#c7d5e0;
+}
+
+.download-btn:hover,
+.library-btn:hover{
+    transform:translateY(-3px);
+    filter:brightness(1.1);
+}
+
+.download-btn:disabled{
+    opacity:.72;
+    cursor:not-allowed;
+}
+
+/* DOWNLOAD PANEL */
+.download-panel{
+    display:none;
+    padding:26px;
+    border-radius:24px;
+    background:rgba(27,40,56,.78);
+    border:1px solid rgba(102,192,244,.22);
+    margin-bottom:24px;
+    animation:pop .35s ease;
+}
+
+@keyframes pop{
+    from{
+        opacity:0;
+        transform:translateY(14px) scale(.98);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.download-top{
+    display:flex;
+    justify-content:space-between;
+    gap:18px;
+    margin-bottom:18px;
+}
+
+.download-game-name{
+    font-size:22px;
+    font-weight:900;
+}
+
+.download-subtitle{
+    color:#8f98a0;
+    margin-top:6px;
+}
+
+.download-percent{
+    font-size:34px;
+    color:#66c0f4;
+    font-weight:900;
+}
+
+.progress-bar{
+    height:19px;
+    background:#070d14;
+    border-radius:999px;
+    overflow:hidden;
+    position:relative;
+}
+
+.progress-fill{
+    width:0%;
+    height:100%;
+    border-radius:999px;
+    background:
+    linear-gradient(
+        90deg,
+        #ff0000,
+        #ff9900,
+        #ffee00,
+        #00ff55,
+        #00c8ff,
+        #8a2be2,
+        #ff0000
+    );
+    background-size:400% 100%;
+    animation:rainbow 3s linear infinite;
+    transition:.22s;
+}
+
+@keyframes rainbow{
+    from{background-position:0 0;}
+    to{background-position:400% 0;}
+}
+
+.progress-bar::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+    animation:shine 1.4s infinite;
+}
+
+@keyframes shine{
+    from{transform:translateX(-100%);}
+    to{transform:translateX(100%);}
+}
+
+.download-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:20px;
+}
+
+.stat-card{
+    padding:18px;
+    border-radius:17px;
+    background:#0f1722;
+    border:1px solid #233547;
+}
+
+.stat-label{
+    color:#8f98a0;
+    font-size:12px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.stat-value{
+    font-weight:900;
+}
+
+/* COMPLETE */
+.complete-box{
+    display:none;
+    padding:32px;
+    border-radius:24px;
+    text-align:center;
+    background:linear-gradient(135deg,rgba(139,197,63,.14),rgba(102,192,244,.08));
+    border:1px solid rgba(139,197,63,.35);
+    animation:pop .35s ease;
+}
+
+.complete-icon{
+    width:76px;
+    height:76px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    background:#8bc53f;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    font-weight:900;
+    box-shadow:0 0 35px rgba(139,197,63,.45);
+}
+
+.complete-title{
+    font-size:30px;
+    font-weight:900;
+    margin-bottom:10px;
+}
+
+.complete-desc{
+    color:#c7d5e0;
+    line-height:1.7;
+    margin-bottom:22px;
+}
+
+.finish-btn{
+    display:inline-flex;
+    padding:16px 30px;
+    border-radius:17px;
+    background:linear-gradient(135deg,#8bc53f,#5d9122);
+    color:white;
+    font-weight:900;
+    text-decoration:none;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+    .launch-shell{
+        grid-template-columns:1fr;
+    }
+
+    .poster{
+        min-height:390px;
+    }
+
+    .content{
+        padding:36px 26px;
+    }
+
+    .title{
+        font-size:40px;
+    }
+
+    .info-grid,
+    .download-stats{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:540px){
+    .topbar{
+        padding:0 18px;
+    }
+
+    .logo{
+        font-size:24px;
+    }
+
+    .wrapper{
+        padding:24px 14px;
+    }
+
+    .poster-title{
+        font-size:28px;
+    }
+
+    .title{
+        font-size:34px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+    {% if game.image %}
+        <img src="{{ game.image.url }}" alt="{{ game.title }}">
+    {% else %}
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game">
+    {% endif %}
+</div>
+
+<div class="topbar">
+    <div class="logo"><span>SELL</span><span>GAME</span></div>
+
+    <div class="top-actions">
+        <a href="/" class="top-btn">Store</a>
+        <a href="/library/" class="top-btn">Library</a>
+    </div>
+</div>
+
+<div class="wrapper">
+
+    <div class="launch-shell">
+
+        <div class="poster">
+            {% if game.image %}
+                <img src="{{ game.image.url }}" alt="{{ game.title }}">
+            {% else %}
+                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game">
+            {% endif %}
+
+            <div class="poster-content">
+                <div class="badge">✔ PURCHASE COMPLETE</div><br>
+                <div class="category">🎮 {{ game.game_type }}</div>
+
+                <div class="poster-title">
+                    {{ game.title }}
+                </div>
+
+                <div class="poster-sub">
+                    Your purchase is complete. Install the game into your library.
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="kicker">
+                ⬇ DOWNLOAD MANAGER
+            </div>
+
+            <div class="title">
+                Ready to <span>Install</span>
+            </div>
+
+            <div class="desc">
+                {{ game.description|truncatechars:230 }}
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <small>Status</small>
+                    <strong>Purchased</strong>
+                </div>
+
+                <div class="info-card">
+                    <small>Access</small>
+                    <strong>Instant</strong>
+                </div>
+
+                <div class="info-card">
+                    <small>Platform</small>
+                    <strong>PC</strong>
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button type="button"
+                        class="download-btn"
+                        id="downloadBtn"
+                        onclick="startDownload()">
+                    ⬇ Download Game
+                </button>
+
+                <a href="/library/" class="library-btn">
+                    🎮 Open Library
+                </a>
+            </div>
+
+            <div class="download-panel" id="downloadPanel">
+
+                <div class="download-top">
+                    <div>
+                        <div class="download-game-name">
+                            {{ game.title }}
+                        </div>
+
+                        <div class="download-subtitle">
+                            Downloading encrypted game files...
+                        </div>
+                    </div>
+
+                    <div class="download-percent" id="percent">
+                        0%
+                    </div>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div class="download-stats">
+                    <div class="stat-card">
+                        <div class="stat-label">STATUS</div>
+                        <div class="stat-value" id="statusText">Waiting...</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">SPEED</div>
+                        <div class="stat-value" id="speedText">0 MB/s</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">REMAINING</div>
+                        <div class="stat-value" id="timeText">--:--</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="complete-box" id="completeBox">
+
+                <div class="complete-icon">
+                    ✔
+                </div>
+
+                <div class="complete-title">
+                    Download Complete
+                </div>
+
+                <div class="complete-desc">
+                    {{ game.title }} has been installed successfully.
+                    Click Finish to open your game library.
+                </div>
+
+                <a href="/library/" class="finish-btn">
+                    Finish
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function startDownload(){
+
+    const panel = document.getElementById("downloadPanel");
+    const completeBox = document.getElementById("completeBox");
+    const fill = document.getElementById("progressFill");
+    const percentText = document.getElementById("percent");
+    const statusText = document.getElementById("statusText");
+    const speedText = document.getElementById("speedText");
+    const timeText = document.getElementById("timeText");
+    const button = document.getElementById("downloadBtn");
+
+    panel.style.display = "block";
+    completeBox.style.display = "none";
+
+    button.disabled = true;
+    button.innerText = "Downloading...";
+
+    let percent = 0;
+
+    const download = setInterval(function(){
+
+        percent += 4;
+
+        if(percent > 100){
+            percent = 100;
+        }
+
+        fill.style.width = percent + "%";
+        percentText.innerText = percent + "%";
+
+        if(percent < 35){
+            statusText.innerText = "Connecting...";
+            speedText.innerText = "8.4 MB/s";
+            timeText.innerText = "10 min";
+        }else if(percent < 75){
+            statusText.innerText = "Downloading...";
+            speedText.innerText = "24.7 MB/s";
+            timeText.innerText = "4 min";
+        }else if(percent < 100){
+            statusText.innerText = "Installing...";
+            speedText.innerText = "12.1 MB/s";
+            timeText.innerText = "1 min";
+        }else{
+            statusText.innerText = "Completed ✔";
+            speedText.innerText = "Done";
+            timeText.innerText = "0 min";
+        }
+
+        if(percent >= 100){
+            clearInterval(download);
+            completeBox.style.display = "block";
+            button.innerText = "Installed ✔";
+        }
+
+    }, 200);
+}
+</script>
+
+</body>
+</html>
