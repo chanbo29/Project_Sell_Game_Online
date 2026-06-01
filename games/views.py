@@ -165,12 +165,14 @@ def user_logout(request):
 
     return redirect('/login/')
 def register(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
 
-    if request.method == 'POST':
-
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+            return redirect("login")
 
         User.objects.create_user(
             username=username,
@@ -178,10 +180,10 @@ def register(request):
             password=password
         )
 
-        # AFTER REGISTER GO LOGIN PAGE
-        return redirect('/login/')
+        messages.success(request, "Account created successfully. Please login.")
+        return redirect("login")
 
-    return render(request, 'games/register.html')
+    return render(request, "games/register.html")
 def register_view(request):
 
     if request.method == 'POST':
