@@ -430,7 +430,7 @@ textarea{
                 {% csrf_token %}
 
                 <label>Game Title</label>
-                <input type="text" name="title" id="titleInput" placeholder="Example: Forza Horizon 6" required>
+                <input type="text" name="title" required>
 
                 <label>Game Category</label>
                 <select name="category" required>
@@ -453,16 +453,16 @@ textarea{
 
                     <div>
                         <label>Discount (%)</label>
-                        <input type="number" name="discount_percent" id="discountInput" min="0" max="100" value="0">
+                        <input type="number" name="discount_percent" value="0">
                     </div>
                 </div>
 
                 <label>Description</label>
-                <textarea name="description" id="descInput" placeholder="Write game description..."></textarea>
+                 <textarea name="description"></textarea>
 
                 <label>Game Image</label>
                 <label class="upload-box">
-                    <input type="file" name="image" id="imageInput" accept="image/*" hidden>
+                    <input type="file" name="image" accept="image/*">
 
                     <div class="upload-content">
                         <div class="upload-icon">📷</div>
@@ -477,9 +477,7 @@ textarea{
 
                         {{ form.as_p }}
 
-                        <button type="submit">
-                            Save Game
-                        </button>
+                        <button type="submit">Add Game</button>>
                     </form>
 
                     <a href="/" class="cancel-btn">

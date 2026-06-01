@@ -273,9 +273,10 @@ def add_game(request):
             original_price=request.POST.get("original_price") or 0,
             price=request.POST.get("original_price") or 0,
             discount_percent=request.POST.get("discount_percent") or 0,
-            category=request.POST.get("category"),
+            category=request.POST.get("category") or "Action",
             image=request.FILES.get("image")
         )
+
         return redirect("/")
 
     return render(request, "games/add_game.html")
