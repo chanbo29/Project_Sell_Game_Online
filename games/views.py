@@ -3,7 +3,7 @@ import string
 import json
 import csv
 # import requests
-
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -19,25 +19,29 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 #Admin dashboard (optional)
 def login_view(request):
-
     if request.user.is_authenticated:
         return redirect('game_list')
 
     error = ''
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username_input = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(
-            request,
-            username=username,
-            password=password
-        )
+        user_obj = User.objects.filter(
+            Q(username=username_input) | Q(email=username_input)
+        ).first()
 
-        if user is not None:
-            login(request, user)
-            return redirect('game_list')
+        if user_obj:
+            user = authenticate(
+                request,
+                username=user_obj.username,
+                password=password
+            )
+
+            if user is not None:
+                login(request, user)
+                return redirect('game_list')
 
         error = 'Invalid username or password'
 
