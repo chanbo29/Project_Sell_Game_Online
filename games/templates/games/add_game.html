@@ -472,9 +472,15 @@ textarea{
                 </label>
 
                 <div class="buttons">
-                    <button type="submit" class="save-btn">
-                        Save Game
-                    </button>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <button type="submit">
+                            Save Game
+                        </button>
+                    </form>
 
                     <a href="/" class="cancel-btn">
                         Cancel

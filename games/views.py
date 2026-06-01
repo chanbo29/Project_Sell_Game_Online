@@ -262,22 +262,25 @@ def game_list(request):
     })
 # ថែមហ្គេមថ្មី
 @login_required(login_url='/login/')
-@login_required
 def add_game(request):
+    if not request.user.is_staff:
+        return redirect('/')
+
     if request.method == "POST":
         title = request.POST.get("title")
         description = request.POST.get("description")
         original_price = request.POST.get("original_price")
         discount_percent = request.POST.get("discount_percent")
-        game_type = request.POST.get("game_type")
+        category = request.POST.get("category")
         image = request.FILES.get("image")
 
         Game.objects.create(
             title=title,
             description=description,
             original_price=original_price,
+            price=original_price,
             discount_percent=discount_percent,
-            game_type=game_type,
+            category=category,
             image=image
         )
 
@@ -404,16 +407,20 @@ def remove_cart(request, game_id):
 #         'form': form
 #     })
 # កែប្រែព័ត៌មានហ្គេម
-@login_required
+@login_required(login_url='/login/')
 def edit_game(request, id):
-    game = Game.objects.get(id=id)
+    if not request.user.is_staff:
+        return redirect('/')
+
+    game = get_object_or_404(Game, id=id)
 
     if request.method == "POST":
         game.title = request.POST.get("title")
         game.description = request.POST.get("description")
         game.original_price = request.POST.get("original_price")
+        game.price = request.POST.get("original_price")
         game.discount_percent = request.POST.get("discount_percent")
-        game.game_type = request.POST.get("game_type")
+        game.category = request.POST.get("category")
 
         if request.FILES.get("image"):
             game.image = request.FILES.get("image")
@@ -424,7 +431,8 @@ def edit_game(request, id):
 
     return render(request, "games/update_game.html", {
         "game": game
-    })# លុបហ្គេម
+    })
+# លុបហ្គេម
 @login_required
 def delete_game(request, id):
 

@@ -16,30 +16,20 @@ class Game(models.Model):
         ('Strategy', 'Strategy'),
     ]
 
-    title = models.CharField(max_length=200)
-
+    title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+    category = models.CharField(max_length=20, choices=GAME_TYPES, default='Action')
 
-    original_price = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=0
-    )
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    original_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    discount_percent = models.PositiveIntegerField(default=0)
 
-    discount_percent = models.IntegerField(default=0)
+    image = models.ImageField(upload_to='games/', blank=True, null=True)
 
-    game_type = models.CharField(
-        max_length=50,
-        choices=GAME_TYPES,
-        default='Action'
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    image = models.ImageField(
-        upload_to='games/',
-        blank=True,
-        null=True
-    )
-
+    def __str__(self):
+        return self.title
     def final_price(self):
 
         if self.discount_percent > 0:
