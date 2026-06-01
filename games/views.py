@@ -22,33 +22,22 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('game_list')
 
-    error = ''
-
     if request.method == 'POST':
         username_input = request.POST.get('username')
         password = request.POST.get('password')
 
-        user_obj = User.objects.filter(
-            Q(username=username_input) | Q(email=username_input)
-        ).first()
+        user_obj = User.objects.filter(username=username_input).first()
 
         if user_obj:
-            user = authenticate(
-                request,
-                username=user_obj.username,
-                password=password
-            )
-
+            user = authenticate(request, username=user_obj.username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect('game_list')
 
-        error = 'Invalid username or password'
+        messages.error(request, 'Invalid username or password')
+        return redirect('login')
 
-    return render(request, 'games/login.html', {
-        'error': error
-    })
-
+    return render(request, 'games/login.html')
 
 def logout_view(request):
     logout(request)

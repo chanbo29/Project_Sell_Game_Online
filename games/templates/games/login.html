@@ -344,8 +344,10 @@ button:hover{
         <h2>Welcome back</h2>
         <p class="text">Login with your username, email, or phone.</p>
 
-        {% if error %}
-        <div class="error-box">{{ error }}</div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="error-box">{{ message }}</div>
+            {% endfor %}
         {% endif %}
 
         <form method="POST">
