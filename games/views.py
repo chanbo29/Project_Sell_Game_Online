@@ -180,17 +180,12 @@ def register(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
 
-        if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists")
-            return redirect("login")
-
         User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
 
-        messages.success(request, "Account created successfully. Please login.")
         return redirect("login")
 
     return render(request, "games/register.html")
