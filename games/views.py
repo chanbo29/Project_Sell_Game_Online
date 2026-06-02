@@ -429,16 +429,15 @@ def edit_game(request, id):
     if request.method == "POST":
         game.title = request.POST.get("title")
         game.description = request.POST.get("description")
-        game.original_price = request.POST.get("original_price")
-        game.price = request.POST.get("original_price")
-        game.discount_percent = request.POST.get("discount_percent")
-        game.category = request.POST.get("category")
+        game.original_price = request.POST.get("original_price") or 0
+        game.price = request.POST.get("original_price") or 0
+        game.discount_percent = request.POST.get("discount_percent") or 0
+        game.category = request.POST.get("category") or "Action"
 
         if request.FILES.get("image"):
             game.image = request.FILES.get("image")
 
         game.save()
-
         return redirect("/")
 
     return render(request, "games/update_game.html", {

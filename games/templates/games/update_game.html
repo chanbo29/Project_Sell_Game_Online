@@ -450,19 +450,20 @@ textarea{
                 {% csrf_token %}
 
                 <label>Game Title</label>
-                <input type="text" name="title" id="titleInput" value="{{ game.title }}" required>
+                <input type="text" name="title" id="titleInput" value="{{ game.category }}" required>
 
                 <label>Game Category</label>
-                <select name="game_type" id="typeInput">
-                    <option value="Action" {% if game.game_type == "Action" %}selected{% endif %}>Action</option>
-                    <option value="Adventure" {% if game.game_type == "Adventure" %}selected{% endif %}>Adventure</option>
-                    <option value="FPS" {% if game.game_type == "FPS" %}selected{% endif %}>FPS</option>
-                    <option value="Racing" {% if game.game_type == "Racing" %}selected{% endif %}>Racing</option>
-                    <option value="RPG" {% if game.game_type == "RPG" %}selected{% endif %}>RPG</option>
-                    <option value="MOBA" {% if game.game_type == "MOBA" %}selected{% endif %}>MOBA</option>
-                    <option value="Sports" {% if game.game_type == "Sports" %}selected{% endif %}>Sports</option>
-                    <option value="Simulation" {% if game.game_type == "Simulation" %}selected{% endif %}>Simulation</option>
-                    <option value="Strategy" {% if game.game_type == "Strategy" %}selected{% endif %}>Strategy</option>
+                <label>Game Category</label>
+                <select name="category" id="typeInput">
+                    <option value="Action" {% if game.category == "Action" %}selected{% endif %}>Action</option>
+                    <option value="Adventure" {% if game.category == "Adventure" %}selected{% endif %}>Adventure</option>
+                    <option value="FPS" {% if game.category == "FPS" %}selected{% endif %}>FPS</option>
+                    <option value="Racing" {% if game.category == "Racing" %}selected{% endif %}>Racing</option>
+                    <option value="RPG" {% if game.category == "RPG" %}selected{% endif %}>RPG</option>
+                    <option value="MOBA" {% if game.category == "MOBA" %}selected{% endif %}>MOBA</option>
+                    <option value="Sports" {% if game.category == "Sports" %}selected{% endif %}>Sports</option>
+                    <option value="Simulation" {% if game.category == "Simulation" %}selected{% endif %}>Simulation</option>
+                    <option value="Strategy" {% if game.category == "Strategy" %}selected{% endif %}>Strategy</option>
                 </select>
 
                 <div class="two-col">
