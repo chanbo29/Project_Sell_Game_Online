@@ -26,7 +26,6 @@ body{
     padding:34px;
 }
 
-/* TOPBAR */
 .topbar{
     max-width:1350px;
     margin:0 auto 30px;
@@ -64,7 +63,6 @@ body{
     border-color:#66c0f4;
 }
 
-/* LAYOUT */
 .page{
     max-width:1350px;
     margin:auto;
@@ -81,7 +79,6 @@ body{
     box-shadow:0 30px 80px rgba(0,0,0,.45);
 }
 
-/* PREVIEW */
 .preview-hero{
     height:410px;
     position:relative;
@@ -93,7 +90,6 @@ body{
     width:100%;
     height:100%;
     object-fit:cover;
-    transition:.35s;
 }
 
 .preview-hero::after{
@@ -194,7 +190,6 @@ body{
     color:#c7d5e0;
 }
 
-/* FORM */
 .form-header{
     padding:34px;
     border-bottom:1px solid rgba(102,192,244,.18);
@@ -238,14 +233,6 @@ select{
     color:white;
     outline:none;
     font-size:1rem;
-    transition:.25s;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-    border-color:#66c0f4;
-    box-shadow:0 0 22px rgba(102,192,244,.22);
 }
 
 textarea{
@@ -259,7 +246,6 @@ textarea{
     gap:16px;
 }
 
-/* UPLOAD */
 .upload-box{
     display:block;
     border:2px dashed #2a475e;
@@ -268,7 +254,6 @@ textarea{
     text-align:center;
     cursor:pointer;
     margin-bottom:24px;
-    transition:.3s;
     background:#0f1722;
 }
 
@@ -282,15 +267,10 @@ textarea{
     margin-bottom:10px;
 }
 
-.upload-content h3{
-    margin-bottom:8px;
-}
-
 .upload-content p{
     color:#8f98a0;
 }
 
-/* BUTTONS */
 .buttons{
     display:flex;
     gap:15px;
@@ -303,7 +283,6 @@ textarea{
     border-radius:16px;
     font-weight:900;
     font-size:1rem;
-    transition:.25s;
 }
 
 .save-btn{
@@ -311,11 +290,6 @@ textarea{
     color:white;
     background:linear-gradient(to bottom,#8bc53f,#5d9122);
     cursor:pointer;
-}
-
-.save-btn:hover{
-    transform:translateY(-4px);
-    box-shadow:0 12px 35px rgba(139,197,63,.35);
 }
 
 .cancel-btn{
@@ -328,12 +302,6 @@ textarea{
     border:1px solid #2a475e;
 }
 
-.cancel-btn:hover{
-    transform:translateY(-4px);
-    border-color:#66c0f4;
-}
-
-/* RESPONSIVE */
 @media(max-width:1000px){
     .page{
         grid-template-columns:1fr;
@@ -371,15 +339,13 @@ textarea{
 <body>
 
 <div class="topbar">
-<div class="logo">SELL<span>GAME</span>ONLINE</div>
+    <div class="logo">SELL<span>GAME</span>ONLINE</div>
     <a href="/" class="back-btn">Back to Store</a>
 </div>
 
 <div class="page">
 
-    <!-- LIVE PREVIEW -->
     <div class="card">
-
         <div class="preview-hero">
             <div class="discount-badge" id="previewDiscount">NEW</div>
 
@@ -388,14 +354,8 @@ textarea{
                  alt="Upload Image">
 
             <div class="preview-content">
-                <div class="game-category" id="previewType">
-                    Action
-                </div>
-
-                <div class="preview-title" id="previewTitle">
-                    Game Title
-                </div>
-
+                <div class="game-category" id="previewType">Action</div>
+                <div class="preview-title" id="previewTitle">Game Title</div>
                 <div class="preview-desc" id="previewDesc">
                     Game description preview will appear here.
                 </div>
@@ -413,12 +373,9 @@ textarea{
                 <div class="preview-btn preview-secondary">Wishlist</div>
             </div>
         </div>
-
     </div>
 
-    <!-- FORM -->
     <div class="card">
-
         <div class="form-header">
             <h1>Add New Game</h1>
             <p>Create a new game product with category, discount, image, and Steam-style live preview.</p>
@@ -430,10 +387,10 @@ textarea{
                 {% csrf_token %}
 
                 <label>Game Title</label>
-                <input type="text" name="title" required>
+                <input type="text" name="title" id="titleInput" required>
 
                 <label>Game Category</label>
-                <select name="category" required>
+                <select name="category" id="typeInput" required>
                     <option value="Action">Action</option>
                     <option value="Adventure">Adventure</option>
                     <option value="FPS">FPS</option>
@@ -444,25 +401,39 @@ textarea{
                     <option value="Simulation">Simulation</option>
                     <option value="Strategy">Strategy</option>
                 </select>
-                
+
                 <div class="two-col">
                     <div>
                         <label>Original Price</label>
-                        <input type="number" step="0.01" name="original_price" id="priceInput" placeholder="Example: 59.99" required>
+                        <input type="number"
+                               step="0.01"
+                               name="original_price"
+                               id="priceInput"
+                               placeholder="Example: 59.99"
+                               required>
                     </div>
 
                     <div>
                         <label>Discount (%)</label>
-                        <input type="number" name="discount_percent" value="0">
+                        <input type="number"
+                               name="discount_percent"
+                               id="discountInput"
+                               value="0"
+                               min="0"
+                               max="100">
                     </div>
                 </div>
 
                 <label>Description</label>
-                 <textarea name="description"></textarea>
+                <textarea name="description" id="descInput"></textarea>
 
                 <label>Game Image</label>
                 <label class="upload-box">
-                    <input type="file" name="image" accept="image/*">
+                    <input type="file"
+                           name="image"
+                           id="imageInput"
+                           accept="image/*"
+                           hidden>
 
                     <div class="upload-content">
                         <div class="upload-icon">📷</div>
@@ -472,13 +443,9 @@ textarea{
                 </label>
 
                 <div class="buttons">
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-
-                        {{ form.as_p }}
-
-                        <button type="submit">Add Game</button>>
-                    </form>
+                    <button type="submit" class="save-btn">
+                        Add Game
+                    </button>
 
                     <a href="/" class="cancel-btn">
                         Cancel
@@ -488,7 +455,6 @@ textarea{
             </form>
 
         </div>
-
     </div>
 
 </div>
