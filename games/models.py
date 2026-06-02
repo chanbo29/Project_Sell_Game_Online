@@ -26,21 +26,10 @@ class Game(models.Model):
 
     image = models.ImageField(upload_to='games/', blank=True, null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.title
     def final_price(self):
-
         if self.discount_percent > 0:
-
-            discount = (
-                self.original_price *
-                self.discount_percent
-            ) / 100
-
+            discount = (self.original_price * self.discount_percent) / 100
             return self.original_price - discount
-
         return self.original_price
 
     def __str__(self):

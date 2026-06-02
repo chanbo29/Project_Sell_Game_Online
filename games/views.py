@@ -286,13 +286,16 @@ def add_game(request):
         return redirect('/')
 
     if request.method == "POST":
+        original_price = request.POST.get("original_price") or 0
+        discount_percent = request.POST.get("discount_percent") or 0
+
         Game.objects.create(
             title=request.POST.get("title"),
             description=request.POST.get("description"),
-            original_price=request.POST.get("original_price") or 0,
-            price=request.POST.get("original_price") or 0,
-            discount_percent=request.POST.get("discount_percent") or 0,
             category=request.POST.get("category") or "Action",
+            original_price=original_price,
+            price=original_price,
+            discount_percent=discount_percent,
             image=request.FILES.get("image")
         )
 
