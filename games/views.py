@@ -18,16 +18,15 @@ from .models import Game, Wishlist, Cart, Purchase
 from django.contrib.auth.decorators import login_required, user_passes_test
 #ADMIN LOGIN
 def create_admin_once(request):
-    if User.objects.filter(username="admin").exists():
-        return HttpResponse("Admin already exists")
+    user, created = User.objects.get_or_create(username="admin")
 
-    User.objects.create_superuser(
-        username="admin",
-        email="admin@gmail.com",
-        password="Admin@168"
-    )
+    user.email = "admin@gmail.com"
+    user.is_staff = True
+    user.is_superuser = True
+    user.set_password("Admin12345")
+    user.save()
 
-    return HttpResponse("Admin created")
+    return HttpResponse("Admin ready. Username: admin Password: Admin12345")
 #Admin dashboard (optional)
 def login_view(request):
     if request.user.is_authenticated:
