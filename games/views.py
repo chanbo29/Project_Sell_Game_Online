@@ -175,15 +175,34 @@ def user_logout(request):
 
     return redirect('/login/')
 def register(request):
+
     if request.method == "POST":
+
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
+
+        if not username or not email or not password:
+            messages.error(request, "All fields are required")
+            return redirect("register")
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+            return redirect("register")
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already exists")
+            return redirect("register")
 
         User.objects.create_user(
             username=username,
             email=email,
             password=password
+        )
+
+        messages.success(
+            request,
+            "Account created successfully. Please login."
         )
 
         return redirect("login")

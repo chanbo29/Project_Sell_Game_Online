@@ -306,36 +306,67 @@ label{
         <h2>Create account</h2>
         <p class="text">Register to start buying and playing games.</p>
 
-        <form method="POST">
-            {% csrf_token %}
+        <form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
 
-            <div class="input-group">
-                <label>Username</label>
-                <div class="input-box">
-                    <span class="icon">👤</span>
-                    <input type="text" name="username">
-                </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div style="
+                background:#1d2b38;
+                color:#58c4ff;
+                padding:12px;
+                border-radius:12px;
+                margin-bottom:15px;
+                font-weight:700;
+            ">
+                {{ message }}
             </div>
+        {% endfor %}
+    {% endif %}
 
-            <div class="input-group">
-                <label>Email</label>
-                <div class="input-box">
-                    <span class="icon">📧</span>
-                    <input type="email" name="email">
-                </div>
-            </div>
+    <div class="input-group">
+        <label>Username</label>
+        <div class="input-box">
+            <span class="icon">👤</span>
+            <input type="text"
+                   name="username"
+                   placeholder="Enter username"
+                   required>
+        </div>
+    </div>
 
-            <div class="input-group">
-                <label>Password</label>
-                <div class="input-box">
-                    <span class="icon">🔒</span>
-                   <input type="password" name="password">
-                    <span class="eye" onclick="togglePassword()">👁</span>
-                </div>
-            </div>
+    <div class="input-group">
+        <label>Email</label>
+        <div class="input-box">
+            <span class="icon">📧</span>
+            <input type="email"
+                   name="email"
+                   placeholder="Enter email"
+                   required>
+        </div>
+    </div>
 
-            <button type="submit" class="register-btn">Register</button>
-        </form>
+    <div class="input-group">
+        <label>Password</label>
+        <div class="input-box">
+            <span class="icon">🔒</span>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   placeholder="Enter password"
+                   required>
+
+            <span class="eye"
+                  onclick="togglePassword()">
+                👁
+            </span>
+        </div>
+    </div>
+
+    <button type="submit" class="register-btn">
+        Register
+    </button>
+</form>
 
         <div class="bottom">
             Already have account?
@@ -347,12 +378,12 @@ label{
 </div>
 
 <script>
-function togglePassword(){
+function togglePassword() {
     const password = document.getElementById("password");
 
-    if(password.type === "password"){
+    if (password.type === "password") {
         password.type = "text";
-    }else{
+    } else {
         password.type = "password";
     }
 }
