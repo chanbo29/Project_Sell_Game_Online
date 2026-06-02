@@ -6,6 +6,8 @@ def home_redirect(request):
     return redirect('login')
 
 urlpatterns = [
+    #ADMIN_LOGIN
+    path("create-admin-once/", views.create_admin_once),
     #Admin dashboard (optional)
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('export-purchases/', views.export_purchases_excel, name='export_purchases_excel'),
@@ -50,4 +52,9 @@ urlpatterns = [
     path('buy/<int:game_id>/', views.buy_game, name='buy_game'),
     #PLAY GAME
     path('play/<int:game_id>/', views.play_game, name='play_game'),
+
+
+
+
+    path("import-old-data/", views.import_old_data),
 ]

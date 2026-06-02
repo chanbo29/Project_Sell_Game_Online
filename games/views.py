@@ -16,7 +16,18 @@ from django.http import HttpResponse
 from .forms import GameForm, RegisterForm
 from .models import Game, Wishlist, Cart, Purchase
 from django.contrib.auth.decorators import login_required, user_passes_test
+#ADMIN LOGIN
+def create_admin_once(request):
+    if User.objects.filter(username="admin").exists():
+        return HttpResponse("Admin already exists")
 
+    User.objects.create_superuser(
+        username="admin",
+        email="admin@gmail.com",
+        password="Admin@168"
+    )
+
+    return HttpResponse("Admin created")
 #Admin dashboard (optional)
 def login_view(request):
     if request.user.is_authenticated:
@@ -605,3 +616,10 @@ def play_game(request, game_id):
     return render(request, 'games/play_game.html', {
         'game': game
     })
+
+#IMPORT OLD DATA
+from django.core.management import call_command
+
+def import_old_data(request):
+    call_command("loaddata", "data.json")
+    return HttpResponse("Old SQLite data imported to Render PostgreSQL")
