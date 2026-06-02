@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-    <title>Sell Online GAME</title>
+    <title>Sell Online Games</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet">
 <style>
@@ -1331,21 +1331,23 @@
         <div class="sort-box">
             <span>⇅</span>
             <select id="sortGames" onchange="sortGames()">
-                <option value="default">
-                    Featured
-                </option>
-                <option value="az">
-                    Name A-Z
-                </option>
-                <option value="za">
-                    Name Z-A
-                </option>
-                <option value="low">
-                    Price Low
-                </option>
-                <option value="high">
-                    Price High
-                </option>
+                <option value="default">Featured</option>
+
+                <option value="az">Name A-Z</option>
+                <option value="za">Name Z-A</option>
+
+                <option value="low">Price Low</option>
+                <option value="high">Price High</option>
+
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <option value="FPS">FPS</option>
+                <option value="Racing">Racing</option>
+                <option value="RPG">RPG</option>
+                <option value="MOBA">MOBA</option>
+                <option value="Sports">Sports</option>
+                <option value="Simulation">Simulation</option>
+                <option value="Strategy">Strategy</option>
             </select>
         </div>
     </div>
@@ -1356,13 +1358,19 @@
 </div>
 <div class="game-grid">
     {% for game in games %}
-    <div class="game-card searchable-card">
+    <div class="game-card searchable-card"
+         data-title="{{ game.title }}"
+         data-price="{{ game.final_price }}"
+         data-category="{{ game.category }}">
+
         <div class="game-image-wrapper">
+
             {% if game.discount_percent > 0 %}
             <div class="discount">
                 -{{ game.discount_percent }}%
             </div>
             {% endif %}
+
             {% if game.id in purchased_game_ids %}
             <div class="owned-top">
                 OWNED
@@ -1385,10 +1393,10 @@
             </h3>
 
             <div class="game-category">
-                {{ game.game_type }}
+                {{ game.category }}
             </div>
             <div class="rating">
-                ⭐⭐⭐⭐⭐ <span>(4.8)</span>
+                ⭐⭐⭐⭐⭐ <span>(5.0)</span>
             </div>
             <div class="tags">
                 <span>Available Now</span>
@@ -1546,37 +1554,64 @@ function filterGames(){
         }
     });
 }
-function sortGames(){
+function sortGames() {
 
-    const grid =
-    document.querySelector(".game-grid");
+    const sortValue = document.getElementById("sortGames").value;
 
-    const cards =
-    Array.from(
-        grid.querySelectorAll(".game-card")
-    );
+    const container = document.querySelector(".game-grid");
+    const cards = Array.from(container.querySelectorAll(".game-card"));
 
-    const value = document.getElementById("sortGames").value; cards.sort((a,b)=>{
-    const titleA = a.querySelector(".game-title") .innerText.toLowerCase();
-    const titleB = b.querySelector(".game-title") .innerText.toLowerCase();
-    const priceA = parseFloat( a.querySelector(".new-price") .innerText .replace("$","") .replace("FREE","0")) || 0;
-    const priceB = parseFloat( b.querySelector(".new-price") .innerText .replace("$","") .replace("FREE","0")) || 0;
-        if(value === "az"){
-            return titleA.localeCompare(titleB);
-        }
-        if(value === "za"){
-            return titleB.localeCompare(titleA);
-        }
-        if(value === "low"){
-            return priceA - priceB;
-        }
-        if(value === "high"){
-            return priceB - priceA;
-        }
-        return 0;});
-    cards.forEach(card=>{
-        grid.appendChild(card);
-    });
+    if(sortValue === "az"){
+        cards.sort((a,b)=>
+            a.dataset.title.localeCompare(b.dataset.title)
+        );
+
+        cards.forEach(card=>container.appendChild(card));
+    }
+
+    else if(sortValue === "za"){
+        cards.sort((a,b)=>
+            b.dataset.title.localeCompare(a.dataset.title)
+        );
+
+        cards.forEach(card=>container.appendChild(card));
+    }
+
+    else if(sortValue === "low"){
+        cards.sort((a,b)=>
+            parseFloat(a.dataset.price) -
+            parseFloat(b.dataset.price)
+        );
+
+        cards.forEach(card=>container.appendChild(card));
+    }
+
+    else if(sortValue === "high"){
+        cards.sort((a,b)=>
+            parseFloat(b.dataset.price) -
+            parseFloat(a.dataset.price)
+        );
+
+        cards.forEach(card=>container.appendChild(card));
+    }
+
+    else if(sortValue === "default"){
+        cards.forEach(card=>{
+            card.style.display = "block";
+        });
+    }
+
+    else{
+        cards.forEach(card=>{
+
+            if(card.dataset.category === sortValue){
+                card.style.display = "block";
+            }else{
+                card.style.display = "none";
+            }
+
+        });
+    }
 }
 function updatePrice(){
     const price = parseFloat(priceInput.value) || 0;
