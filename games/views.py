@@ -286,20 +286,24 @@ def add_game(request):
         return redirect('/')
 
     if request.method == "POST":
-        original_price = request.POST.get("original_price") or 0
-        discount_percent = request.POST.get("discount_percent") or 0
+        try:
+            original_price = request.POST.get("original_price") or 0
+            discount_percent = request.POST.get("discount_percent") or 0
 
-        Game.objects.create(
-            title=request.POST.get("title"),
-            description=request.POST.get("description"),
-            category=request.POST.get("category") or "Action",
-            original_price=original_price,
-            price=original_price,
-            discount_percent=discount_percent,
-            image=request.FILES.get("image")
-        )
+            game = Game.objects.create(
+                title=request.POST.get("title"),
+                description=request.POST.get("description"),
+                category=request.POST.get("category") or "Action",
+                original_price=original_price,
+                price=original_price,
+                discount_percent=discount_percent,
+                image=request.FILES.get("image")
+            )
 
-        return redirect("/")
+            return redirect("/")
+
+        except Exception as e:
+            return HttpResponse(f"ADD GAME ERROR: {e}")
 
     return render(request, "games/add_game.html")
 @login_required(login_url='/login/')
