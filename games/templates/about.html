@@ -5,11 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AboutUs. - SellGameOnline</title>
+<title>About Us | SellGame Online</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -18,104 +19,90 @@
 }
 
 body{
-    min-height:100vh;
-    background:
-    radial-gradient(circle at 10% 10%,rgba(102,192,244,.22),transparent 30%),
-    radial-gradient(circle at 90% 20%,rgba(139,197,63,.14),transparent 30%),
-    linear-gradient(135deg,#05080d,#0b141d 55%,#02040a);
+    background:#0b1118;
     color:white;
+    overflow-x:hidden;
 }
 
 /* NAVBAR */
+
 .navbar{
-    max-width:1320px;
-    margin:24px auto 0;
-    padding:18px 22px;
-    border-radius:24px;
-    background:rgba(10,18,30,.82);
-    border:1px solid rgba(102,192,244,.22);
-    backdrop-filter:blur(18px);
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:999;
+    padding:20px 8%;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
+    background:rgba(10,15,25,.8);
+    backdrop-filter:blur(15px);
 }
 
 .logo{
     text-decoration:none;
+    color:#66c0f4;
     font-size:30px;
     font-weight:900;
-    color:#66c0f4;
-    letter-spacing:.5px;
 }
 
 .logo span{
     color:white;
 }
 
-.nav-actions{
+.nav-links{
     display:flex;
-    gap:14px;
+    gap:20px;
 }
 
-.nav-link{
-    text-decoration:none;
-    padding:13px 20px;
-    border-radius:16px;
+.nav-links a{
     color:#c7d5e0;
-    font-weight:900;
-    background:#142237;
-    border:1px solid #2a475e;
-    transition:.25s;
+    text-decoration:none;
+    font-weight:700;
 }
 
-.nav-link.primary{
-    background:linear-gradient(135deg,#66c0f4,#2b87c8);
-    color:white;
-    border:none;
-}
-
-.nav-link:hover{
-    transform:translateY(-3px);
+.nav-links a:hover{
+    color:#66c0f4;
 }
 
 /* HERO */
+
 .hero{
-    max-width:1320px;
-    margin:34px auto 0;
-    min-height:520px;
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    overflow:hidden;
-    border-radius:34px;
-    background:rgba(8,14,24,.88);
-    border:1px solid rgba(102,192,244,.22);
-    box-shadow:0 35px 100px rgba(0,0,0,.5);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.75)),
+    url("https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600");
+    background-size:cover;
+    background-position:center;
 }
 
 .hero-content{
-    padding:72px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+    max-width:900px;
+    padding:20px;
 }
 
 .badge{
-    width:max-content;
-    padding:10px 18px;
-    border-radius:999px;
-    background:rgba(102,192,244,.14);
-    border:1px solid rgba(102,192,244,.38);
-    color:#8bd7ff;
-    font-weight:900;
-    margin-bottom:24px;
+    display:inline-block;
+    padding:10px 20px;
+    border-radius:50px;
+    background:rgba(102,192,244,.15);
+    border:1px solid rgba(102,192,244,.4);
+    color:#66c0f4;
+    margin-bottom:25px;
+    font-weight:800;
 }
 
 .hero h1{
-    font-size:68px;
-    line-height:.98;
+    font-size:75px;
     font-weight:900;
-    margin-bottom:26px;
+    line-height:1;
+    margin-bottom:25px;
 }
 
 .hero h1 span{
@@ -123,457 +110,404 @@ body{
 }
 
 .hero p{
-    max-width:620px;
-    color:#b9c8d8;
-    font-size:18px;
-    line-height:1.85;
-    margin-bottom:34px;
+    font-size:20px;
+    color:#c7d5e0;
+    line-height:1.8;
+    margin-bottom:35px;
 }
 
 .hero-buttons{
     display:flex;
-    gap:16px;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
 }
 
 .btn{
+    padding:16px 35px;
+    border-radius:15px;
     text-decoration:none;
-    height:56px;
-    padding:0 26px;
-    border-radius:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:900;
+    font-weight:800;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:linear-gradient(135deg,#66c0f4,#2b87c8);
     color:white;
-    background:linear-gradient(135deg,#8bd13b,#5da51f);
-    box-shadow:0 14px 30px rgba(139,209,59,.25);
 }
 
-.btn.secondary{
-    background:#142237;
-    border:1px solid #2a475e;
+.btn-secondary{
+    background:#1b2838;
     color:#c7d5e0;
-    box-shadow:none;
+    border:1px solid #2a475e;
 }
 
-.hero-visual{
-    position:relative;
-    min-height:520px;
-    background:
-    linear-gradient(90deg,rgba(5,8,13,.88),rgba(5,8,13,.2)),
-    url("https://images.pexels.com/photos/7915437/pexels-photo-7915437.jpeg?auto=compress&cs=tinysrgb&w=1200");
-    background-size:cover;
-    background-position:center;
-}
-
-.hero-visual::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(to top,#05080d,transparent 60%);
-}
-
-.floating-card{
-    position:absolute;
-    left:40px;
-    bottom:40px;
-    right:40px;
-    z-index:2;
-    padding:24px;
-    border-radius:24px;
-    background:rgba(6,13,22,.75);
-    border:1px solid rgba(102,192,244,.3);
-    backdrop-filter:blur(16px);
-}
-
-.floating-card h3{
-    font-size:24px;
-    margin-bottom:8px;
-}
-
-.floating-card p{
-    color:#aab9c8;
-    line-height:1.6;
-}
-
-/* STATS */
-.stats{
-    max-width:1320px;
-    margin:28px auto;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-}
-
-.stat{
-    padding:26px;
-    border-radius:24px;
-    background:rgba(10,18,30,.82);
-    border:1px solid rgba(102,192,244,.18);
-    box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-
-.stat h2{
-    color:#66c0f4;
-    font-size:36px;
-    margin-bottom:8px;
-}
-
-.stat p{
-    color:#9fb0c2;
-    font-weight:700;
+.btn:hover{
+    transform:translateY(-4px);
 }
 
 /* SECTION */
+
 .section{
-    max-width:1320px;
-    margin:28px auto;
+    max-width:1300px;
+    margin:auto;
+    padding:100px 30px;
 }
 
 .section-title{
-    margin-bottom:18px;
+    text-align:center;
+    margin-bottom:60px;
 }
 
 .section-title h2{
-    font-size:38px;
-    font-weight:900;
-    margin-bottom:8px;
+    font-size:50px;
+    margin-bottom:15px;
 }
 
 .section-title p{
     color:#9fb0c2;
 }
 
-.cards{
+/* STORY */
+
+.story{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:center;
+}
+
+.story img{
+    width:100%;
+    border-radius:25px;
+}
+
+.story-content h3{
+    font-size:40px;
+    margin-bottom:20px;
+}
+
+.story-content p{
+    color:#c7d5e0;
+    line-height:1.9;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.stat{
+    background:#121b27;
+    border:1px solid #22384e;
+    padding:35px;
+    border-radius:25px;
+    text-align:center;
+}
+
+.stat h2{
+    color:#66c0f4;
+    font-size:45px;
+}
+
+.stat p{
+    color:#9fb0c2;
+    margin-top:10px;
+}
+
+/* FEATURES */
+
+.features{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:22px;
+    gap:25px;
 }
 
-.card{
-    padding:30px;
-    border-radius:26px;
-    background:linear-gradient(180deg,rgba(27,40,56,.95),rgba(12,18,28,.95));
-    border:1px solid rgba(102,192,244,.18);
-    box-shadow:0 20px 60px rgba(0,0,0,.28);
-    transition:.25s;
+.feature{
+    background:#121b27;
+    padding:35px;
+    border-radius:25px;
+    border:1px solid #22384e;
+    transition:.3s;
 }
 
-.card:hover{
-    transform:translateY(-6px);
+.feature:hover{
+    transform:translateY(-8px);
     border-color:#66c0f4;
 }
 
-.card-icon{
-    width:56px;
-    height:56px;
-    border-radius:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    margin-bottom:18px;
-    background:rgba(102,192,244,.12);
-    border:1px solid rgba(102,192,244,.3);
-}
-
-.card h3{
-    font-size:22px;
-    margin-bottom:12px;
-}
-
-.card p{
-    color:#b5c3d0;
-    line-height:1.75;
+.feature h3{
+    margin:15px 0;
 }
 
 /* TEAM */
+
 .team{
     display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:18px;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
 }
 
 .member{
-    padding:22px;
-    text-align:center;
-    border-radius:26px;
-    background:rgba(10,18,30,.88);
-    border:1px solid rgba(102,192,244,.18);
-    transition:.25s;
-}
-
-.member:hover{
-    transform:translateY(-6px);
-    border-color:#66c0f4;
-}
-
-.avatar{
-    width:108px;
-    height:108px;
-    margin:0 auto 18px;
-    border-radius:50%;
+    background:#121b27;
+    border-radius:25px;
     overflow:hidden;
-    border:3px solid #66c0f4;
-    box-shadow:0 0 26px rgba(102,192,244,.28);
+    text-align:center;
+    border:1px solid #22384e;
 }
 
-.avatar img{
+.member img{
     width:100%;
-    height:100%;
+    height:300px;
     object-fit:cover;
 }
 
+.member-content{
+    padding:25px;
+}
+
 .member h3{
-    font-size:17px;
     margin-bottom:8px;
 }
 
 .member span{
-    display:block;
-    color:#8bd7ff;
-    font-size:13px;
-    font-weight:900;
-    margin-bottom:12px;
+    color:#66c0f4;
+    font-weight:700;
 }
 
 .member p{
-    color:#98a8b8;
-    font-size:13px;
-    line-height:1.65;
+    color:#9fb0c2;
+    margin-top:15px;
+    line-height:1.7;
 }
 
 /* FOOTER */
+
 .footer{
-    max-width:1320px;
-    margin:32px auto 24px;
-    padding:26px;
-    border-radius:24px;
-    background:rgba(10,18,30,.82);
-    border:1px solid rgba(102,192,244,.18);
-    color:#8f98a0;
+    background:#0a0f17;
     text-align:center;
+    padding:35px;
+    color:#7f8b97;
+    border-top:1px solid #1f2f42;
 }
 
-/* RESPONSIVE */
-@media(max-width:1050px){
-    .hero{
-        grid-template-columns:1fr;
-    }
+@media(max-width:1000px){
 
-    .hero-content{
-        padding:48px;
-    }
-
-    .stats,
-    .cards{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .team{
-        grid-template-columns:repeat(2,1fr);
-    }
+.story{
+grid-template-columns:1fr;
 }
 
-@media(max-width:650px){
-    body{
-        padding:0 16px;
-    }
-
-    .navbar{
-        flex-direction:column;
-        gap:16px;
-    }
-
-    .nav-actions{
-        width:100%;
-        flex-direction:column;
-    }
-
-    .nav-link{
-        text-align:center;
-    }
-
-    .hero-content{
-        padding:34px 24px;
-    }
-
-    .hero h1{
-        font-size:44px;
-    }
-
-    .hero-buttons{
-        flex-direction:column;
-    }
-
-    .stats,
-    .cards,
-    .team{
-        grid-template-columns:1fr;
-    }
+.stats{
+grid-template-columns:repeat(2,1fr);
 }
+
+.features{
+grid-template-columns:1fr;
+}
+
+.team{
+grid-template-columns:repeat(2,1fr);
+}
+
+.hero h1{
+font-size:55px;
+}
+
+}
+
+@media(max-width:700px){
+
+.team{
+grid-template-columns:1fr;
+}
+
+.stats{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+}
+
 </style>
 </head>
-
 <body>
 
 <nav class="navbar">
-    <a href="/" class="logo">SELL<span>GAME</span>ONLINE</a>
+    <a href="/" class="logo">SELL<span>GAME</span></a>
 
-    <div class="nav-actions">
-        <a href="/" class="nav-link">Store</a>
-        <a href="/library/" class="nav-link">Library</a>
-        <a href="/cart/" class="nav-link primary">Cart</a>
+    <div class="nav-links">
+        <a href="/">Store</a>
+        <a href="/library/">Library</a>
+        <a href="/about/">About</a>
     </div>
 </nav>
 
 <section class="hero">
     <div class="hero-content">
-        <div class="badge">🎮 Modern Game Store Platform</div>
+
+        <div class="badge">
+            🎮 Cambodia Digital Game Marketplace
+        </div>
 
         <h1>
-            Built for <span>Gamers</span><br>
-            Made for Teams.
+            Built By <span>Gamers</span><br>
+            For Gamers
         </h1>
 
         <p>
-            SellGame Online is a modern game store system where users can discover,
-            purchase, wishlist, and manage games through a clean Steam-style web experience.
+            SellGame Online is a premium Steam-inspired marketplace
+            designed to help players discover, purchase and manage
+            digital games through a fast and modern platform.
         </p>
 
         <div class="hero-buttons">
-            <a href="/" class="btn">Explore Store</a>
-            <a href="/library/" class="btn secondary">My Library</a>
+            <a href="/" class="btn btn-primary">Explore Store</a>
+            <a href="/library/" class="btn btn-secondary">My Library</a>
         </div>
-    </div>
 
-    <div class="hero-visual">
-        <div class="floating-card">
-            <h3>Fast. Secure. Easy.</h3>
-            <p>
-                A complete Django-based game store with authentication, cart,
-                wishlist, payment flow, library, and admin game management.
-            </p>
-        </div>
-    </div>
-</section>
-
-<section class="stats">
-    <div class="stat">
-        <h2>CRUD</h2>
-        <p>Admin game management</p>
-    </div>
-
-    <div class="stat">
-        <h2>Cart</h2>
-        <p>Purchase flow system</p>
-    </div>
-
-    <div class="stat">
-        <h2>Library</h2>
-        <p>Owned game access</p>
-    </div>
-
-    <div class="stat">
-        <h2>Cloud</h2>
-        <p>Render + PostgreSQL ready</p>
     </div>
 </section>
 
 <section class="section">
+
     <div class="section-title">
-        <h2>What We Built</h2>
-        <p>A professional web system for selling and managing online games.</p>
+        <h2>Our Story</h2>
+        <p>Creating a modern game marketplace experience.</p>
     </div>
 
-    <div class="cards">
-        <div class="card">
-            <div class="card-icon">🛒</div>
-            <h3>Online Game Store</h3>
+    <div class="story">
+
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200">
+
+        <div class="story-content">
+
+            <h3>From University Project To Real Platform</h3>
+
             <p>
-                Users can browse games, view details, add items to cart,
-                and complete a purchase flow easily.
+                SellGame Online started as a Django project focused
+                on creating a professional game store experience.
+                Inspired by Steam, Epic Games and modern gaming
+                platforms, we built a secure system with carts,
+                libraries, wishlists and game management tools.
             </p>
+
         </div>
 
-        <div class="card">
-            <div class="card-icon">❤️</div>
-            <h3>Wishlist & Library</h3>
-            <p>
-                Players can save favorite games and access purchased games
-                inside their personal library.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">⚙️</div>
-            <h3>Admin Dashboard</h3>
-            <p>
-                Staff can add, update, delete, and manage games with uploaded images,
-                prices, discounts, and categories.
-            </p>
-        </div>
     </div>
+
 </section>
 
 <section class="section">
-    <div class="section-title">
-        <h2>Our Team</h2>
-        <p>Each member contributed to a clear part of the SellGame Online system.</p>
-    </div>
 
-    <div class="team">
+<div class="stats">
 
-        <div class="member">
-            <div class="avatar">
-                <img src="{% static 'images/T01.jpg' %}" alt="Chhoung Bunchhorng">
-            </div>
-            <h3>Chhoung Bunchhorng</h3>
-            <span>Project Introduction</span>
-            <p>Organized the topic and introduced the online game sales system.</p>
-        </div>
+<div class="stat">
+<h2>500+</h2>
+<p>Games Listed</p>
+</div>
 
-        <div class="member">
-            <div class="avatar">
-                <img src="{% static 'images/Doem_Vichka.jpg' %}" alt="Doem Vichka">
-            </div>
-            <h3>Doem Vichka</h3>
-            <span>Add & Update</span>
-            <p>Responsible for adding new games and updating game information.</p>
-        </div>
+<div class="stat">
+<h2>1K+</h2>
+<p>Users</p>
+</div>
 
-        <div class="member">
-            <div class="avatar">
-                <img src="{% static 'images/Chhum Ratha.jpg' %}" alt="Chhum Ratha">
-            </div>
-            <h3>Chhum Ratha</h3>
-            <span>Delete & Buy</span>
-            <p>Handled delete game features and buying game workflow.</p>
-        </div>
+<div class="stat">
+<h2>99%</h2>
+<p>Uptime</p>
+</div>
 
-        <div class="member">
-            <div class="avatar">
-                <img src="{% static 'images/Chheng_Chanbo.jpg' %}" alt="Chheng Chanbo">
-            </div>
-            <h3>Chheng Chanbo</h3>
-            <span>Backend Admin</span>
-            <p>Reviewed and explained backend admin code and server-side logic.</p>
-        </div>
+<div class="stat">
+<h2>24/7</h2>
+<p>Support</p>
+</div>
 
-        <div class="member">
-            <div class="avatar">
-                <img src="{% static 'images/Sophat_Thanit.jpg' %}" alt="Sophat Thanit">
-            </div>
-            <h3>Sophat Thanit</h3>
-            <span>Frontend UI</span>
-            <p>Reviewed and explained frontend templates, layout, and UI code.</p>
-        </div>
+</div>
 
-    </div>
+</section>
+
+<section class="section">
+
+<div class="section-title">
+<h2>Why Choose Us</h2>
+</div>
+
+<div class="features">
+
+<div class="feature">
+<h3>🛒 Smart Shopping</h3>
+<p>Easy cart system and secure purchasing process.</p>
+</div>
+
+<div class="feature">
+<h3>❤️ Wishlist</h3>
+<p>Save favorite games and buy them later.</p>
+</div>
+
+<div class="feature">
+<h3>☁ Cloud Ready</h3>
+<p>Powered by Django, PostgreSQL and Render.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="section-title">
+<h2>Meet The Team</h2>
+</div>
+
+<div class="team">
+
+<div class="member">
+<img src="{% static 'images/Chheng_Chanbo.jpg' %}">
+<div class="member-content">
+<h3>Chheng Chanbo</h3>
+<span>Backend Developer</span>
+<p>Django backend, database and deployment.</p>
+</div>
+</div>
+
+<div class="member">
+<img src="{% static 'images/T01.jpg' %}">
+<div class="member-content">
+<h3>Chhoung Bunchhorng</h3>
+<span>Project Lead</span>
+<p>Project planning and management.</p>
+</div>
+</div>
+
+<div class="member">
+<img src="{% static 'images/Doem_Vichka.jpg' %}">
+<div class="member-content">
+<h3>Doem Vichka</h3>
+<span>Developer</span>
+<p>Game management and CRUD features.</p>
+</div>
+</div>
+
+<div class="member">
+<img src="{% static 'images/Sophat_Thanit.jpg' %}">
+<div class="member-content">
+<h3>Sophat Thanit</h3>
+<span>Frontend Developer</span>
+<p>UI/UX and responsive design.</p>
+</div>
+</div>
+
+</div>
+
 </section>
 
 <footer class="footer">
-    © 2026 SellGame Online. Django Game Store Management System. Powered by Python, Django, PostgreSQL, HTML, CSS, and JavaScript.
+© 2026 SellGame Online • Steam Inspired Django Marketplace
 </footer>
 
 </body>
