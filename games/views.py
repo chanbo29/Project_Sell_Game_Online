@@ -623,7 +623,7 @@ def purchase_history(request):
         "purchases": purchases
     })
 def about_view(request):
-    return render(request, "about.html")
+    return render(request, "games/about.html")
 def generate_redeem_code():
     return "WU-" + ''.join(
         random.choices(string.ascii_uppercase + string.digits, k=8)
