@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Game - SellOnlineGame</title>
+
+<title>Add Game - SellGame Admin</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -16,36 +17,46 @@
     font-family:'Inter',sans-serif;
 }
 
+:root{
+    --bg:#020617;
+    --panel:#07111f;
+    --panel2:#0b1728;
+    --border:rgba(102,192,244,.22);
+    --blue:#66c0f4;
+    --green:#7CFF28;
+    --muted:#8ea3b8;
+    --text:#eaf4ff;
+}
+
 body{
     min-height:100vh;
     background:
-    radial-gradient(circle at 15% 10%,rgba(102,192,244,.25),transparent 30%),
-    radial-gradient(circle at 90% 20%,rgba(139,197,63,.14),transparent 28%),
-    linear-gradient(135deg,#05080d,#0b141d 55%,#02040a);
-    color:white;
-    padding:32px;
+    radial-gradient(circle at 12% 8%,rgba(102,192,244,.22),transparent 30%),
+    radial-gradient(circle at 90% 15%,rgba(124,255,40,.12),transparent 28%),
+    linear-gradient(135deg,#020617,#07111d 55%,#02040a);
+    color:var(--text);
+    padding:30px;
 }
 
 .topbar{
-    max-width:1360px;
+    max-width:1380px;
     margin:0 auto 28px;
-    height:72px;
+    height:74px;
     padding:0 24px;
     border-radius:24px;
-    background:rgba(12,20,31,.8);
-    border:1px solid rgba(102,192,244,.22);
+    background:rgba(7,17,31,.86);
+    border:1px solid var(--border);
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
     backdrop-filter:blur(18px);
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    box-shadow:0 25px 70px rgba(0,0,0,.38);
 }
 
 .logo{
     font-size:30px;
     font-weight:900;
-    letter-spacing:.5px;
-    color:#66c0f4;
+    color:var(--blue);
 }
 
 .logo span{
@@ -53,11 +64,14 @@ body{
 }
 
 .back-btn{
-    padding:14px 22px;
+    height:48px;
+    padding:0 22px;
     border-radius:16px;
-    background:rgba(102,192,244,.12);
-    border:1px solid rgba(102,192,244,.35);
-    color:#dff4ff;
+    display:flex;
+    align-items:center;
+    background:#142237;
+    border:1px solid var(--border);
+    color:#d8e8f6;
     text-decoration:none;
     font-weight:900;
     transition:.25s;
@@ -65,12 +79,12 @@ body{
 
 .back-btn:hover{
     transform:translateY(-3px);
-    background:#66c0f4;
-    color:#06121d;
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
+    color:white;
 }
 
 .page{
-    max-width:1360px;
+    max-width:1380px;
     margin:auto;
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -80,17 +94,18 @@ body{
 .panel{
     border-radius:32px;
     overflow:hidden;
-    background:rgba(9,15,25,.86);
-    border:1px solid rgba(102,192,244,.22);
-    box-shadow:0 30px 80px rgba(0,0,0,.45);
-    backdrop-filter:blur(18px);
+    background:
+    radial-gradient(circle at top right,rgba(102,192,244,.08),transparent 35%),
+    linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--border);
+    box-shadow:0 30px 90px rgba(0,0,0,.45);
 }
 
 /* PREVIEW */
 .preview-cover{
-    height:460px;
+    height:470px;
     position:relative;
-    background:#07101a;
+    background:#06101d;
     overflow:hidden;
 }
 
@@ -105,51 +120,53 @@ body{
     position:absolute;
     inset:0;
     background:
-    linear-gradient(to top,#05080d 5%,rgba(5,8,13,.2) 55%,rgba(5,8,13,.25)),
-    linear-gradient(90deg,rgba(5,8,13,.85),transparent 70%);
+    linear-gradient(to top,#020617 8%,rgba(2,6,23,.18) 55%),
+    linear-gradient(90deg,rgba(2,6,23,.82),transparent 72%);
 }
 
-.badges{
+.preview-badges{
     position:absolute;
-    top:22px;
-    left:22px;
-    right:22px;
-    z-index:3;
+    top:24px;
+    left:24px;
+    right:24px;
+    z-index:2;
     display:flex;
     justify-content:space-between;
-    align-items:center;
+}
+
+.discount-badge,
+.pc-badge{
+    padding:10px 16px;
+    border-radius:14px;
+    font-weight:900;
 }
 
 .discount-badge{
     background:linear-gradient(135deg,#8bd13b,#5da51f);
-    padding:10px 16px;
-    border-radius:14px;
-    font-weight:900;
-    box-shadow:0 10px 25px rgba(139,209,59,.25);
+    color:white;
+    box-shadow:0 12px 28px rgba(139,209,59,.25);
 }
 
-.status-badge{
-    background:rgba(0,0,0,.42);
-    border:1px solid rgba(255,255,255,.16);
-    padding:10px 16px;
-    border-radius:999px;
-    color:#d8e9f7;
-    font-weight:800;
+.pc-badge{
+    background:rgba(7,17,31,.78);
+    border:1px solid var(--border);
+    color:#d8e8f6;
+    backdrop-filter:blur(12px);
 }
 
-.preview-info{
+.preview-content{
     position:absolute;
-    left:32px;
-    right:32px;
-    bottom:30px;
-    z-index:3;
+    left:34px;
+    right:34px;
+    bottom:34px;
+    z-index:2;
 }
 
 .preview-category{
-    display:inline-flex;
-    padding:9px 15px;
-    border-radius:999px;
+    display:inline-block;
     margin-bottom:16px;
+    padding:9px 16px;
+    border-radius:999px;
     background:rgba(102,192,244,.15);
     border:1px solid rgba(102,192,244,.38);
     color:#8bd7ff;
@@ -160,35 +177,35 @@ body{
     font-size:48px;
     line-height:1;
     font-weight:900;
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
 .preview-desc{
     color:#c7d5e0;
-    line-height:1.7;
-    max-width:640px;
+    line-height:1.75;
+    max-width:650px;
 }
 
-.preview-bottom{
-    padding:28px;
+.preview-body{
+    padding:30px;
 }
 
 .price-row{
     display:flex;
-    align-items:end;
+    align-items:flex-end;
     gap:16px;
     margin-bottom:24px;
 }
 
 .old-price{
-    color:#8292a1;
+    color:#8ea3b8;
     text-decoration:line-through;
-    font-size:18px;
     font-weight:900;
+    font-size:18px;
 }
 
 .final-price{
-    color:#8bd13b;
+    color:var(--green);
     font-size:40px;
     font-weight:900;
 }
@@ -199,48 +216,48 @@ body{
     gap:14px;
 }
 
-.preview-action{
-    height:54px;
-    border-radius:17px;
+.preview-btn{
+    height:56px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
     display:flex;
     align-items:center;
     justify-content:center;
     font-weight:900;
-    background:linear-gradient(135deg,#8bd13b,#5da51f);
 }
 
-.preview-action.dark{
+.preview-secondary{
     background:#142237;
-    border:1px solid #2a475e;
+    border:1px solid var(--border);
     color:#c7d5e0;
 }
 
 /* FORM */
-.form-head{
+.form-header{
     padding:34px;
+    border-bottom:1px solid rgba(255,255,255,.07);
     background:
-    radial-gradient(circle at top right,rgba(102,192,244,.22),transparent 38%),
+    radial-gradient(circle at top right,rgba(102,192,244,.18),transparent 38%),
     linear-gradient(135deg,#111827,#172437);
-    border-bottom:1px solid rgba(102,192,244,.18);
 }
 
-.form-head .small{
-    display:inline-flex;
+.form-header small{
+    display:inline-block;
     padding:8px 14px;
     border-radius:999px;
-    background:rgba(139,209,59,.12);
+    background:rgba(124,255,40,.12);
     color:#9aff4f;
     font-weight:900;
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
-.form-head h1{
+.form-header h1{
     font-size:40px;
     font-weight:900;
     margin-bottom:10px;
 }
 
-.form-head p{
+.form-header p{
     color:#aebdcb;
     line-height:1.7;
 }
@@ -251,10 +268,10 @@ body{
 
 label{
     display:block;
+    margin-bottom:9px;
     color:#d7e5f0;
     font-size:14px;
     font-weight:900;
-    margin-bottom:9px;
 }
 
 input,
@@ -275,39 +292,37 @@ select{
 input:focus,
 textarea:focus,
 select:focus{
-    border-color:#66c0f4;
+    border-color:var(--blue);
     box-shadow:0 0 0 4px rgba(102,192,244,.12);
 }
 
 textarea{
-    min-height:140px;
+    min-height:145px;
     resize:vertical;
 }
 
-.row{
+.two-col{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:16px;
 }
 
 .upload-box{
+    display:block;
     border:2px dashed #2a475e;
     border-radius:24px;
-    min-height:150px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    padding:34px;
     text-align:center;
-    background:
-    linear-gradient(135deg,rgba(102,192,244,.06),rgba(139,197,63,.04));
     cursor:pointer;
     margin-bottom:24px;
+    background:
+    linear-gradient(135deg,rgba(102,192,244,.06),rgba(124,255,40,.04));
     transition:.25s;
 }
 
 .upload-box:hover{
-    border-color:#66c0f4;
-    transform:translateY(-2px);
+    border-color:var(--blue);
+    transform:translateY(-3px);
 }
 
 .upload-box input{
@@ -315,16 +330,17 @@ textarea{
 }
 
 .upload-icon{
-    font-size:44px;
-    margin-bottom:12px;
+    font-size:42px;
+    margin-bottom:10px;
 }
 
-.upload-box h3{
-    margin-bottom:7px;
+.upload-content h3{
+    margin-bottom:8px;
 }
 
-.upload-box p{
-    color:#8f98a0;
+.upload-content p{
+    color:var(--muted);
+    line-height:1.6;
 }
 
 .buttons{
@@ -339,33 +355,40 @@ textarea{
     border-radius:18px;
     font-weight:900;
     font-size:16px;
+    transition:.25s;
 }
 
 .save-btn{
     border:none;
-    background:linear-gradient(135deg,#8bd13b,#5da51f);
     color:white;
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
     cursor:pointer;
-    box-shadow:0 14px 30px rgba(139,209,59,.22);
+    box-shadow:0 14px 34px rgba(139,209,59,.25);
+}
+
+.save-btn:hover,
+.cancel-btn:hover{
+    transform:translateY(-4px);
 }
 
 .cancel-btn{
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+    color:#c7d5e0;
     text-decoration:none;
     background:#142237;
-    border:1px solid #2a475e;
-    color:#c7d5e0;
+    border:1px solid var(--border);
 }
 
+/* RESPONSIVE */
 @media(max-width:1000px){
     .page{
         grid-template-columns:1fr;
     }
 }
 
-@media(max-width:600px){
+@media(max-width:650px){
     body{
         padding:18px;
     }
@@ -373,22 +396,22 @@ textarea{
     .topbar{
         height:auto;
         padding:20px;
-        gap:15px;
         flex-direction:column;
         align-items:flex-start;
+        gap:16px;
     }
 
     .preview-title{
         font-size:34px;
     }
 
-    .row,
+    .two-col,
     .buttons,
     .preview-actions{
         grid-template-columns:1fr;
     }
 
-    .form-head,
+    .form-header,
     .form-body{
         padding:24px;
     }
@@ -399,8 +422,8 @@ textarea{
 <body>
 
 <div class="topbar">
-    <div class="logo">SELL<span>GAME</span>ONLINE</div>
-    <a href="/" class="back-btn">Back to Store</a>
+    <div class="logo">SELL<span>GAME</span> ADMIN</div>
+    <a href="/" class="back-btn">← Back to Store</a>
 </div>
 
 <div class="page">
@@ -411,12 +434,12 @@ textarea{
                  src="{% static 'images/File_Upload_Icon.jpg' %}"
                  alt="Game Preview">
 
-            <div class="badges">
+            <div class="preview-badges">
                 <div class="discount-badge" id="previewDiscount">NEW</div>
-                <div class="status-badge">PC GAME</div>
+                <div class="pc-badge">PC GAME</div>
             </div>
 
-            <div class="preview-info">
+            <div class="preview-content">
                 <div class="preview-category" id="previewType">Action</div>
                 <div class="preview-title" id="previewTitle">Game Title</div>
                 <div class="preview-desc" id="previewDesc">
@@ -425,27 +448,29 @@ textarea{
             </div>
         </div>
 
-        <div class="preview-bottom">
+        <div class="preview-body">
             <div class="price-row">
                 <span class="old-price" id="oldPrice"></span>
                 <span class="final-price">$<span id="previewPrice">0.00</span></span>
             </div>
 
             <div class="preview-actions">
-                <!-- <div class="preview-action">Purchase Now</div>
-                <div class="preview-action dark">♡ Wishlist</div> -->
+                <div class="preview-btn">Create Game</div>
+                <div class="preview-btn preview-secondary">Live Preview</div>
             </div>
         </div>
     </div>
 
     <div class="panel">
-        <div class="form-head">
-            <div class="small">ADMIN CREATE GAME</div>
+
+        <div class="form-header">
+            <small>ADMIN CREATE GAME</small>
             <h1>Add New Game</h1>
-            <p>Add product details, discount, category, description and cover image.</p>
+            <p>Create a new product with cover image, category, price, discount, and description.</p>
         </div>
 
         <div class="form-body">
+
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
@@ -465,7 +490,7 @@ textarea{
                     <option value="Strategy">Strategy</option>
                 </select>
 
-                <div class="row">
+                <div class="two-col">
                     <div>
                         <label>Original Price</label>
                         <input type="number"
@@ -497,7 +522,7 @@ textarea{
                            id="imageInput"
                            accept="image/*">
 
-                    <div>
+                    <div class="upload-content">
                         <div class="upload-icon">📷</div>
                         <h3>Click to upload cover</h3>
                         <p>PNG, JPG, JPEG supported</p>
@@ -508,8 +533,11 @@ textarea{
                     <button type="submit" class="save-btn">Add Game</button>
                     <a href="/" class="cancel-btn">Cancel</a>
                 </div>
+
             </form>
+
         </div>
+
     </div>
 
 </div>
