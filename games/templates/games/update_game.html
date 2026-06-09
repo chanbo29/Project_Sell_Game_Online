@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Edit Game - SellOnlineGame</title>
+<title>Edit Game - SellGame Admin</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -17,27 +17,46 @@
     font-family:'Inter',sans-serif;
 }
 
+:root{
+    --bg:#020617;
+    --panel:#07111f;
+    --panel2:#0b1728;
+    --border:rgba(102,192,244,.22);
+    --blue:#66c0f4;
+    --green:#7CFF28;
+    --muted:#8ea3b8;
+    --text:#eaf4ff;
+}
+
 body{
     min-height:100vh;
     background:
-    radial-gradient(circle at top left,rgba(102,192,244,.18),transparent 35%),
-    linear-gradient(135deg,#0b141d,#101822 55%,#05080d);
-    color:white;
-    padding:34px;
+    radial-gradient(circle at 12% 8%,rgba(102,192,244,.22),transparent 30%),
+    radial-gradient(circle at 90% 15%,rgba(124,255,40,.12),transparent 28%),
+    linear-gradient(135deg,#020617,#07111d 55%,#02040a);
+    color:var(--text);
+    padding:30px;
 }
 
 .topbar{
-    max-width:1350px;
-    margin:0 auto 30px;
+    max-width:1380px;
+    margin:0 auto 28px;
+    height:74px;
+    padding:0 24px;
+    border-radius:24px;
+    background:rgba(7,17,31,.86);
+    border:1px solid var(--border);
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
+    backdrop-filter:blur(18px);
+    box-shadow:0 25px 70px rgba(0,0,0,.38);
 }
 
 .logo{
-    font-size:32px;
+    font-size:30px;
     font-weight:900;
-    color:#66c0f4;
+    color:var(--blue);
 }
 
 .logo span{
@@ -45,14 +64,14 @@ body{
 }
 
 .back-btn{
-    height:50px;
+    height:48px;
     padding:0 22px;
-    border-radius:15px;
+    border-radius:16px;
     display:flex;
     align-items:center;
-    background:#1b2838;
-    border:1px solid #2a475e;
-    color:#c7d5e0;
+    background:#142237;
+    border:1px solid var(--border);
+    color:#d8e8f6;
     text-decoration:none;
     font-weight:900;
     transition:.25s;
@@ -60,113 +79,134 @@ body{
 
 .back-btn:hover{
     transform:translateY(-3px);
-    border-color:#66c0f4;
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
+    color:white;
 }
 
 .page{
-    max-width:1350px;
+    max-width:1380px;
     margin:auto;
     display:grid;
-    grid-template-columns:1.05fr .95fr;
-    gap:30px;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
 }
 
-.card{
-    background:linear-gradient(180deg,#1b2838,#111827);
-    border:1px solid rgba(102,192,244,.22);
-    border-radius:30px;
+.panel{
+    border-radius:32px;
     overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    background:
+    radial-gradient(circle at top right,rgba(102,192,244,.08),transparent 35%),
+    linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--border);
+    box-shadow:0 30px 90px rgba(0,0,0,.45);
 }
 
 /* PREVIEW */
-.preview-hero{
-    height:430px;
+.preview-cover{
+    height:470px;
     position:relative;
+    background:#06101d;
     overflow:hidden;
-    background:#0f1722;
 }
 
-.preview-hero img{
+.preview-cover img{
     width:100%;
     height:100%;
     object-fit:cover;
-    transition:.35s;
 }
 
-.preview-hero::after{
+.preview-cover::after{
     content:"";
     position:absolute;
     inset:0;
     background:
-    linear-gradient(to top,rgba(5,8,13,.95),transparent 55%),
-    linear-gradient(90deg,rgba(5,8,13,.75),transparent);
+    linear-gradient(to top,#020617 8%,rgba(2,6,23,.18) 55%),
+    linear-gradient(90deg,rgba(2,6,23,.82),transparent 72%);
+}
+
+.preview-badges{
+    position:absolute;
+    top:24px;
+    left:24px;
+    right:24px;
+    z-index:2;
+    display:flex;
+    justify-content:space-between;
+}
+
+.discount-badge,
+.pc-badge{
+    padding:10px 16px;
+    border-radius:14px;
+    font-weight:900;
 }
 
 .discount-badge{
-    position:absolute;
-    top:22px;
-    left:22px;
-    z-index:2;
-    background:linear-gradient(to bottom,#8bc53f,#5d9122);
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
     color:white;
-    padding:9px 15px;
-    border-radius:10px;
-    font-weight:900;
+    box-shadow:0 12px 28px rgba(139,209,59,.25);
+}
+
+.pc-badge{
+    background:rgba(7,17,31,.78);
+    border:1px solid var(--border);
+    color:#d8e8f6;
+    backdrop-filter:blur(12px);
 }
 
 .preview-content{
     position:absolute;
-    left:30px;
-    right:30px;
-    bottom:30px;
+    left:34px;
+    right:34px;
+    bottom:34px;
     z-index:2;
 }
 
 .game-category{
     display:inline-block;
-    margin-bottom:14px;
-    padding:8px 14px;
+    margin-bottom:16px;
+    padding:9px 16px;
     border-radius:999px;
-    background:rgba(102,192,244,.12);
-    border:1px solid rgba(102,192,244,.32);
-    color:#66c0f4;
+    background:rgba(102,192,244,.15);
+    border:1px solid rgba(102,192,244,.38);
+    color:#8bd7ff;
     font-weight:900;
 }
 
 .preview-title{
-    font-size:42px;
+    font-size:48px;
+    line-height:1;
     font-weight:900;
-    margin-bottom:12px;
+    margin-bottom:14px;
 }
 
 .preview-desc{
     color:#c7d5e0;
-    line-height:1.7;
+    line-height:1.75;
     max-width:650px;
 }
 
 .preview-body{
-    padding:28px;
+    padding:30px;
 }
 
 .price-row{
     display:flex;
-    align-items:center;
-    gap:14px;
+    align-items:flex-end;
+    gap:16px;
     margin-bottom:24px;
 }
 
 .old-price{
-    color:#8f98a0;
+    color:#8ea3b8;
     text-decoration:line-through;
     font-weight:900;
     font-size:18px;
 }
 
 .final-price{
-    color:#8bc53f;
-    font-size:34px;
+    color:var(--green);
+    font-size:40px;
     font-weight:900;
 }
 
@@ -177,9 +217,9 @@ body{
 }
 
 .preview-btn{
-    height:52px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#8bc53f,#5d9122);
+    height:56px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -187,30 +227,39 @@ body{
 }
 
 .preview-secondary{
-    background:#223548;
-    border:1px solid #2a475e;
+    background:#142237;
+    border:1px solid var(--border);
     color:#c7d5e0;
 }
 
 /* FORM */
 .form-header{
     padding:34px;
-    border-bottom:1px solid rgba(102,192,244,.18);
+    border-bottom:1px solid rgba(255,255,255,.07);
     background:
-    radial-gradient(circle at top right,rgba(102,192,244,.18),transparent 40%),
-    linear-gradient(135deg,#171a21,#223548);
+    radial-gradient(circle at top right,rgba(102,192,244,.18),transparent 38%),
+    linear-gradient(135deg,#111827,#172437);
+}
+
+.form-header small{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(124,255,40,.12);
+    color:#9aff4f;
+    font-weight:900;
+    margin-bottom:14px;
 }
 
 .form-header h1{
-    color:white;
-    font-size:38px;
+    font-size:40px;
     font-weight:900;
     margin-bottom:10px;
 }
 
 .form-header p{
-    color:#c7d5e0;
-    line-height:1.6;
+    color:#aebdcb;
+    line-height:1.7;
 }
 
 .form-body{
@@ -219,8 +268,9 @@ body{
 
 label{
     display:block;
-    margin-bottom:8px;
-    color:#c7d5e0;
+    margin-bottom:9px;
+    color:#d7e5f0;
+    font-size:14px;
     font-weight:900;
 }
 
@@ -228,26 +278,26 @@ input,
 textarea,
 select{
     width:100%;
-    padding:15px 16px;
+    padding:16px;
     margin-bottom:20px;
-    border-radius:15px;
+    border-radius:17px;
     border:1px solid #2a475e;
-    background:#0f1722;
+    background:#07101a;
     color:white;
     outline:none;
-    font-size:1rem;
+    font-size:15px;
     transition:.25s;
 }
 
 input:focus,
 textarea:focus,
 select:focus{
-    border-color:#66c0f4;
-    box-shadow:0 0 22px rgba(102,192,244,.22);
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(102,192,244,.12);
 }
 
 textarea{
-    min-height:140px;
+    min-height:145px;
     resize:vertical;
 }
 
@@ -257,22 +307,26 @@ textarea{
     gap:16px;
 }
 
-/* UPLOAD */
 .upload-box{
     display:block;
     border:2px dashed #2a475e;
-    border-radius:22px;
+    border-radius:24px;
     padding:34px;
     text-align:center;
     cursor:pointer;
-    margin-bottom:24px;
-    transition:.3s;
-    background:#0f1722;
+    margin-bottom:16px;
+    background:
+    linear-gradient(135deg,rgba(102,192,244,.06),rgba(124,255,40,.04));
+    transition:.25s;
 }
 
 .upload-box:hover{
-    border-color:#66c0f4;
-    background:rgba(102,192,244,.06);
+    border-color:var(--blue);
+    transform:translateY(-3px);
+}
+
+.upload-box input{
+    display:none;
 }
 
 .upload-icon{
@@ -284,43 +338,43 @@ textarea{
     margin-bottom:8px;
 }
 
-.upload-content p{
-    color:#8f98a0;
+.upload-content p,
+.current-image-note{
+    color:var(--muted);
+    line-height:1.6;
 }
 
 .current-image-note{
-    color:#8f98a0;
     font-size:14px;
-    margin-top:-12px;
-    margin-bottom:18px;
+    margin-bottom:24px;
 }
 
-/* BUTTONS */
 .buttons{
-    display:flex;
+    display:grid;
+    grid-template-columns:1fr 1fr;
     gap:15px;
 }
 
 .save-btn,
 .cancel-btn{
-    flex:1;
-    height:56px;
-    border-radius:16px;
+    height:58px;
+    border-radius:18px;
     font-weight:900;
-    font-size:1rem;
+    font-size:16px;
     transition:.25s;
 }
 
 .save-btn{
     border:none;
     color:white;
-    background:linear-gradient(to bottom,#8bc53f,#5d9122);
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
     cursor:pointer;
+    box-shadow:0 14px 34px rgba(139,209,59,.25);
 }
 
-.save-btn:hover{
+.save-btn:hover,
+.cancel-btn:hover{
     transform:translateY(-4px);
-    box-shadow:0 12px 35px rgba(139,197,63,.35);
 }
 
 .cancel-btn{
@@ -329,13 +383,8 @@ textarea{
     align-items:center;
     color:#c7d5e0;
     text-decoration:none;
-    background:#223548;
-    border:1px solid #2a475e;
-}
-
-.cancel-btn:hover{
-    transform:translateY(-4px);
-    border-color:#66c0f4;
+    background:#142237;
+    border:1px solid var(--border);
 }
 
 /* RESPONSIVE */
@@ -343,31 +392,34 @@ textarea{
     .page{
         grid-template-columns:1fr;
     }
-
-    .two-col{
-        grid-template-columns:1fr;
-    }
 }
 
-@media(max-width:600px){
+@media(max-width:650px){
     body{
-        padding:20px;
+        padding:18px;
     }
 
     .topbar{
+        height:auto;
+        padding:20px;
         flex-direction:column;
         align-items:flex-start;
         gap:16px;
     }
 
     .preview-title{
-        font-size:32px;
+        font-size:34px;
     }
 
+    .two-col,
     .buttons,
     .preview-actions{
         grid-template-columns:1fr;
-        flex-direction:column;
+    }
+
+    .form-header,
+    .form-body{
+        padding:24px;
     }
 }
 </style>
@@ -382,17 +434,8 @@ textarea{
 
 <div class="page">
 
-    <!-- LIVE PREVIEW -->
-    <div class="card">
-
-        <div class="preview-hero">
-            <div class="discount-badge" id="previewDiscount">
-                {% if game.discount_percent > 0 %}
-                    -{{ game.discount_percent }}%
-                {% else %}
-                    NEW
-                {% endif %}
-            </div>
+    <div class="panel">
+        <div class="preview-cover">
 
             {% if game.image %}
                 <img id="previewImage" src="{{ game.image.url }}" alt="{{ game.title }}">
@@ -400,9 +443,21 @@ textarea{
                 <img id="previewImage" src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game Image">
             {% endif %}
 
+            <div class="preview-badges">
+                <div class="discount-badge" id="previewDiscount">
+                    {% if game.discount_percent > 0 %}
+                        -{{ game.discount_percent }}%
+                    {% else %}
+                        NEW
+                    {% endif %}
+                </div>
+
+                <div class="pc-badge">PC GAME</div>
+            </div>
+
             <div class="preview-content">
                 <div class="game-category" id="previewType">
-                    {{ game.game_type }}
+                    {{ game.category }}
                 </div>
 
                 <div class="preview-title" id="previewTitle">
@@ -413,6 +468,7 @@ textarea{
                     {{ game.description }}
                 </div>
             </div>
+
         </div>
 
         <div class="preview-body">
@@ -433,15 +489,14 @@ textarea{
                 <div class="preview-btn preview-secondary">Live Preview</div>
             </div>
         </div>
-
     </div>
 
-    <!-- FORM -->
-    <div class="card">
+    <div class="panel">
 
         <div class="form-header">
+            <small>ADMIN EDIT GAME</small>
             <h1>Edit Game</h1>
-            <p>Update game information, image, category, price, discount, and description.</p>
+            <p>Update game details, cover image, category, price, discount, and description.</p>
         </div>
 
         <div class="form-body">
@@ -450,11 +505,10 @@ textarea{
                 {% csrf_token %}
 
                 <label>Game Title</label>
-                <input type="text" name="title" id="titleInput" value="{{ game.category }}" required>
+                <input type="text" name="title" id="titleInput" value="{{ game.title }}" required>
 
                 <label>Game Category</label>
-                <label>Game Category</label>
-                <select name="category" id="typeInput">
+                <select name="category" id="typeInput" required>
                     <option value="Action" {% if game.category == "Action" %}selected{% endif %}>Action</option>
                     <option value="Adventure" {% if game.category == "Adventure" %}selected{% endif %}>Adventure</option>
                     <option value="FPS" {% if game.category == "FPS" %}selected{% endif %}>FPS</option>
@@ -469,12 +523,22 @@ textarea{
                 <div class="two-col">
                     <div>
                         <label>Original Price</label>
-                        <input type="number" step="0.01" name="original_price" id="priceInput" value="{{ game.original_price }}" required>
+                        <input type="number"
+                               step="0.01"
+                               name="original_price"
+                               id="priceInput"
+                               value="{{ game.original_price }}"
+                               required>
                     </div>
 
                     <div>
                         <label>Discount (%)</label>
-                        <input type="number" name="discount_percent" id="discountInput" min="0" max="100" value="{{ game.discount_percent }}">
+                        <input type="number"
+                               name="discount_percent"
+                               id="discountInput"
+                               min="0"
+                               max="100"
+                               value="{{ game.discount_percent }}">
                     </div>
                 </div>
 
@@ -483,27 +547,22 @@ textarea{
 
                 <label>Change Game Image</label>
                 <label class="upload-box">
-                    <input type="file" name="image" id="imageInput" accept="image/*" hidden>
+                    <input type="file" name="image" id="imageInput" accept="image/*">
 
                     <div class="upload-content">
                         <div class="upload-icon">📷</div>
                         <h3>Upload New Game Cover</h3>
-                        <p>Click to select image</p>
+                        <p>Click to select image. Leave empty to keep current image.</p>
                     </div>
                 </label>
 
                 <div class="current-image-note">
-                    Keep empty if you do not want to change the current image.
+                    Current image will stay the same if no new image is selected.
                 </div>
 
                 <div class="buttons">
-                    <button type="submit" class="save-btn">
-                        Save Changes
-                    </button>
-
-                    <a href="/" class="cancel-btn">
-                        Cancel
-                    </a>
+                    <button type="submit" class="save-btn">Save Changes</button>
+                    <a href="/" class="cancel-btn">Cancel</a>
                 </div>
 
             </form>
