@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Users Spending</title>
+<title>Users & Spending - SellGame Admin</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -16,13 +16,28 @@
     font-family:'Inter',sans-serif;
 }
 
+:root{
+    --bg:#020617;
+    --panel:#07111f;
+    --panel2:#0b1728;
+    --border:rgba(102,192,244,.18);
+    --blue:#66c0f4;
+    --green:#7CFF28;
+    --orange:#f59e0b;
+    --purple:#a855f7;
+    --red:#ff4757;
+    --text:#eaf4ff;
+    --muted:#8ea3b8;
+}
+
 body{
     min-height:100vh;
     background:
-    radial-gradient(circle at 20% 10%,rgba(0,170,255,.18),transparent 30%),
-    radial-gradient(circle at 80% 0%,rgba(124,255,40,.08),transparent 30%),
-    linear-gradient(135deg,#020617,#06111f 55%,#030712);
-    color:white;
+    radial-gradient(circle at 12% 8%,rgba(102,192,244,.20),transparent 30%),
+    radial-gradient(circle at 85% 8%,rgba(124,255,40,.10),transparent 28%),
+    linear-gradient(135deg,#020617,#07111d 55%,#02040a);
+    color:var(--text);
+    overflow-x:hidden;
 }
 
 .page{
@@ -33,207 +48,250 @@ body{
 
 /* SIDEBAR */
 .sidebar{
-    background:linear-gradient(180deg,#050d19,#06101d);
-    border-right:1px solid rgba(0,170,255,.16);
-    padding:28px 20px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    padding:26px 20px;
+    background:rgba(5,11,20,.92);
+    border-right:1px solid var(--border);
+    backdrop-filter:blur(20px);
+    box-shadow:20px 0 70px rgba(0,0,0,.45);
 }
 
 .logo{
-    font-size:30px;
-    font-weight:900;
-    color:white;
-    text-decoration:none;
     display:block;
-    margin-bottom:40px;
+    color:white;
+    font-size:28px;
+    font-weight:900;
+    text-decoration:none;
+    margin-bottom:42px;
 }
 
 .logo span{
-    color:#00aaff;
+    color:var(--blue);
 }
 
 .menu-label{
-    color:#8090a5;
+    color:var(--muted);
     font-size:12px;
     font-weight:900;
-    letter-spacing:1.4px;
+    letter-spacing:1.5px;
     margin-bottom:16px;
 }
 
 .menu{
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:12px;
 }
 
 .menu a{
-    height:58px;
+    min-height:58px;
     display:flex;
     align-items:center;
-    gap:14px;
+    gap:15px;
     padding:0 18px;
-    border-radius:16px;
-    color:#c8d4e0;
+    border-radius:18px;
+    color:#c7d5e0;
     text-decoration:none;
-    font-weight:800;
+    font-weight:900;
     transition:.25s;
+    border:1px solid transparent;
 }
 
 .menu a:hover,
 .menu a.active{
-    background:linear-gradient(135deg,rgba(0,170,255,.26),rgba(0,170,255,.08));
-    border:1px solid rgba(0,170,255,.42);
+    background:linear-gradient(135deg,rgba(102,192,244,.25),rgba(102,192,244,.05));
+    border-color:rgba(102,192,244,.4);
     color:white;
+    transform:translateX(5px);
 }
 
 /* MAIN */
 .main{
-    padding:34px;
+    padding:28px 34px 40px;
 }
 
 .topbar{
+    min-height:64px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:30px;
-}
-
-.back{
-    height:48px;
-    padding:0 20px;
-    border-radius:14px;
-    background:linear-gradient(135deg,#008cff,#0057b8);
-    color:white;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    font-weight:900;
+    gap:18px;
+    margin-bottom:28px;
 }
 
 .search-box{
-    width:380px;
-    height:48px;
-    background:#07111d;
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:14px;
-    padding:0 18px;
+    width:440px;
+    height:54px;
     display:flex;
     align-items:center;
     gap:12px;
+    padding:0 18px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    border-radius:18px;
 }
 
 .search-box input{
     width:100%;
-    background:none;
     border:none;
     outline:none;
+    background:none;
     color:white;
-    font-weight:700;
+    font-weight:800;
+}
+
+.actions{
+    display:flex;
+    gap:12px;
+}
+
+.action-btn{
+    height:48px;
+    padding:0 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:16px;
+    background:#142237;
+    border:1px solid var(--border);
+    color:#d8e8f6;
+    text-decoration:none;
+    font-weight:900;
+    transition:.25s;
+}
+
+.action-btn.primary{
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
+    border:none;
+    color:white;
+}
+
+.action-btn:hover{
+    transform:translateY(-3px);
 }
 
 /* HERO */
 .hero{
-    min-height:240px;
-    border-radius:26px;
-    padding:34px;
-    margin-bottom:28px;
+    min-height:270px;
+    border-radius:32px;
+    padding:38px;
+    margin-bottom:24px;
     background:
-    linear-gradient(90deg,rgba(3,7,18,.94),rgba(6,17,31,.62)),
+    linear-gradient(90deg,rgba(3,7,18,.96),rgba(6,17,31,.68)),
     url("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1551360/library_hero.jpg")
     center/cover no-repeat;
-    border:1px solid rgba(0,170,255,.22);
+    border:1px solid rgba(102,192,244,.24);
+    box-shadow:0 30px 90px rgba(0,0,0,.45);
     display:flex;
-    justify-content:space-between;
     align-items:flex-end;
-    box-shadow:0 30px 80px rgba(0,0,0,.42);
+    justify-content:space-between;
+    gap:22px;
 }
 
 .hero h1{
-    font-size:44px;
+    font-size:46px;
     font-weight:900;
     margin-bottom:10px;
 }
 
 .hero p{
-    color:#a8b3c2;
+    color:#b2c2d2;
     font-size:17px;
+    line-height:1.7;
 }
 
 .hero-stat{
-    background:rgba(7,17,29,.88);
-    border:1px solid rgba(0,170,255,.25);
-    border-radius:20px;
-    padding:20px 26px;
+    min-width:180px;
+    padding:24px;
     text-align:center;
+    border-radius:24px;
+    background:rgba(7,17,29,.86);
+    border:1px solid rgba(102,192,244,.32);
+    backdrop-filter:blur(18px);
 }
 
 .hero-stat b{
     display:block;
-    font-size:36px;
-    color:#00aaff;
+    font-size:42px;
+    color:var(--blue);
+    margin-bottom:6px;
 }
 
 /* STATS */
 .stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    margin-bottom:28px;
+    gap:20px;
+    margin-bottom:24px;
 }
 
 .stat-card{
-    padding:24px;
-    border-radius:20px;
-    background:linear-gradient(180deg,rgba(7,17,30,.96),rgba(3,10,19,.96));
-    border:1px solid rgba(255,255,255,.08);
+    padding:26px;
+    border-radius:26px;
+    background:
+    radial-gradient(circle at top right,rgba(255,255,255,.08),transparent 35%),
+    linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--border);
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
+    transition:.25s;
+}
+
+.stat-card:hover{
+    transform:translateY(-7px);
 }
 
 .stat-icon{
-    width:46px;
-    height:46px;
-    border-radius:14px;
-    background:rgba(0,170,255,.15);
+    width:50px;
+    height:50px;
+    border-radius:16px;
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:24px;
-    margin-bottom:15px;
+    background:rgba(102,192,244,.15);
+    margin-bottom:16px;
 }
 
 .stat-title{
-    color:#9ca8b8;
-    font-weight:800;
+    color:var(--muted);
+    font-weight:900;
 }
 
 .stat-value{
-    margin-top:10px;
-    font-size:32px;
+    margin-top:12px;
+    font-size:34px;
     font-weight:900;
-    color:#00aaff;
+    color:var(--blue);
 }
 
 .stat-card.green .stat-value{
-    color:#7CFF28;
+    color:var(--green);
 }
 
 .stat-card.orange .stat-value{
-    color:#f59e0b;
+    color:var(--orange);
 }
 
 /* PANEL */
 .panel{
-    background:linear-gradient(180deg,rgba(7,17,30,.96),rgba(3,10,19,.96));
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:24px;
+    background:
+    radial-gradient(circle at top right,rgba(102,192,244,.08),transparent 35%),
+    linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--border);
+    border-radius:28px;
     overflow:hidden;
-    box-shadow:0 18px 55px rgba(0,0,0,.35);
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
 
 .panel-head{
-    padding:22px 26px;
+    padding:24px 28px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    border-bottom:1px solid rgba(255,255,255,.08);
+    gap:18px;
+    border-bottom:1px solid rgba(255,255,255,.07);
 }
 
 .panel-title{
@@ -241,86 +299,82 @@ body{
     font-weight:900;
 }
 
-.export-btn{
-    height:42px;
-    padding:0 18px;
-    border-radius:12px;
-    background:linear-gradient(135deg,#42ff1f,#138a00);
-    color:white;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    font-weight:900;
+.table-wrap{
+    overflow-x:auto;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
+    min-width:900px;
 }
 
 th{
-    padding:16px 22px;
+    padding:16px 24px;
     text-align:left;
-    color:#00aaff;
+    color:var(--blue);
     background:rgba(255,255,255,.03);
     font-size:12px;
-    letter-spacing:.5px;
+    letter-spacing:.6px;
+    font-weight:900;
 }
 
 td{
-    padding:18px 22px;
-    color:#d8e3ef;
+    padding:18px 24px;
+    color:#dce8f5;
     border-top:1px solid rgba(255,255,255,.06);
+    font-weight:700;
 }
 
 tr:hover{
-    background:rgba(0,170,255,.06);
+    background:rgba(102,192,244,.055);
 }
 
 .user-cell{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:14px;
 }
 
 .avatar{
-    width:42px;
-    height:42px;
+    width:46px;
+    height:46px;
     border-radius:50%;
-    background:linear-gradient(135deg,#00aaff,#7CFF28);
+    background:linear-gradient(135deg,#66c0f4,#7CFF28);
     display:flex;
     align-items:center;
     justify-content:center;
     color:#030712;
     font-weight:900;
+    box-shadow:0 0 22px rgba(102,192,244,.25);
 }
 
 .email{
-    color:#9ca8b8;
+    color:var(--muted);
     font-size:13px;
     margin-top:4px;
 }
 
 .orders{
-    color:#00aaff;
+    color:var(--blue);
     font-weight:900;
 }
 
 .price{
-    color:#7CFF28;
+    color:var(--green);
     font-weight:900;
 }
 
 .date{
-    color:#9ca8b8;
+    color:var(--muted);
 }
 
 .badge{
     display:inline-block;
-    padding:7px 11px;
+    padding:8px 12px;
     border-radius:999px;
     background:rgba(124,255,40,.12);
-    color:#7CFF28;
+    color:var(--green);
     font-size:12px;
     font-weight:900;
 }
@@ -335,11 +389,11 @@ tr:hover{
         display:none;
     }
 
+    .topbar,
     .hero,
-    .topbar{
+    .panel-head{
         flex-direction:column;
         align-items:flex-start;
-        gap:18px;
     }
 
     .search-box{
@@ -349,13 +403,28 @@ tr:hover{
     .stats{
         grid-template-columns:1fr;
     }
+}
 
-    table{
-        min-width:850px;
+@media(max-width:600px){
+    .main{
+        padding:20px;
     }
 
-    .panel{
-        overflow-x:auto;
+    .hero{
+        padding:26px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .actions{
+        width:100%;
+        flex-direction:column;
+    }
+
+    .action-btn{
+        width:100%;
     }
 }
 </style>
@@ -371,12 +440,10 @@ tr:hover{
         <div class="menu-label">ADMIN MENU</div>
 
         <nav class="menu">
-            <a href="/">Game Store</a>
-            <a href="/admin-dashboard/">Dashboard</a>
-            <a href="/admin-users/" class="active">Users & Spending</a>
-            <a href="/admin/">Admin Control Panel</a>
-            <!-- <a href="/add/">➕ Add Game</a> -->
-            <!-- <a href="/history/">🧾 Orders</a> -->
+            <a href="/">🏪 Game Store</a>
+            <a href="/admin-dashboard/">🎮 Dashboard</a>
+            <a href="/admin-users/" class="active">👥 Users & Spending</a>
+            <a href="/admin/">⚙ Admin Control Panel</a>
             <a href="/logout/" onclick="return confirm('Logout now?')">↪ Logout</a>
         </nav>
     </aside>
@@ -384,18 +451,21 @@ tr:hover{
     <main class="main">
 
         <div class="topbar">
-            <!-- <a href="/admin-dashboard/" class="back">← Back Dashboard</a> -->
-
             <div class="search-box">
-            
-                <input type="text" id="searchInput" placeholder="Search user..." onkeyup="filterUsers()">
+                🔍
+                <input type="text" id="searchInput" placeholder="Search user by name or email..." onkeyup="filterUsers()">
+            </div>
+
+            <div class="actions">
+                <a href="/admin-dashboard/" class="action-btn">Dashboard</a>
+                <a href="/" class="action-btn primary">Store</a>
             </div>
         </div>
 
         <section class="hero">
             <div>
                 <h1>Users & Spending</h1>
-                <p>View all registered users, order count, and how much they spend.</p>
+                <p>Track registered users, completed orders, total spending, and customer activity in your SellGame store.</p>
             </div>
 
             <div class="hero-stat">
@@ -438,58 +508,58 @@ tr:hover{
 
         <section class="panel">
             <div class="panel-head">
-                <div class="panel-title">👥 User Purchase Summary</div>
-                <a href="/admin-dashboard/" class="export-btn">Dashboard</a>
+                <div>
+                    <div class="panel-title">👥 User Purchase Summary</div>
+                    <p style="color:#8ea3b8;margin-top:6px;">Customer account and spending overview</p>
+                </div>
+
+                <a href="/admin-dashboard/" class="action-btn primary">Back Dashboard</a>
             </div>
 
-            <table>
-                <tr>
-                    <th>USER</th>
-                    <th>EMAIL</th>
-                    <th>TOTAL ORDERS</th>
-                    <th>TOTAL SPEND</th>
-                    <th>STATUS</th>
-                    <th>DATE JOINED</th>
-                </tr>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>USER</th>
+                        <th>EMAIL</th>
+                        <th>TOTAL ORDERS</th>
+                        <th>TOTAL SPEND</th>
+                        <th>STATUS</th>
+                        <th>DATE JOINED</th>
+                    </tr>
 
-                {% for user in users %}
-                <tr class="user-row" data-name="{{ user.username|lower }}" data-email="{{ user.email|lower }}">
-                    <td>
-                        <div class="user-cell">
-                            <div class="avatar">
-                                {{ user.username|slice:":1"|upper }}
+                    {% for user in users %}
+                    <tr class="user-row" data-name="{{ user.username|lower }}" data-email="{{ user.email|lower }}">
+                        <td>
+                            <div class="user-cell">
+                                <div class="avatar">
+                                    {{ user.username|slice:":1"|upper }}
+                                </div>
+                                <div>
+                                    <b>{{ user.username }}</b>
+                                    <div class="email">ID: {{ user.id }}</div>
+                                </div>
                             </div>
-                            <div>
-                                <b>{{ user.username }}</b>
-                                <div class="email">ID: {{ user.id }}</div>
-                            </div>
-                        </div>
-                    </td>
+                        </td>
 
-                    <td>{{ user.email }}</td>
+                        <td>{{ user.email }}</td>
 
-                    <td class="orders">
-                        {{ user.total_orders }}
-                    </td>
+                        <td class="orders">{{ user.total_orders }}</td>
 
-                    <td class="price">
-                        ${{ user.total_spent|default:0 }}
-                    </td>
+                        <td class="price">${{ user.total_spent|default:0 }}</td>
 
-                    <td>
-                        <span class="badge">Active</span>
-                    </td>
+                        <td>
+                            <span class="badge">Active</span>
+                        </td>
 
-                    <td class="date">
-                        {{ user.date_joined }}
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6">No users found.</td>
-                </tr>
-                {% endfor %}
-            </table>
+                        <td class="date">{{ user.date_joined }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No users found.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
 
         </section>
 
