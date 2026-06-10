@@ -546,11 +546,7 @@ body{
                             {% endif %}
 
                             <span class="price">
-                                {% if item.game.final_price == 0 %}
-                                    FREE
-                                {% else %}
-                                    ${{ item.game.final_price|floatformat:2 }}
-                                {% endif %}
+                                ${{ item.game.final_price|floatformat:2 }}
                             </span>
                         </div>
                     </div>
