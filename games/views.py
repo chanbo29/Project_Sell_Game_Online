@@ -604,9 +604,35 @@ def checkout_cart(request):
     if not cart_items.exists():
         return redirect('cart')
 
-    first_item = cart_items.first()
+    total = sum(item.game.final_price() for item in cart_items)
 
-    return redirect('buy_game', game_id=first_item.game.id)
+    if request.method == "POST":
+        for item in cart_items:
+            already_bought = Purchase.objects.filter(
+                user=request.user,
+                game=item.game
+            ).exists()
+
+            if not already_bought:
+                Purchase.objects.create(
+                    user=request.user,
+                    game=item.game,
+                    price=item.game.final_price()
+                )
+
+        cart_items.delete()
+
+        return redirect('checkout_success')
+
+    return render(request, 'games/checkout.html', {
+        'cart_items': cart_items,
+        'total': total
+    })
+
+
+@login_required(login_url='/login/')
+def checkout_success(request):
+    return render(request, 'games/checkout_success.html')
 # PURCHASE_HISTORY
 @login_required
 def purchase_history(request):

@@ -53,7 +53,9 @@ urlpatterns = [
     path('checkout/', views.checkout_cart, name='checkout_cart'),
     #PLAY GAME
     path('play/<int:game_id>/', views.play_game, name='play_game'),
-
+    #CHECKOUT-CART
+    path('checkout/', views.checkout_cart, name='checkout_cart'),
+    path('checkout/success/', views.checkout_success, name='checkout_success'),
 
 
 

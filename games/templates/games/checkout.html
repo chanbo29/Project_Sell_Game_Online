@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Checkout</title>
+</head>
+<body style="background:#08111d;color:white;font-family:Arial;padding:40px;">
+
+<h1>Checkout</h1>
+
+{% for item in cart_items %}
+    <p>{{ item.game.title }} - ${{ item.game.final_price|floatformat:2 }}</p>
+{% endfor %}
+
+<h2>Total: ${{ total|floatformat:2 }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" style="padding:15px 25px;background:#66c0f4;color:white;border:none;border-radius:10px;">
+        Confirm Payment
+    </button>
+</form>
+
+</body>
+</html>
