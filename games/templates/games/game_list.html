@@ -805,6 +805,86 @@
     }
 
 }
+.brand-subtitle{
+    color:#8ea3b8;
+    font-size:12px;
+    font-weight:800;
+    margin-top:3px;
+}
+
+.avatar-wrap{
+    position:relative;
+}
+
+.online-dot{
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:#7CFF28;
+    border:2px solid #07111f;
+}
+
+.arrow{
+    color:#8ea3b8;
+    font-size:13px;
+}
+
+.hero-badge{
+    display:inline-flex;
+    padding:10px 16px;
+    border-radius:999px;
+    background:rgba(102,192,244,.14);
+    border:1px solid rgba(102,192,244,.35);
+    color:#8bd7ff;
+    font-weight:900;
+    margin-bottom:18px;
+}
+
+.slide-content h1 span{
+    color:#66c0f4;
+}
+
+.store-tools{
+    max-width:1450px;
+    margin:34px auto 26px;
+    padding:0 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:22px;
+}
+
+.store-title-box h2{
+    font-size:34px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.store-title-box p{
+    color:#8ea3b8;
+    font-weight:700;
+}
+
+.tools-right{
+    display:flex;
+    gap:16px;
+    align-items:center;
+}
+
+@media(max-width:900px){
+    .store-tools{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .tools-right{
+        width:100%;
+        flex-direction:column;
+    }
+}
 /* CONTENT */
 .container{
     width:100%;
@@ -1162,35 +1242,49 @@
 </style>
 </head>
 <body>
-<!-- NAVBAR -->
-<!-- PROFESSIONAL STEAM HEADER -->
+<!-- ================= MODERN HEADER ================= -->
 <header class="steam-header">
+
     <div class="brand">
         <a href="/" class="brand-logo">
             SELL<span>GAME</span>ONLINE
         </a>
+        <div class="brand-subtitle">
+            Premium Digital Game Store
+        </div>
     </div>
+
     <nav class="main-nav">
-        <a href="/" class="nav-item active">Store</a>
-        <a href="/about/" class="nav-item">About</a>
-        <a href="/library/" class="nav-item">Library</a>
+        <a href="/" class="nav-item active">🏠 Store</a>
+        <a href="/about/" class="nav-item">ℹ About</a>
+        <a href="/library/" class="nav-item">🎮 Library</a>
         <a href="/wishlist/" class="nav-item">♡ Wishlist</a>
     </nav>
+
     <div class="header-actions">
+
         <a href="/cart/" class="cart-btn-header">
             🛒
             <span>Cart</span>
         </a>
+
         {% if request.user.is_authenticated and request.user.is_staff %}
         <a href="/add/" class="admin-add-btn">
-            Add Game
+            + Add Game
         </a>
         {% endif %}
+
         {% if request.user.is_authenticated %}
         <div class="profile-menu">
+
             <div class="profile-trigger">
-                <img src="https://www.vhv.rs/dpng/d/415-4150476_online-selling-hd-png-download.png"
-                    class="user-avatar">
+                <div class="avatar-wrap">
+                    <img src="https://www.vhv.rs/dpng/d/415-4150476_online-selling-hd-png-download.png"
+                         class="user-avatar"
+                         alt="User">
+                    <span class="online-dot"></span>
+                </div>
+
                 <div>
                     <div class="user-name">
                         {{ request.user.username }}
@@ -1199,146 +1293,148 @@
                         Online
                     </div>
                 </div>
+
+                <span class="arrow">▾</span>
             </div>
+
             <div class="profile-dropdown">
-                <!-- <a href="/history/" class="dropdown-item">
-                    🛒 Purchase History
-                </a> -->
-                <!-- <a href="{% url 'library' %}" class="dropdown-item">
-                    🎮 Library
-                </a> -->
                 {% if request.user.is_staff %}
                 <a href="/admin-dashboard/" class="dropdown-item">
                     📊 Admin Dashboard
                 </a>
                 {% endif %}
+
                 {% if request.user.is_superuser %}
                 <a href="/admin/" class="dropdown-item">
                     🛠 Admin Control Panel
                 </a>
                 {% endif %}
+
                 <a href="/logout/" class="dropdown-item logout-item">
-                    Logout
+                    ↪ Logout
                 </a>
             </div>
+
         </div>
         {% else %}
         <div class="auth-actions">
-            <a href="/login/" class="login-btn">
-                Login
-            </a>
-
-            <a href="/register/" class="register-btn">
-                Register
-            </a>
+            <a href="/login/" class="login-btn">Login</a>
+            <a href="/register/" class="register-btn">Register</a>
         </div>
         {% endif %}
-        </div>                              
-    </header>
-    <!-- HERO -->
-    <section class="hero-slider">
-    <!-- SLIDE 1 -->
+
+    </div>
+
+</header>
+
+<!-- ================= HERO SLIDER ================= -->
+<section class="hero-slider">
+
     <div class="slide active">
         <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1551360/library_hero.jpg">
         <div class="overlay"></div>
+
         <div class="slide-content">
-            <h1>FORZA HORIZON 6<br>PREMIUM EDITION</h1>
+            <div class="hero-badge">🔥 Premium Racing</div>
+            <h1>FORZA HORIZON<br><span>PREMIUM EDITION</span></h1>
             <p>
-                Explore Japan in the ultimate Horizon adventure.
-                Race legendary supercars and experience next-generation driving.
+                Explore an open-world racing adventure with legendary supercars,
+                beautiful environments, and next-generation driving.
             </p>
-            <a href="#store" class="hero-btn">
-                Explore Store
-            </a>
+            <a href="#games" class="hero-btn">Explore Store</a>
         </div>
     </div>
-    <!-- SLIDE 2 -->
+
     <div class="slide">
         <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/271590/library_hero.jpg">
         <div class="overlay"></div>
+
         <div class="slide-content">
-            <h1>GRAND THEFT AUTO V</h1>
+            <div class="hero-badge">🚗 Open World Action</div>
+            <h1>GRAND THEFT<br><span>AUTO V</span></h1>
             <p>
                 Build your criminal empire in Los Santos with action,
-                racing, missions, and online gameplay.
+                missions, racing, and online gameplay.
             </p>
-            <a href="#store" class="hero-btn">
-                Play Now
-            </a>
+            <a href="#games" class="hero-btn">Play Now</a>
         </div>
     </div>
-    <!-- SLIDE 3 -->
+
     <div class="slide">
         <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/578080/library_hero.jpg" alt="PUBG">
         <div class="overlay"></div>
+
         <div class="slide-content">
-            <h1>PUBG BATTLEGROUNDS</h1>
+            <div class="hero-badge">⚔ Battle Royale</div>
+            <h1>PUBG<br><span>BATTLEGROUNDS</span></h1>
             <p>
-                Land. Loot. Survive.
-                Become the last player standing in intense battle royale combat.
+                Land, loot, survive, and become the last player standing
+                in intense battle royale combat.
             </p>
-            <a href="#store" class="hero-btn">
-                Join Battle
-            </a>
+            <a href="#games" class="hero-btn">Join Battle</a>
         </div>
     </div>
-    <!-- BUTTONS -->
+
     <button class="nav prev" onclick="changeSlide(-1)">❮</button>
     <button class="nav next" onclick="changeSlide(1)">❯</button>
-    <!-- DOTS -->
+
     <div class="dots">
         <span class="dot active-dot" onclick="currentSlide(0)"></span>
         <span class="dot" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
     </div>
+
 </section>
-    <!-- CONTENT -->
-<!-- SEARCH -->
-<!-- SEARCH + SORT -->
-<div class="search-container">
-    <div class="top-actions">
-        <!-- SEARCH -->
+
+<!-- ================= SEARCH + SORT ================= -->
+<div class="store-tools">
+
+    <div class="store-title-box">
+        <h2 id="games">Featured Games</h2>
+        <p>Search, filter, and discover your next favorite game.</p>
+    </div>
+
+    <div class="tools-right">
+
         <div class="header-search">
-            <span></span>
+            <span>🔍</span>
+
             <input
                 type="text"
                 id="searchInput"
-                placeholder="Search Game..."
+                placeholder="Search game by name or category..."
                 onkeyup="filterGames()"
             >
-            <!-- RECOMMEND -->
+
             <div class="search-results" id="searchResults">
                 <div class="recommend-title">
                     Recommended Games
                 </div>
+
                 {% for game in games|slice:":4" %}
-                <a href="/game/{{ game.id }}/"
-                class="search-result-item">
+                <a href="/game/{{ game.id }}/" class="search-result-item">
                     {% if game.image %}
-                    <img src="{{ game.image.url }}">
+                    <img src="{{ game.image.url }}" alt="{{ game.title }}">
                     {% endif %}
+
                     <div class="search-result-info">
                         <h4>{{ game.title }}</h4>
-                        <p>
-                            ${{ game.final_price|floatformat:2 }}
-                        </p>
+                        <p>${{ game.final_price|floatformat:2 }}</p>
                     </div>
                 </a>
                 {% endfor %}
             </div>
         </div>
-        <!-- SORT -->
+
         <div class="sort-box">
             <span>⇅</span>
+
             <select id="sortGames" onchange="sortGames()">
                 <option value="default">Featured</option>
-
                 <option value="az">Name A-Z</option>
                 <option value="za">Name Z-A</option>
-
                 <option value="low">Price Low</option>
                 <option value="high">Price High</option>
-
                 <option value="Action">Action</option>
                 <option value="Adventure">Adventure</option>
                 <option value="FPS">FPS</option>
@@ -1350,7 +1446,25 @@
                 <option value="Strategy">Strategy</option>
             </select>
         </div>
+
     </div>
+
+</div>
+
+<div id="noResult"
+     style="
+        display:none;
+        max-width:1450px;
+        margin:20px auto;
+        padding:40px;
+        text-align:center;
+        color:#8ea3b8;
+        background:#07111f;
+        border:1px solid rgba(102,192,244,.22);
+        border-radius:24px;
+        font-weight:900;
+     ">
+    🎮 No games found.
 </div>
         <div class="section-title" id="games">
             Featured Games
