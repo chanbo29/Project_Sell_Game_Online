@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shopping Cart</title>
+<title>Shopping Cart - SellGame</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -16,12 +16,25 @@
     font-family:'Inter',sans-serif;
 }
 
+:root{
+    --bg:#020617;
+    --panel:#07111f;
+    --panel2:#0b1728;
+    --border:rgba(102,192,244,.22);
+    --blue:#66c0f4;
+    --green:#7CFF28;
+    --red:#ef4444;
+    --muted:#8ea3b8;
+    --text:#eaf4ff;
+}
+
 body{
-    background:
-    radial-gradient(circle at top left,rgba(102,192,244,.18),transparent 35%),
-    linear-gradient(135deg,#0b141d,#101822 55%,#05080d);
-    color:white;
     min-height:100vh;
+    background:
+    radial-gradient(circle at 12% 8%,rgba(102,192,244,.22),transparent 30%),
+    radial-gradient(circle at 90% 15%,rgba(124,255,40,.1),transparent 28%),
+    linear-gradient(135deg,#020617,#07111d 55%,#02040a);
+    color:var(--text);
 }
 
 .page{
@@ -32,72 +45,78 @@ body{
 
 /* SIDEBAR */
 .sidebar{
-    background:linear-gradient(180deg,#0b141d,#101822);
-    border-right:1px solid rgba(102,192,244,.18);
-    padding:32px 14px;
     position:sticky;
     top:0;
     height:100vh;
+    padding:28px 18px;
+    background:rgba(5,11,20,.92);
+    border-right:1px solid var(--border);
+    backdrop-filter:blur(18px);
 }
 
-.logo {
-    font-size:22px;
+.logo{
+    font-size:24px;
     font-weight:900;
-    color:#66c0f4;
+    color:var(--blue);
     margin-bottom:42px;
 }
+
 .logo span{
-    color: white;
+    color:white;
 }
 
 .side-menu{
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:12px;
 }
 
 .side-link{
-    height:58px;
+    min-height:58px;
     display:flex;
     align-items:center;
-    gap:18px;
-    padding:0 22px;
-    color:var(--text);
+    gap:14px;
+    padding:0 20px;
+    color:#c7d5e0;
     text-decoration:none;
-    border-radius:12px;
-    font-weight:800;
+    border-radius:18px;
+    font-weight:900;
     transition:.25s;
+    border:1px solid transparent;
 }
 
 .side-link:hover,
 .side-link.active{
-    background:linear-gradient(135deg,#1b2838,#2a475e);
+    background:linear-gradient(135deg,rgba(102,192,244,.25),rgba(102,192,244,.05));
+    border-color:rgba(102,192,244,.42);
     color:white;
-    box-shadow:0 12px 30px rgba(102,192,244,.18);
+    transform:translateX(5px);
 }
 
 /* MAIN */
 .main{
-    padding:34px;
+    padding:30px 34px 42px;
 }
 
 .topbar{
+    min-height:64px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:34px;
+    gap:18px;
+    margin-bottom:28px;
 }
 
 .search-box{
-    width:420px;
+    width:430px;
     height:54px;
-    background:#1b2838;
-    border:1px solid #2a475e;
-    border-radius:999px;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    border-radius:18px;
     display:flex;
     align-items:center;
     gap:12px;
-    padding:0 20px;
+    padding:0 18px;
 }
 
 .search-box input{
@@ -106,36 +125,53 @@ body{
     outline:none;
     background:none;
     color:white;
-    font-weight:700;
+    font-weight:800;
 }
 
-.back-btn{
-    height:52px;
-    padding:0 24px;
+.top-actions{
+    display:flex;
+    gap:12px;
+}
+
+.action-btn{
+    height:50px;
+    padding:0 20px;
     border-radius:16px;
-    background:linear-gradient(135deg,#66c0f4,#1b6fa8);
-    color:white;
+    background:#142237;
+    border:1px solid var(--border);
+    color:#d8e8f6;
     text-decoration:none;
     display:flex;
     align-items:center;
     font-weight:900;
+    transition:.25s;
+}
+
+.action-btn.primary{
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
+    color:white;
+    border:none;
+}
+
+.action-btn:hover{
+    transform:translateY(-3px);
 }
 
 /* HERO */
 .hero{
-    min-height:280px;
-    border-radius:32px;
+    min-height:285px;
+    border-radius:34px;
     padding:42px;
-    margin-bottom:32px;
+    margin-bottom:28px;
     display:flex;
     align-items:flex-end;
     justify-content:space-between;
-    gap:25px;
+    gap:24px;
     background:
-    linear-gradient(90deg,rgba(5,8,13,.94),rgba(27,40,56,.45)),
+    linear-gradient(90deg,rgba(2,6,23,.96),rgba(7,17,31,.58)),
     url("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1551360/library_hero.jpg")
     center/cover no-repeat;
-    border:1px solid rgba(102,192,244,.24);
+    border:1px solid var(--border);
     box-shadow:0 30px 90px rgba(0,0,0,.45);
 }
 
@@ -152,66 +188,70 @@ body{
 }
 
 .hero-stat{
-    background:rgba(27,40,56,.86);
-    border:1px solid #2a475e;
-    border-radius:22px;
-    padding:22px 28px;
+    min-width:165px;
+    background:rgba(7,17,31,.86);
+    border:1px solid rgba(102,192,244,.32);
+    border-radius:24px;
+    padding:24px;
     text-align:center;
+    backdrop-filter:blur(16px);
 }
 
 .hero-stat b{
     display:block;
-    font-size:36px;
-    color:#66c0f4;
+    font-size:40px;
+    color:var(--blue);
+    margin-bottom:6px;
 }
 
-/* LAYOUT */
+/* CONTENT */
 .cart-layout{
     display:grid;
     grid-template-columns:1fr 360px;
     gap:28px;
+    align-items:start;
 }
 
-.cart-list{
+.cart-grid{
     display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
     gap:22px;
 }
 
-/* CART ITEM */
-.cart-card{
-    display:grid;
-    grid-template-columns:260px 1fr auto;
-    gap:24px;
-    align-items:center;
-    background:linear-gradient(180deg,#111827,#07111d);
-    border:1px solid rgba(102,192,244,.18);
-    border-radius:26px;
+.game-card{
+    min-height:520px;
+    background:
+    radial-gradient(circle at top right,rgba(102,192,244,.08),transparent 35%),
+    linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--border);
+    border-radius:28px;
     overflow:hidden;
-    transition:.3s;
-    box-shadow:0 22px 55px rgba(0,0,0,.35);
+    box-shadow:0 25px 70px rgba(0,0,0,.36);
+    transition:.28s;
+    display:flex;
+    flex-direction:column;
 }
 
-.cart-card:hover{
-    transform:translateY(-6px);
-    border-color:#66c0f4;
-    box-shadow:0 30px 80px rgba(102,192,244,.18);
+.game-card:hover{
+    transform:translateY(-8px);
+    border-color:var(--blue);
 }
 
-.image-box{
-    height:180px;
+.game-image{
+    height:190px;
     position:relative;
     overflow:hidden;
-    background:#1b2838;
+    background:#101b2d;
 }
 
-.image-box img{
+.game-image img{
     width:100%;
     height:100%;
     object-fit:cover;
     transition:.35s;
 }
 
-.cart-card:hover .image-box img{
+.game-card:hover .game-image img{
     transform:scale(1.08);
 }
 
@@ -219,71 +259,103 @@ body{
     position:absolute;
     top:14px;
     left:14px;
-    background:linear-gradient(to bottom,#8bc53f,#5d9122);
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
     color:white;
     padding:8px 12px;
     border-radius:10px;
     font-weight:900;
+    font-size:13px;
 }
 
-.cart-info{
-    padding:22px 0;
-}
-
-.cart-info h2{
-    font-size:26px;
+.pc-badge{
+    position:absolute;
+    right:14px;
+    bottom:14px;
+    background:rgba(7,17,31,.85);
+    border:1px solid rgba(102,192,244,.28);
+    padding:7px 11px;
+    border-radius:999px;
+    font-size:12px;
     font-weight:900;
+    color:#d8e8f6;
+}
+
+.game-body{
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+}
+
+.category{
+    width:max-content;
+    padding:7px 12px;
+    border-radius:999px;
+    background:rgba(102,192,244,.12);
+    border:1px solid rgba(102,192,244,.28);
+    color:#8bd7ff;
+    font-size:12px;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.game-title{
+    font-size:22px;
+    font-weight:900;
+    line-height:1.25;
     margin-bottom:10px;
 }
 
 .stars{
     color:#ffd54f;
-    margin-bottom:12px;
+    font-size:14px;
     font-weight:900;
+    margin-bottom:12px;
 }
 
 .stars span{
-    color:#8f98a0;
-    margin-left:8px;
+    color:var(--muted);
+    margin-left:5px;
 }
 
 .desc{
-    color:#8f98a0;
-    line-height:1.7;
-    max-width:620px;
+    color:#9fb0c2;
+    line-height:1.65;
+    font-size:14px;
     margin-bottom:16px;
+    flex:1;
 }
 
 .price-row{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:10px;
+    margin-bottom:16px;
 }
 
 .old-price{
-    color:#8f98a0;
+    color:var(--muted);
     text-decoration:line-through;
+    font-size:14px;
     font-weight:800;
 }
 
 .price{
-    color:#8bc53f;
-    font-size:28px;
+    color:var(--green);
+    font-size:26px;
     font-weight:900;
 }
 
-.btn-row{
-    padding-right:24px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    min-width:150px;
+.card-actions{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:11px;
 }
 
 .buy-btn,
 .remove-btn{
     height:48px;
-    border-radius:14px;
+    border-radius:15px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -293,36 +365,37 @@ body{
 }
 
 .buy-btn{
-    background:linear-gradient(135deg,#8bc53f,#5d9122);
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
     color:white;
 }
 
 .remove-btn{
-    background:#7f1d1d;
-    color:white;
+    background:rgba(239,68,68,.16);
+    border:1px solid rgba(239,68,68,.38);
+    color:#ffb4b4;
 }
 
 .buy-btn:hover,
-.remove-btn:hover,
-.back-btn:hover{
+.remove-btn:hover{
     transform:translateY(-3px);
-    filter:brightness(1.1);
 }
 
 /* SUMMARY */
 .summary{
-    height:max-content;
     position:sticky;
     top:28px;
-    background:linear-gradient(180deg,#111827,#07111d);
-    border:1px solid rgba(102,192,244,.2);
-    border-radius:26px;
-    padding:26px;
-    box-shadow:0 22px 55px rgba(0,0,0,.35);
+    height:max-content;
+    padding:28px;
+    border-radius:28px;
+    background:
+    radial-gradient(circle at top right,rgba(102,192,244,.08),transparent 35%),
+    linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--border);
+    box-shadow:0 25px 70px rgba(0,0,0,.36);
 }
 
 .summary h2{
-    font-size:26px;
+    font-size:28px;
     margin-bottom:22px;
 }
 
@@ -338,76 +411,81 @@ body{
 .summary-total{
     display:flex;
     justify-content:space-between;
-    margin-top:22px;
-    font-size:28px;
+    margin-top:24px;
+    font-size:30px;
     font-weight:900;
 }
 
 .summary-total span:last-child{
-    color:#8bc53f;
+    color:var(--green);
+}
+
+.checkout-btn,
+.continue-btn{
+    width:100%;
+    height:56px;
+    margin-top:22px;
+    border-radius:18px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    transition:.25s;
 }
 
 .checkout-btn{
-    width:100%;
-    height:56px;
-    margin-top:24px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#66c0f4,#1b6fa8);
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
     color:white;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:900;
 }
 
 .continue-btn{
-    width:100%;
-    height:52px;
     margin-top:14px;
-    border-radius:16px;
-    background:#1b2838;
-    border:1px solid #2a475e;
-    color:#66c0f4;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:900;
+    background:#142237;
+    border:1px solid var(--border);
+    color:#c7d5e0;
+}
+
+.checkout-btn:hover,
+.continue-btn:hover{
+    transform:translateY(-3px);
 }
 
 /* EMPTY */
 .empty{
     padding:100px 30px;
-    background:#111827;
-    border:1px solid #2a475e;
-    border-radius:28px;
+    background:
+    radial-gradient(circle at top right,rgba(102,192,244,.08),transparent 35%),
+    linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--border);
+    border-radius:30px;
     text-align:center;
+    box-shadow:0 25px 70px rgba(0,0,0,.36);
 }
 
 .empty h2{
     font-size:42px;
     margin-bottom:12px;
-    color:#66c0f4;
+    color:var(--blue);
 }
 
 .empty p{
-    color:#8f98a0;
+    color:var(--muted);
     margin-bottom:24px;
 }
 
 .empty a{
     display:inline-flex;
-    padding:15px 28px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#66c0f4,#1b6fa8);
+    padding:16px 28px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
     color:white;
     text-decoration:none;
     font-weight:900;
 }
 
 /* RESPONSIVE */
-@media(max-width:1100px){
+@media(max-width:1150px){
     .page{
         grid-template-columns:1fr;
     }
@@ -424,18 +502,11 @@ body{
         position:relative;
         top:auto;
     }
+}
 
-    .cart-card{
-        grid-template-columns:1fr;
-    }
-
-    .image-box{
-        height:240px;
-    }
-
-    .cart-info,
-    .btn-row{
-        padding:22px;
+@media(max-width:700px){
+    .main{
+        padding:20px;
     }
 
     .topbar,
@@ -447,15 +518,19 @@ body{
     .search-box{
         width:100%;
     }
-}
-
-@media(max-width:600px){
-    .main{
-        padding:20px;
-    }
 
     .hero h1{
         font-size:38px;
+    }
+
+    .top-actions{
+        width:100%;
+        flex-direction:column;
+    }
+
+    .action-btn{
+        width:100%;
+        justify-content:center;
     }
 }
 </style>
@@ -469,11 +544,10 @@ body{
         <div class="logo">SELL<span>GAME</span>ONLINE</div>
 
         <div class="side-menu">
-            <a href="/" class="side-link">Store</a>
-            <a href="/library/" class="side-link">Library</a>
-            <a href="/wishlist/" class="side-link">Wishlist</a>
-            <a href="/cart/" class="side-link active">Cart</a>
-            <!-- <a href="/cart/" class="side-link">🛒 Cart</a> -->
+            <a href="/" class="side-link">🏪 Store</a>
+            <a href="/library/" class="side-link">🎮 Library</a>
+            <a href="/wishlist/" class="side-link">♡ Wishlist</a>
+            <a href="/cart/" class="side-link active">🛒 Cart</a>
         </div>
     </aside>
 
@@ -482,18 +556,19 @@ body{
         <div class="topbar">
             <div class="search-box">
                 🔍
-                <input type="text" id="searchInput" placeholder="Search cart..." onkeyup="filterCart()">
+                <input type="text" id="searchInput" placeholder="Search cart games..." onkeyup="filterCart()">
             </div>
 
-            <!-- <a href="/" class="back-btn">
-                ← Back Store
-            </a> -->
+            <div class="top-actions">
+                <a href="/" class="action-btn">Continue Shopping</a>
+                <a href="/library/" class="action-btn primary">My Library</a>
+            </div>
         </div>
 
         <section class="hero">
             <div>
                 <h1>Shopping Cart</h1>
-                <p>Review your selected games, remove items, or continue to checkout.</p>
+                <p>Review your selected games and checkout all items together.</p>
             </div>
 
             <div class="hero-stat">
@@ -506,18 +581,17 @@ body{
 
         <div class="cart-layout">
 
-            <div class="cart-list">
+            <div class="cart-grid">
 
                 {% for item in cart_items %}
-
-                <div class="cart-card searchable-card"
+                <div class="game-card searchable-card"
                      data-title="{{ item.game.title|lower }}">
 
-                    <div class="image-box">
+                    <div class="game-image">
                         {% if item.game.image %}
-                            <img src="{{ item.game.image.url }}">
+                            <img src="{{ item.game.image.url }}" alt="{{ item.game.title }}">
                         {% else %}
-                            <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/730/header.jpg">
+                            <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/730/header.jpg" alt="{{ item.game.title }}">
                         {% endif %}
 
                         {% if item.game.discount_percent > 0 %}
@@ -525,17 +599,21 @@ body{
                             -{{ item.game.discount_percent }}%
                         </div>
                         {% endif %}
+
+                        <div class="pc-badge">PC GAME</div>
                     </div>
 
-                    <div class="cart-info">
-                        <h2>{{ item.game.title }}</h2>
+                    <div class="game-body">
+                        <div class="category">{{ item.game.category }}</div>
+
+                        <div class="game-title">{{ item.game.title }}</div>
 
                         <div class="stars">
                             ★★★★★ <span>(4.8)</span>
                         </div>
 
                         <div class="desc">
-                            {{ item.game.description|truncatewords:20 }}
+                            {{ item.game.description|truncatewords:18 }}
                         </div>
 
                         <div class="price-row">
@@ -549,20 +627,21 @@ body{
                                 ${{ item.game.final_price|floatformat:2 }}
                             </span>
                         </div>
-                    </div>
 
-                    <div class="btn-row">
-                        <a href="/buy/{{ item.game.id }}/" class="buy-btn">
-                            Buy Now
-                        </a>
+                        <div class="card-actions">
+                            <a href="/buy/{{ item.game.id }}/" class="buy-btn">
+                                Buy This Game
+                            </a>
 
-                       <a href="/cart/remove/{{ item.game.id }}/" class="remove-btn">
-                            Remove
-                        </a>
+                            <a href="/cart/remove/{{ item.game.id }}/"
+                               class="remove-btn"
+                               onclick="return confirm('Remove this game from cart?')">
+                                Remove
+                            </a>
+                        </div>
                     </div>
 
                 </div>
-
                 {% endfor %}
 
             </div>
@@ -576,13 +655,13 @@ body{
                 </div>
 
                 <div class="summary-row">
-                    <span>Discount</span>
-                    <span>Applied</span>
+                    <span>Payment</span>
+                    <span>ABA / KHQR</span>
                 </div>
 
                 <div class="summary-row">
-                    <span>Payment</span>
-                    <span>ABA / KHQR</span>
+                    <span>Checkout Type</span>
+                    <span>All Cart Games</span>
                 </div>
 
                 <div class="summary-total">
@@ -590,11 +669,10 @@ body{
                     <span>${{ total|floatformat:2 }}</span>
                 </div>
 
-                {% if cart_items %}
                 <a href="{% url 'checkout_cart' %}" class="checkout-btn">
                     Proceed Checkout
                 </a>
-                {% endif %}
+
                 <a href="/" class="continue-btn">
                     Continue Shopping
                 </a>
