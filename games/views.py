@@ -589,22 +589,25 @@ def show_redeem_code(request):
 def download_game(request, game_id):
     game = get_object_or_404(Game, id=game_id)
 
-    purchase = get_object_or_404(
-        Purchase,
+    purchase = Purchase.objects.filter(
         user=request.user,
         game=game
-    )
+    ).first()
+
+    if not purchase:
+        return redirect('/library/')
 
     install_mode = request.GET.get("install") == "1"
 
     if request.method == "POST":
         purchase.is_installed = True
         purchase.save()
-        return redirect("/library/")
+        return redirect('/library/')
 
     return render(request, "games/download.html", {
         "game": game,
-        "install_mode": install_mode
+        "purchase": purchase,
+        "install_mode": install_mode,
     })
 # LIBRARY
 @login_required
