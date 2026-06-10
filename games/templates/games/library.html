@@ -803,7 +803,7 @@ body{
                                 ▶ PLAY NOW
                             </a>
                         {% else %}
-                            <a href="{% url 'toggle_install' purchase.game.id %}" class="hover-play">
+                            <a href="/download/{{ purchase.game.id }}/?install=1" class="hover-play">
                                 ⬇ INSTALL
                             </a>
                         {% endif %}
@@ -849,7 +849,7 @@ body{
                                 ⛔ Uninstall
                             </a>
                         {% else %}
-                            <a href="{% url 'toggle_install' purchase.game.id %}" class="launch">
+                            <a href="/download/{{ purchase.game.id }}/?install=1" class="launch">
                                 ⬇ Install
                             </a>
                         {% endif %}
