@@ -400,7 +400,9 @@ body{
     font-size:11px;
     font-weight:900;
 }
-
+.badge.uninstalled{
+    background:linear-gradient(to bottom,#7f1d1d,#450a0a);
+}
 .hover-play{
     position:absolute;
     inset:0;
@@ -788,14 +790,23 @@ body{
                                 <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/271590/library_600x900.jpg">
                             {% endif %}
 
-                            <div class="badge">
-                                INSTALLED
+                            <div class="badge {% if not purchase.is_installed %}uninstalled{% endif %}">
+                                {% if purchase.is_installed %}
+                                    INSTALLED
+                                {% else %}
+                                    UNINSTALLED
+                                {% endif %}
                             </div>
 
-                            <a href="/play/{{ purchase.game.id }}/"
-                            class="hover-play">
+                            {% if purchase.is_installed %}
+                            <a href="/play/{{ purchase.game.id }}/" class="hover-play">
                                 ▶ PLAY NOW
                             </a>
+                        {% else %}
+                            <a href="{% url 'toggle_install' purchase.game.id %}" class="hover-play">
+                                ⬇ INSTALL
+                            </a>
+                        {% endif %}
 
                         </div>
 
@@ -829,17 +840,30 @@ body{
 
                         </div>
 
-                        <a href="/play/{{ purchase.game.id }}/"
-                        class="launch">
-                            ▶ Launch
-                        </a>
+                        {% if purchase.is_installed %}
+                            <a href="/play/{{ purchase.game.id }}/" class="launch">
+                                ▶ Launch
+                            </a>
+
+                            <a href="{% url 'toggle_install' purchase.game.id %}" class="launch">
+                                ⛔ Uninstall
+                            </a>
+                        {% else %}
+                            <a href="{% url 'toggle_install' purchase.game.id %}" class="launch">
+                                ⬇ Install
+                            </a>
+                        {% endif %}
 
                         <div class="install-bar">
                             <div class="install-fill"></div>
                         </div>
 
                         <div class="install-text">
-                            Installed • Ready to Play
+                            {% if purchase.is_installed %}
+                                Installed • Ready to Play
+                            {% else %}
+                                Uninstalled • Click Install to Play
+                            {% endif %}
                         </div>
 
                     </div>

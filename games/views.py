@@ -484,6 +484,19 @@ def delete_library_game(request, game_id):
         purchase.delete()
 
     return redirect('/library/')
+
+@login_required(login_url='/login/')
+def toggle_install(request, game_id):
+    purchase = get_object_or_404(
+        Purchase,
+        user=request.user,
+        game_id=game_id
+    )
+
+    purchase.is_installed = not purchase.is_installed
+    purchase.save()
+
+    return redirect('/library/')
 # បន្ថែមបន្ទាត់នេះនៅខាងក្រោមគេក្នុងឯកសារ views.py របស់អ្នក
 @login_required(login_url='/login/')
 def pay_success(request):

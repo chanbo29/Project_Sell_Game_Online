@@ -31,6 +31,7 @@ urlpatterns = [
     #LIBRARY
     path('library/', views.library, name='library'),
     path('library/delete/<int:game_id>/', views.delete_library_game, name='delete_library_game'),
+    path('library/install-toggle/<int:game_id>/', views.toggle_install, name='toggle_install'),
     # PAYMENT_COMPLETED
     path('complete-payment/', views.complete_payment, name='complete_payment'),
     #REDEEM
