@@ -595,12 +595,16 @@ def download_game(request, game_id):
         game=game
     )
 
-    if request.GET.get("install") == "1":
+    install_mode = request.GET.get("install") == "1"
+
+    if request.method == "POST":
         purchase.is_installed = True
         purchase.save()
+        return redirect("/library/")
 
     return render(request, "games/download.html", {
-        "game": game
+        "game": game,
+        "install_mode": install_mode
     })
 # LIBRARY
 @login_required
