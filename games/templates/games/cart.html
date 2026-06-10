@@ -556,7 +556,7 @@ body{
                             Buy Now
                         </a>
 
-                        <a href="/cart/remove/{{ item.game.id }}/" class="remove-btn">
+                       <a href="/cart/remove/{{ item.game.id }}/" class="remove-btn">
                             Remove
                         </a>
                     </div>
@@ -594,7 +594,7 @@ body{
                 <a href="{% url 'checkout_cart' %}" class="checkout-btn">
                     Proceed Checkout
                 </a>
-
+                {% endif %}
                 <a href="/" class="continue-btn">
                     Continue Shopping
                 </a>
