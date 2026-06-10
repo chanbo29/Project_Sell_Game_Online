@@ -50,6 +50,7 @@ urlpatterns = [
     path("remove-cart/<int:game_id>/", views.remove_cart, name="remove_cart"),
     path('cart/add/<int:game_id>/', views.add_cart, name='add_cart'),
     path('buy/<int:game_id>/', views.buy_game, name='buy_game'),
+    path('checkout/', views.checkout_cart, name='checkout_cart'),
     #PLAY GAME
     path('play/<int:game_id>/', views.play_game, name='play_game'),
 

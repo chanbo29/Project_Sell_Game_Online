@@ -597,6 +597,16 @@ def delete_library(request, id):
     purchase.delete()
 
     return redirect('library')
+@login_required(login_url='/login/')
+def checkout_cart(request):
+    cart_items = Cart.objects.filter(user=request.user)
+
+    if not cart_items.exists():
+        return redirect('cart')
+
+    first_item = cart_items.first()
+
+    return redirect('buy_game', game_id=first_item.game.id)
 # PURCHASE_HISTORY
 @login_required
 def purchase_history(request):

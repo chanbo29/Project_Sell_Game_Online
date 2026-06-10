@@ -560,9 +560,9 @@ body{
                             Buy Now
                         </a>
 
-                        <a href="/cart/remove/{{ item.id }}/"
-                           class="remove-btn"
-                           onclick="return confirm('Remove this game?')">
+                        <a href="/cart/remove/{{ item.game.id }}/"
+                        class="remove-btn"
+                        onclick="return confirm('Remove this game?')">
                             Remove
                         </a>
                     </div>
@@ -596,9 +596,11 @@ body{
                     <span>${{ total|floatformat:2 }}</span>
                 </div>
 
-                <a href="/checkout/" class="checkout-btn">
-                    Proceed Checkout
-                </a>
+                {% if cart_items %}
+    <a href="{% url 'checkout_cart' %}" class="checkout-btn">
+        Proceed Checkout
+    </a>
+{% endif %}
 
                 <a href="/" class="continue-btn">
                     Continue Shopping
