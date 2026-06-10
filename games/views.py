@@ -631,39 +631,39 @@ def delete_library(request, id):
     purchase.delete()
 
     return redirect('library')
+#CHECKOUT-CART
 @login_required(login_url='/login/')
 def checkout_cart(request):
     cart_items = Cart.objects.filter(user=request.user)
 
     if not cart_items.exists():
-        return redirect('cart')
+        return redirect('/cart/')
 
     total = sum(item.game.final_price() for item in cart_items)
 
     if request.method == "POST":
         for item in cart_items:
-            already_bought = Purchase.objects.filter(
+            purchase, created = Purchase.objects.get_or_create(
                 user=request.user,
-                game=item.game
-            ).exists()
+                game=item.game,
+                defaults={
+                    "price": item.game.final_price(),
+                    "is_installed": False
+                }
+            )
 
-            if not already_bought:
-                Purchase.objects.create(
-                    user=request.user,
-                    game=item.game,
-                    price=item.game.final_price()
-                )
+            if not created:
+                purchase.price = item.game.final_price()
+                purchase.is_installed = False
+                purchase.save()
 
         cart_items.delete()
-
-        return redirect('checkout_success')
+        return redirect('/checkout/success/')
 
     return render(request, 'games/checkout.html', {
         'cart_items': cart_items,
         'total': total
     })
-
-
 @login_required(login_url='/login/')
 def checkout_success(request):
     return render(request, 'games/checkout_success.html')
