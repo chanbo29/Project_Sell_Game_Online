@@ -633,6 +633,8 @@ def checkout_cart(request):
 @login_required(login_url='/login/')
 def checkout_success(request):
     return render(request, 'games/checkout_success.html')
+def remove_cart(request, game_id):
+    Cart.objects.filter(user=request.user, game_id=game_id).delete()
 # PURCHASE_HISTORY
 @login_required
 def purchase_history(request):
