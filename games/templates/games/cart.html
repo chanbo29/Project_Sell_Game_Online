@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,17 +55,44 @@ body{
     backdrop-filter:blur(18px);
 }
 
-.logo{
-    font-size:24px;
-    font-weight:900;
-    color:var(--blue);
-    margin-bottom:42px;
+.brand{
+    margin-bottom:35px;
+    text-align:center;
 }
 
-.logo span{
+.brand-logo{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    text-decoration:none;
+}
+
+.brand-logo img{
+    width:50px;
+    height:50px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.brand-logo:hover img{
+    transform:scale(1.08);
+}
+
+.brand-text{
+    text-align:center;
+    font-size:14px;
+    font-weight:900;
+    line-height:1.15;
+    letter-spacing:1px;
+    color:#66c0f4;
+}
+
+.brand-text span{
     color:white;
 }
-
 .side-menu{
     display:flex;
     flex-direction:column;
@@ -541,7 +569,16 @@ body{
 <div class="page">
 
     <aside class="sidebar">
-        <div class="logo">SELL<span>GAME</span>ONLINE</div>
+        <div class="brand">
+    <a href="/" class="brand-logo">
+        <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
+
+        <div class="brand-text">
+            SELL<span>GAME</span><br>
+            ONLINE
+        </div>
+    </a>
+</div>
 
         <div class="side-menu">
             <a href="/" class="side-link">Store</a>
