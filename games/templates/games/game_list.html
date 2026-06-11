@@ -152,23 +152,30 @@
 }
 .brand-logo{
     display:flex;
+    flex-direction:column;
     align-items:center;
-    gap:12px;
+    justify-content:center;
+    gap:10px;
     text-decoration:none;
-    color:#66c0f4;
-    font-size:30px;
-    font-weight:900;
 }
 
 .brand-logo img{
-    width:50px;
-    height:50px;
+    width:70px;
+    height:70px;
     object-fit:cover;
-    border-radius:12px;
+    border-radius:16px;
     transition:0.3s;
 }
 
-.brand-logo span{
+.brand-text{
+    color:#66c0f4;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:1px;
+    text-align:center;
+}
+
+.brand-text span{
     color:white;
 }
 
@@ -176,7 +183,7 @@
     transform:scale(1.1) rotate(-5deg);
 }
 
-.brand-logo:hover{
+.brand-logo:hover .brand-text{
     color:#8bd7ff;
 }
 .main-nav{
@@ -1182,12 +1189,15 @@
 <!-- NAVBAR -->
 <!-- PROFESSIONAL STEAM HEADER -->
 <header class="steam-header">
-    <div class="brand">
-        <a href="/" class="brand-logo">
-            <img src="{% static 'images/logo.avif' %}" alt="SellGameLogo">
+   <div class="brand">
+    <a href="/" class="brand-logo">
+        <img src="{% static 'images/logo.png' %}" alt="SellGame Logo">
+
+        <div class="brand-text">
             SELL<span>GAME</span>ONLINE
-        </a>
-    </div>
+        </div>
+    </a>
+</div>
     <nav class="main-nav">
         <a href="/" class="nav-item active">Store</a>
         <a href="/about/" class="nav-item">About</a>
