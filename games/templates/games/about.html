@@ -48,17 +48,35 @@ body{
     box-shadow:0 20px 70px rgba(0,0,0,.38);
 }
 
-.logo{
+.brand-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
     text-decoration:none;
+    color:#66c0f4;
     font-size:30px;
     font-weight:900;
-    color:#66c0f4;
 }
 
-.logo span{
+.brand-logo img{
+    width:50px;
+    height:50px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.brand-logo span{
     color:white;
 }
 
+.brand-logo:hover img{
+    transform:scale(1.1) rotate(-5deg);
+}
+
+.brand-logo:hover{
+    color:#8bd7ff;
+}
 .nav-links{
     display:flex;
     gap:12px;
@@ -546,7 +564,12 @@ body{
 <body>
 
 <nav class="navbar">
-    <a href="/" class="logo">SELL<span>GAME</span>ONLINE</a>
+    <div class="brand">
+    <a href="/" class="brand-logo">
+        <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
+        SELL<span>GAME</span>ONLINE
+    </a>
+</div>
 
     <div class="nav-links">
         <a href="/">Home</a>
