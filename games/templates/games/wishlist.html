@@ -1,4 +1,4 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,83 +32,74 @@ body{
 }
 
 /* SIDEBAR */
-.sidebar{
-    width:250px;
-    min-height:100vh;
-    position:fixed;
-    left:0;
-    top:0;
-    padding:28px 14px;
-    background:linear-gradient(180deg,#08131f,#0b1724);
-    border-right:1px solid rgba(102,192,244,.22);
-}
-
 .brand{
+    margin-bottom:35px;
     text-align:center;
-    margin-bottom:38px;
 }
 
 .brand-logo{
     display:flex;
     flex-direction:column;
     align-items:center;
+    justify-content:center;
     gap:6px;
     text-decoration:none;
 }
 
 .brand-logo img{
-    width:54px;
-    height:54px;
+    width:50px;
+    height:50px;
     object-fit:cover;
-    border-radius:14px;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.brand-logo:hover img{
+    transform:scale(1.08);
 }
 
 .brand-text{
-    color:#66c0f4;
-    font-size:17px;
-    font-weight:900;
-    line-height:1.05;
     text-align:center;
+    font-size:14px;
+    font-weight:900;
+    line-height:1.15;
+    letter-spacing:1px;
+    color:#66c0f4;
 }
 
 .brand-text span{
     color:white;
 }
-
 .side-menu{
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:10px;
 }
 
 .side-link{
     height:58px;
-    padding:0 22px;
-    border-radius:14px;
     display:flex;
     align-items:center;
+    gap:18px;
+    padding:0 22px;
+    color:var(--text);
     text-decoration:none;
-    color:#c7d5e0;
-    font-size:1rem;
-    font-weight:900;
+    border-radius:12px;
+    font-weight:800;
     transition:.25s;
 }
 
 .side-link:hover,
 .side-link.active{
-    background:#223548;
+    background:linear-gradient(135deg,#1b2838,#2a475e);
     color:white;
-    box-shadow:0 12px 30px rgba(102,192,244,.12);
+    box-shadow:0 12px 30px rgba(102,192,244,.18);
 }
 
-.main{
-    margin-left:250px;
-    min-height:100vh;
-}
 /* MAIN */
-/* .main{
+.main{
     padding:34px;
-} */
+}
 
 .topbar{
     display:flex;
@@ -458,8 +449,8 @@ body{
     <div class="side-menu">
         <a href="/" class="side-link">Store</a>
         <a href="/library/" class="side-link">Library</a>
-        <a href="/wishlist/" class="side-link">Wishlist</a>
-        <a href="/cart/" class="side-link active">Cart</a>
+        <a href="/wishlist/" class="side-link active">Wishlist</a>
+        <a href="/cart/" class="side-link">Cart</a>
     </div>
 
 </aside>

@@ -46,48 +46,52 @@ body{
 
 /* SIDEBAR */
 .sidebar{
-    width:250px;
-    min-height:100vh;
-    position:fixed;
-    left:0;
+    background:linear-gradient(180deg,#0b141d,#101822);
+    border-right:1px solid rgba(102,192,244,.18);
+    padding:32px 14px;
+    position:sticky;
     top:0;
-    padding:28px 14px;
-    background:linear-gradient(180deg,#08131f,#0b1724);
-    border-right:1px solid rgba(102,192,244,.22);
+    height:100vh;
 }
 
 .brand{
+    margin-bottom:35px;
     text-align:center;
-    margin-bottom:38px;
 }
 
 .brand-logo{
     display:flex;
     flex-direction:column;
     align-items:center;
+    justify-content:center;
     gap:6px;
     text-decoration:none;
 }
 
 .brand-logo img{
-    width:54px;
-    height:54px;
+    width:50px;
+    height:50px;
     object-fit:cover;
-    border-radius:14px;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.brand-logo:hover img{
+    transform:scale(1.08);
 }
 
 .brand-text{
-    color:#66c0f4;
-    font-size:17px;
-    font-weight:900;
-    line-height:1.05;
     text-align:center;
+    font-size:14px;
+    font-weight:900;
+    line-height:1.15;
+    letter-spacing:1px;
+    color:#66c0f4;
 }
 
 .brand-text span{
     color:white;
 }
-
 .side-menu{
     display:flex;
     flex-direction:column;
@@ -95,33 +99,31 @@ body{
 }
 
 .side-link{
-    height:58px;
-    padding:0 22px;
-    border-radius:14px;
+    min-height:58px;
     display:flex;
     align-items:center;
-    text-decoration:none;
+    gap:14px;
+    padding:0 20px;
     color:#c7d5e0;
-    font-size:1rem;
+    text-decoration:none;
+    border-radius:18px;
     font-weight:900;
     transition:.25s;
+    border:1px solid transparent;
 }
 
 .side-link:hover,
 .side-link.active{
-    background:#223548;
+    background:linear-gradient(135deg,rgba(102,192,244,.25),rgba(102,192,244,.05));
+    border-color:rgba(102,192,244,.42);
     color:white;
-    box-shadow:0 12px 30px rgba(102,192,244,.12);
+    transform:translateX(5px);
 }
 
-.main{
-    margin-left:250px;
-    min-height:100vh;
-}
 /* MAIN */
-/* .main{
+.main{
     padding:30px 34px 42px;
-} */
+}
 
 .topbar{
     min-height:64px;
