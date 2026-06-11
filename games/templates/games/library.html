@@ -55,16 +55,40 @@ body{
     height:100vh;
 }
 
-.epic-logo{
-    font-size:22px;
-    font-weight:900;
-    color:#66c0f4;
-    margin-bottom:42px;
-}
-.epic-logo span{
-    color: white;
+.brand{
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
+.brand-logo{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    text-decoration:none;
+}
+
+.brand-logo img{
+    width:65px;
+    height:65px;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+.brand-text{
+    display:block;
+    text-align:center;
+    color:#66c0f4;
+    font-size:18px;
+    font-weight:900;
+    line-height:1.1;
+}
+
+.brand-text span{
+    color:white;
+}
 .side-menu{
     display:flex;
     flex-direction:column;
@@ -650,9 +674,14 @@ body{
 
     <aside class="sidebar">
 
-        <div class="epic-logo">
-            SELL<span>GAME</span>ONLINE
+        <div class="brand">
+    <a href="/" class="brand-logo">
+        <img src="{% static 'images/logo.png' %}" alt="SellGame Logo">
+        <div class="brand-text">
+            SELL<span>GAME</span><br>ONLINE
         </div>
+    </a>
+</div>
 
         <div class="side-menu">
             <a href="/" class="side-link">Store</a>
