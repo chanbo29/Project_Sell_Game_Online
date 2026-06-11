@@ -31,19 +31,9 @@ body{
 }
 
 /* SIDEBAR */
-.sidebar{
-    background:linear-gradient(180deg,#0b141d,#101822);
-    border-right:1px solid rgba(102,192,244,.18);
-    padding:32px 14px;
-    position:sticky;
-    top:0;
-    height:100vh;
-}
-
 .brand{
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    margin-bottom:35px;
+    text-align:center;
 }
 
 .brand-logo{
@@ -56,19 +46,24 @@ body{
 }
 
 .brand-logo img{
-    width:60px;
-    height:60px;
+    width:50px;
+    height:50px;
     object-fit:cover;
-    border-radius:14px;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.brand-logo:hover img{
+    transform:scale(1.08);
 }
 
 .brand-text{
-    display:block;
     text-align:center;
-    color:#66c0f4;
-    font-size:17px;
+    font-size:14px;
     font-weight:900;
-    line-height:1.1;
+    line-height:1.15;
+    letter-spacing:1px;
+    color:#66c0f4;
 }
 
 .brand-text span{
@@ -438,20 +433,26 @@ body{
 <div class="page">
 
     <aside class="sidebar">
-        <div class="brand">
-    <a href="/" class="brand-logo">
-        <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
-        SELL<span>GAME</span>ONLINE
-    </a>
-</div>
-        <div class="side-menu">
-            <a href="/" class="side-link">Store</a>
-            <a href="/library/" class="side-link">Library</a>
-            <a href="/wishlist/" class="side-link active">Wishlist</a>
-            <a href="/cart/" class="side-link">Cart</a>
-            <!-- <a href="/cart/" class="side-link">🛒 Cart</a> -->
-        </div>
-    </aside>
+
+    <div class="brand">
+        <a href="/" class="brand-logo">
+            <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
+
+            <div class="brand-text">
+                SELL<span>GAME</span><br>
+                ONLINE
+            </div>
+        </a>
+    </div>
+
+    <div class="side-menu">
+        <a href="/" class="side-link">Store</a>
+        <a href="/library/" class="side-link">Library</a>
+        <a href="/wishlist/" class="side-link active">Wishlist</a>
+        <a href="/cart/" class="side-link">Cart</a>
+    </div>
+
+</aside>
 
     <main class="main">
 
