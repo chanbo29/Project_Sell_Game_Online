@@ -151,16 +151,33 @@
     box-shadow:0 10px 35px rgba(0,0,0,0.35);
 }
 .brand-logo{
-    color:#66c0f4;
+    display:flex;
+    align-items:center;
+    gap:12px;
     text-decoration:none;
-    font-size:2.1rem;
+    color:#66c0f4;
+    font-size:30px;
     font-weight:900;
-    letter-spacing:1px;
-    margin-left: -40px;
-    text-shadow:0 0 24px rgba(13, 158, 241, 0.5);
 }
+
+.brand-logo img{
+    width:50px;
+    height:50px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:0.3s;
+}
+
 .brand-logo span{
     color:white;
+}
+
+.brand-logo:hover img{
+    transform:scale(1.1) rotate(-5deg);
+}
+
+.brand-logo:hover{
+    color:#8bd7ff;
 }
 .main-nav{
     display:flex;
@@ -1167,6 +1184,7 @@
 <header class="steam-header">
     <div class="brand">
         <a href="/" class="brand-logo">
+            <img src="{% static 'images/logo.png' %}" alt="SellGame Logo">
             SELL<span>GAME</span>ONLINE
         </a>
     </div>
