@@ -600,15 +600,15 @@ tr:hover{
         <div class="menu-label">ADMIN MENU</div>
 
         <nav class="menu">
-            <a href="/">🏪 Game Store</a>
-            <a href="/admin-dashboard/" class="active">🎮 Dashboard</a>
+            <a href="/">Game Store</a>
+            <a href="/admin-dashboard/" class="active">Dashboard</a>
             <!-- <a href="/add/">➕ Add Game</a>
             <a href="/history/">🧾 Orders</a>
             <a href="/wishlist/">♡ Wishlist</a> -->
-            <a href="/admin-users/">👥 Users & Spending</a>
-            <a href="/admin/">⚙ Admin Control Panel</a>
+            <a href="/admin-users/">Users & Spending</a>
+            <a href="/admin/">Admin Control Panel</a>
             <!-- <a href="/admin/">⚙ Settings</a> -->
-            <a href="/logout/" onclick="return confirm('Logout now?')">↪ Logout</a>
+            <a href="/logout/" onclick="return confirm('Logout now?')">Logout</a>
         </nav>
 
         <!-- <div class="store-status">
@@ -623,14 +623,14 @@ tr:hover{
 
         <div class="topbar">
             <div class="search-box">
-                🔍
+                
                 <input type="text" placeholder="Search anything...">
                 <span class="shortcut"></span>
             </div>
 
-            <div class="top-actions">
+            <!-- <div class="top-actions">
                 <a href="#" class="icon-btn">🔔<span class="badge-notify">5</span></a>
-                <a href="#" class="icon-btn">🌙</a>
+                <a href="#" class="icon-btn">🌙</a> -->
 
                 <div class="profile">
                     <img src="https://cdn.vectorstock.com/i/500p/63/08/ninja-gamer-logo-icon-vector-34196308.jpg">
@@ -638,7 +638,7 @@ tr:hover{
                         <b>{{ request.user.username }}</b>
                         <small><span class="online-dot"></span>Administrator</small>
                     </div>
-                    <span>⌄</span>
+                    <span></span>
                 </div>
             </div>
         </div>

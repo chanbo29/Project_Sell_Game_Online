@@ -1209,12 +1209,12 @@
                 </a> -->
                 {% if request.user.is_staff %}
                 <a href="/admin-dashboard/" class="dropdown-item">
-                    📊 Admin Dashboard
+                    Admin Dashboard
                 </a>
                 {% endif %}
                 {% if request.user.is_superuser %}
                 <a href="/admin/" class="dropdown-item">
-                    🛠 Admin Control Panel
+                    Admin Control Panel
                 </a>
                 {% endif %}
                 <a href="/logout/" class="dropdown-item logout-item">
@@ -1384,7 +1384,7 @@
             {% endif %}
 
             <a href="/wishlist/add/{{ game.id }}/" class="heart-wishlist">
-                ♡
+                
             </a>
         </div>
         <div class="game-info">
@@ -1396,7 +1396,7 @@
                 {{ game.category }}
             </div>
             <div class="rating">
-                ⭐⭐⭐⭐⭐ <span>(5.0)</span>
+                ⭐⭐⭐⭐⭐ <span></span>
             </div>
             <div class="tags">
                 <span>Available Now</span>
@@ -1447,7 +1447,7 @@
                         Purchase Now
                     </a>
                     <a href="/cart/add/{{ game.id }}/" class="add-cart-btn">
-                        🛒 Add Cart
+                        Add Cart
                     </a>
                 {% endif %}
             </div>
