@@ -664,6 +664,59 @@ def checkout_cart(request):
         'cart_items': cart_items,
         'total': total
     })
+@login_required(login_url="/login/")
+def cart_payment(request):
+    cart_items = Cart.objects.filter(user=request.user)
+
+    if not cart_items.exists():
+        return redirect("/cart/")
+
+    total = sum(item.game.final_price() for item in cart_items)
+
+    redeem_code = str(random.randint(100000, 999999))
+    request.session["cart_redeem_code"] = redeem_code
+
+    return render(request, "games/cart_payment.html", {
+        "cart_items": cart_items,
+        "total": total,
+        "redeem_code": redeem_code,
+    })
+
+
+@login_required(login_url="/login/")
+def cart_complete_payment(request):
+    if request.method == "POST":
+        input_code = request.POST.get("redeem_code")
+        session_code = request.session.get("cart_redeem_code")
+
+        if input_code == session_code:
+            cart_items = Cart.objects.filter(user=request.user)
+
+            for item in cart_items:
+                Purchase.objects.get_or_create(
+                    user=request.user,
+                    game=item.game,
+                    defaults={
+                        "price": item.game.final_price()
+                    }
+                )
+
+            cart_items.delete()
+
+            if "cart_redeem_code" in request.session:
+                del request.session["cart_redeem_code"]
+
+            return redirect("/library/")
+
+    return redirect("/cart/")
+def checkout_cart(request):
+    cart_items = Cart.objects.filter(user=request.user)
+    total = sum(item.game.final_price() for item in cart_items)
+
+    return render(request, "games/checkout.html", {
+        "cart_items": cart_items,
+        "total": total,
+    })
 @login_required(login_url='/login/')
 def checkout_success(request):
     return render(request, 'games/checkout_success.html')

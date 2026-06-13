@@ -459,10 +459,10 @@ body{
             <p>After confirming payment, all games in your cart will be added to your personal library.</p>
         </div>
 
-        <form method="POST">
+        <form method="POST" action="{% url 'cart_payment' %}">
             {% csrf_token %}
             <button type="submit" class="confirm-btn">
-                Confirm Payment
+                Proceed to ABA / KHQR Payment
             </button>
         </form>
 
