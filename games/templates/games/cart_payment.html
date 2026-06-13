@@ -332,7 +332,8 @@ body{
     color:#beee11;
 }
 
-.purchase-btn{
+.purchase-btn,
+.confirm-btn{
     width:100%;
     height:60px;
     border:none;
@@ -346,7 +347,8 @@ body{
     box-shadow:0 14px 34px rgba(139,209,59,.25);
 }
 
-.purchase-btn:hover{
+.purchase-btn:hover,
+.confirm-btn:hover{
     transform:translateY(-4px);
     filter:brightness(1.08);
 }
@@ -357,6 +359,134 @@ body{
     font-size:13px;
     line-height:1.7;
     text-align:center;
+}
+
+/* REDEEM */
+.redeem-panel{
+    display:none;
+    margin-top:22px;
+    padding:24px;
+    border-radius:26px;
+    background:linear-gradient(135deg,rgba(102,192,244,.1),rgba(139,209,59,.08));
+    border:1px solid rgba(102,192,244,.25);
+}
+
+.redeem-title{
+    font-weight:900;
+    color:#c7d5e0;
+    margin-bottom:12px;
+    text-align:center;
+}
+
+.redeem-code{
+    padding:18px;
+    border-radius:18px;
+    background:#07111d;
+    border:1px solid rgba(139,209,59,.35);
+    color:#beee11;
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:4px;
+    text-align:center;
+    margin-bottom:14px;
+}
+
+.copy-btn{
+    width:100%;
+    height:48px;
+    border:none;
+    border-radius:16px;
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
+    color:white;
+    font-weight:900;
+    cursor:pointer;
+    margin-bottom:14px;
+}
+
+.redeem-input{
+    width:100%;
+    height:54px;
+    border-radius:16px;
+    border:1px solid rgba(102,192,244,.35);
+    background:#07111d;
+    color:white;
+    outline:none;
+    text-align:center;
+    font-weight:900;
+    margin-bottom:14px;
+    padding:0 16px;
+}
+
+/* POPUP */
+.popup-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    backdrop-filter:blur(10px);
+}
+
+.popup-box{
+    width:440px;
+    max-width:92%;
+    padding:36px;
+    border-radius:30px;
+    text-align:center;
+    background:linear-gradient(180deg,#111827,#07111d);
+    border:1px solid rgba(102,192,244,.25);
+    box-shadow:0 35px 90px rgba(0,0,0,.6);
+}
+
+.popup-icon{
+    width:82px;
+    height:82px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+}
+
+.popup-box h2{
+    font-size:32px;
+    margin-bottom:14px;
+    font-weight:900;
+}
+
+.popup-box p{
+    color:#c7d5e0;
+    line-height:1.8;
+    margin-bottom:26px;
+}
+
+.popup-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.popup-btn{
+    border:none;
+    padding:15px;
+    border-radius:16px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.cancel-popup{
+    background:#142237;
+    border:1px solid #2a475e;
+    color:#c7d5e0;
+}
+
+.confirm-popup{
+    background:linear-gradient(135deg,#8bc53f,#5d9122);
+    color:white;
 }
 
 @media(max-width:950px){
@@ -407,6 +537,10 @@ body{
         align-items:flex-start;
         gap:12px;
     }
+
+    .popup-actions{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
@@ -424,159 +558,228 @@ body{
         <a href="/" class="back-btn">← Back to Store</a>
     </div>
 
-    <form method="POST" action="/pay-success/">
-        {% csrf_token %}
-        <input type="hidden" name="game_id" value="{{ game.id }}">
+    <div class="checkout">
 
-        <div class="checkout">
+        <div class="panel">
 
-            <div class="panel">
-
-                <div class="hero">
-                    <div class="badge">Secure Digital Checkout</div>
-                    <h1>Review Purchase</h1>
-                    <p>Check your game details, select a payment method, and confirm your digital purchase.</p>
-                </div>
-
-                <div class="content">
-
-                    <div class="game-card">
-                        <div class="game-cover">
-                            {% if game.image %}
-                                <img src="{{ game.image.url }}" alt="{{ game.title }}">
-                            {% else %}
-                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game">
-                            {% endif %}
-                        </div>
-
-                        <div class="game-info">
-                            <h2>{{ game.title }}</h2>
-                            <div class="game-meta">
-                                {{ game.category }} • Digital Download • Full Game • Instant Access
-                            </div>
-
-                            <div class="price-row">
-                                {% if game.discount_percent > 0 %}
-                                    <span class="discount-badge">-{{ game.discount_percent }}%</span>
-                                    <span class="old-price">${{ game.original_price }}</span>
-                                {% endif %}
-
-                                <span class="final-price">
-                                    {% if game.final_price == 0 %}
-                                        FREE
-                                    {% else %}
-                                        ${{ game.final_price|floatformat:2 }}
-                                    {% endif %}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section-title">Payment Method</div>
-
-                    <div class="payment-list">
-
-                        <div>
-                            <input type="radio" id="aba" name="payment_method" value="ABA Pay" class="pay-radio" checked>
-                            <label for="aba" class="payment-option">
-                                <div class="payment-brand">
-                                    <img src="https://cdn.brandfetch.io/domain/ababank.com/fallback/lettermark/theme/dark/h/400/w/400/icon?c=1bfwsmEH20zzEfSNTed" alt="ABA">
-                                    <div>
-                                        <div class="payment-name">ABA PAY</div>
-                                        <div class="payment-desc">Fast mobile banking payment</div>
-                                    </div>
-                                </div>
-                                <div class="check-circle"></div>
-                            </label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="acleda" name="payment_method" value="ACLEDA" class="pay-radio">
-                            <label for="acleda" class="payment-option">
-                                <div class="payment-brand">
-                                    <img src="https://www.acledasecurities.com.kh/as/assets/listed_company/ABC/logo.png" alt="ACLEDA">
-                                    <div>
-                                        <div class="payment-name">ACLEDA</div>
-                                        <div class="payment-desc">Fast mobile banking payment</div>
-                                    </div>
-                                </div>
-                                <div class="check-circle"></div>
-                            </label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="khqr" name="payment_method" value="KHQR" class="pay-radio">
-                            <label for="khqr" class="payment-option">
-                                <div class="payment-brand">
-                                    <img src="https://play-lh.googleusercontent.com/Q27JPO0Plka8m3_-h2yw3Xu22Wedt3NJcxl1NPgMlaI6VRNcmSEPArvAcmnK1_TpmMBUlTsxjS1ycy0rRDFrmA" alt="KHQR">
-                                    <div>
-                                        <div class="payment-name">BAKONG KHQR</div>
-                                        <div class="payment-desc">Pay with any bank using Bakong QR</div>
-                                    </div>
-                                </div>
-                                <div class="check-circle"></div>
-                            </label>
-                        </div>
-
-                    </div>
-
-                </div>
-
+            <div class="hero">
+                <div class="badge">Secure Digital Checkout</div>
+                <h1>Review Purchase</h1>
+                <p>Check your game details, select a payment method, then use the redeem code to complete payment.</p>
             </div>
 
-            <div class="panel summary">
+            <div class="content">
 
-                <h2>Your Order</h2>
-
-                <div class="summary-box">
-                    <div class="summary-row">
-                        <span>Original Price</span>
-                        <span>${{ game.original_price }}</span>
-                    </div>
-
-                    {% if game.discount_percent > 0 %}
-                    <div class="summary-row">
-                        <span>Discount</span>
-                        <span>-{{ game.discount_percent }}%</span>
-                    </div>
-                    {% endif %}
-
-                    <div class="summary-row">
-                        <span>Tax</span>
-                        <span>$0.00</span>
-                    </div>
-
-                    <div class="summary-row">
-                        <span>Delivery</span>
-                        <span>Digital Library</span>
-                    </div>
-                </div>
-
-                <div class="total">
-                    <span>Total</span>
-                    <span>
-                        {% if game.final_price == 0 %}
-                            FREE
+                <div class="game-card">
+                    <div class="game-cover">
+                        {% if game.image %}
+                            <img src="{{ game.image.url }}" alt="{{ game.title }}">
                         {% else %}
-                            ${{ game.final_price|floatformat:2 }}
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game">
                         {% endif %}
-                    </span>
+                    </div>
+
+                    <div class="game-info">
+                        <h2>{{ game.title }}</h2>
+                        <div class="game-meta">
+                            {{ game.category }} • Digital Download • Full Game • Instant Access
+                        </div>
+
+                        <div class="price-row">
+                            {% if game.discount_percent > 0 %}
+                                <span class="discount-badge">-{{ game.discount_percent }}%</span>
+                                <span class="old-price">${{ game.original_price }}</span>
+                            {% endif %}
+
+                            <span class="final-price">
+                                {% if game.final_price == 0 %}
+                                    FREE
+                                {% else %}
+                                    ${{ game.final_price|floatformat:2 }}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <button type="submit" class="purchase-btn">
-                    Purchase Now
-                </button>
+                <div class="section-title">Payment Method</div>
 
-                <div class="secure-note">
-                    🔒 Secure purchase. Your game will be added to your purchase history after payment.
+                <div class="payment-list">
+
+                    <div>
+                        <input type="radio" id="aba" name="payment_method" value="ABA Pay" class="pay-radio" checked>
+                        <label for="aba" class="payment-option">
+                            <div class="payment-brand">
+                                <img src="https://cdn.brandfetch.io/domain/ababank.com/fallback/lettermark/theme/dark/h/400/w/400/icon?c=1bfwsmEH20zzEfSNTed" alt="ABA">
+                                <div>
+                                    <div class="payment-name">ABA PAY</div>
+                                    <div class="payment-desc">Fast mobile banking payment</div>
+                                </div>
+                            </div>
+                            <div class="check-circle"></div>
+                        </label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="acleda" name="payment_method" value="ACLEDA" class="pay-radio">
+                        <label for="acleda" class="payment-option">
+                            <div class="payment-brand">
+                                <img src="https://www.acledasecurities.com.kh/as/assets/listed_company/ABC/logo.png" alt="ACLEDA">
+                                <div>
+                                    <div class="payment-name">ACLEDA</div>
+                                    <div class="payment-desc">Fast mobile banking payment</div>
+                                </div>
+                            </div>
+                            <div class="check-circle"></div>
+                        </label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="khqr" name="payment_method" value="KHQR" class="pay-radio">
+                        <label for="khqr" class="payment-option">
+                            <div class="payment-brand">
+                                <img src="https://play-lh.googleusercontent.com/Q27JPO0Plka8m3_-h2yw3Xu22Wedt3NJcxl1NPgMlaI6VRNcmSEPArvAcmnK1_TpmMBUlTsxjS1ycy0rRDFrmA" alt="KHQR">
+                                <div>
+                                    <div class="payment-name">BAKONG KHQR</div>
+                                    <div class="payment-desc">Pay with any bank using Bakong QR</div>
+                                </div>
+                            </div>
+                            <div class="check-circle"></div>
+                        </label>
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
-    </form>
+
+        <div class="panel summary">
+
+            <h2>Your Order</h2>
+
+            <div class="summary-box">
+                <div class="summary-row">
+                    <span>Original Price</span>
+                    <span>${{ game.original_price }}</span>
+                </div>
+
+                {% if game.discount_percent > 0 %}
+                <div class="summary-row">
+                    <span>Discount</span>
+                    <span>-{{ game.discount_percent }}%</span>
+                </div>
+                {% endif %}
+
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span>$0.00</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Delivery</span>
+                    <span>Digital Library</span>
+                </div>
+            </div>
+
+            <div class="total">
+                <span>Total</span>
+                <span>
+                    {% if game.final_price == 0 %}
+                        FREE
+                    {% else %}
+                        ${{ game.final_price|floatformat:2 }}
+                    {% endif %}
+                </span>
+            </div>
+
+            <button type="button" class="purchase-btn" onclick="openPaymentPopup()">
+                Purchase Now
+            </button>
+
+            <div class="redeem-panel" id="redeemPanel">
+                <div class="redeem-title">Your Redeem Code</div>
+
+                <div class="redeem-code" id="redeemCode">
+                    {{ redeem_code }}
+                </div>
+
+                <button type="button" class="copy-btn" onclick="copyRedeemCode()">
+                    Copy Redeem Code
+                </button>
+
+                <form method="POST" action="{% url 'complete_payment' %}">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="game_id" value="{{ game.id }}">
+
+                    <input type="text"
+                           name="redeem_code"
+                           class="redeem-input"
+                           placeholder="Paste redeem code here"
+                           required>
+
+                    <button type="submit" class="confirm-btn">
+                        Complete Payment
+                    </button>
+                </form>
+            </div>
+
+            <div class="secure-note">
+                🔒 Secure purchase. Your game will be added to your library after redeem verification.
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
+
+<div class="popup-overlay" id="paymentPopup">
+    <div class="popup-box">
+        <div class="popup-icon">✓</div>
+
+        <h2>Confirm Payment</h2>
+
+        <p>
+            Did you finish payment using your selected payment method?
+            Confirm to show your redeem code.
+        </p>
+
+        <div class="popup-actions">
+            <button type="button" class="popup-btn cancel-popup" onclick="closePaymentPopup()">
+                Cancel
+            </button>
+
+            <button type="button" class="popup-btn confirm-popup" onclick="showRedeemPanel()">
+                Confirm
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function openPaymentPopup(){
+    document.getElementById("paymentPopup").style.display = "flex";
+}
+
+function closePaymentPopup(){
+    document.getElementById("paymentPopup").style.display = "none";
+}
+
+function showRedeemPanel(){
+    document.getElementById("paymentPopup").style.display = "none";
+    document.getElementById("redeemPanel").style.display = "block";
+}
+
+function copyRedeemCode(){
+    const code = document.getElementById("redeemCode").innerText.trim();
+
+    navigator.clipboard.writeText(code);
+
+    alert("Redeem code copied!");
+}
+</script>
 
 </body>
 </html>

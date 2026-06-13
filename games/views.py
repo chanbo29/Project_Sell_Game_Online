@@ -696,16 +696,13 @@ def cart_complete_payment(request):
                 Purchase.objects.get_or_create(
                     user=request.user,
                     game=item.game,
-                    defaults={
-                        "price": item.game.final_price()
-                    }
+                    defaults={"price": item.game.final_price()}
                 )
 
             cart_items.delete()
-
             request.session.pop("cart_redeem_code", None)
 
-            return redirect("checkout_success")
+            return redirect("library")
 
     return redirect("cart")
 @login_required(login_url="/login/")
