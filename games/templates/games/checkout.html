@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checkout - SellGame</title>
+<title>Checkout - SellGame Online</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -18,18 +19,25 @@
 body{
     min-height:100vh;
     background:
-    radial-gradient(circle at top left,rgba(102,192,244,.22),transparent 35%),
-    linear-gradient(135deg,#05080d,#0b141d 55%,#02040a);
+    radial-gradient(circle at 12% 8%,rgba(102,192,244,.22),transparent 30%),
+    radial-gradient(circle at 88% 18%,rgba(139,209,59,.15),transparent 30%),
+    linear-gradient(135deg,#03060b,#07111d 50%,#02040a);
     color:white;
-    padding:35px;
+    padding:34px;
 }
 
 .topbar{
-    max-width:1150px;
+    max-width:1250px;
     margin:0 auto 28px;
+    padding:18px 22px;
+    border-radius:24px;
+    background:rgba(9,17,29,.82);
+    border:1px solid rgba(102,192,244,.22);
     display:flex;
     justify-content:space-between;
     align-items:center;
+    backdrop-filter:blur(18px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
 
 .logo{
@@ -50,36 +58,54 @@ body{
     color:#c7d5e0;
     text-decoration:none;
     font-weight:900;
+    transition:.25s;
+}
+
+.back-btn:hover{
+    transform:translateY(-3px);
+    border-color:#66c0f4;
 }
 
 .checkout{
-    max-width:1150px;
+    max-width:1250px;
     margin:auto;
     display:grid;
-    grid-template-columns:1.2fr .8fr;
-    gap:26px;
+    grid-template-columns:1.25fr .75fr;
+    gap:28px;
 }
 
 .card{
-    background:linear-gradient(180deg,#111827,#07111d);
+    background:rgba(9,17,29,.86);
     border:1px solid rgba(102,192,244,.22);
-    border-radius:28px;
+    border-radius:30px;
     overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    box-shadow:0 30px 90px rgba(0,0,0,.45);
+    backdrop-filter:blur(18px);
 }
 
 .header{
-    padding:34px;
+    padding:36px;
     background:
     radial-gradient(circle at top right,rgba(102,192,244,.2),transparent 40%),
-    linear-gradient(135deg,#172437,#111827);
+    linear-gradient(135deg,#172437,#0b141d);
     border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.header h1{
-    font-size:42px;
+.badge{
+    display:inline-block;
+    padding:9px 15px;
+    border-radius:999px;
+    background:rgba(102,192,244,.12);
+    border:1px solid rgba(102,192,244,.35);
+    color:#8bd7ff;
     font-weight:900;
-    margin-bottom:10px;
+    margin-bottom:18px;
+}
+
+.header h1{
+    font-size:46px;
+    font-weight:900;
+    margin-bottom:12px;
 }
 
 .header p{
@@ -94,30 +120,58 @@ body{
 }
 
 .item{
-    display:flex;
-    justify-content:space-between;
+    display:grid;
+    grid-template-columns:70px 1fr auto;
     align-items:center;
     gap:18px;
     padding:18px;
+    border-radius:22px;
+    background:#07111d;
+    border:1px solid rgba(102,192,244,.16);
+    transition:.25s;
+}
+
+.item:hover{
+    transform:translateY(-4px);
+    border-color:#66c0f4;
+}
+
+.item-cover{
+    width:70px;
+    height:70px;
     border-radius:18px;
-    background:#0b1624;
-    border:1px solid rgba(102,192,244,.14);
+    overflow:hidden;
+    background:#142237;
+    border:1px solid #2a475e;
 }
 
-.item-left h3{
+.item-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.item-info h3{
     font-size:18px;
-    margin-bottom:6px;
+    margin-bottom:7px;
 }
 
-.item-left p{
+.item-info p{
     color:#8ea3b8;
     font-size:14px;
 }
 
 .price{
     color:#7CFF28;
-    font-size:20px;
+    font-size:21px;
     font-weight:900;
+    white-space:nowrap;
+}
+
+.empty{
+    padding:40px;
+    color:#9fb0c2;
+    text-align:center;
 }
 
 .summary{
@@ -128,23 +182,32 @@ body{
 }
 
 .summary h2{
-    font-size:28px;
+    font-size:30px;
     margin-bottom:20px;
 }
 
 .summary-row{
     display:flex;
     justify-content:space-between;
-    padding:15px 0;
+    padding:16px 0;
     border-bottom:1px solid rgba(255,255,255,.08);
     color:#c7d5e0;
     font-weight:800;
 }
 
+.summary-row span:last-child{
+    color:white;
+}
+
 .total{
     display:flex;
     justify-content:space-between;
-    margin:26px 0;
+    align-items:center;
+    margin:28px 0;
+    padding:22px;
+    border-radius:22px;
+    background:linear-gradient(135deg,rgba(139,209,59,.16),rgba(102,192,244,.08));
+    border:1px solid rgba(139,209,59,.25);
     font-size:30px;
     font-weight:900;
 }
@@ -154,8 +217,8 @@ body{
 }
 
 .pay-box{
-    padding:18px;
-    border-radius:18px;
+    padding:20px;
+    border-radius:22px;
     background:rgba(102,192,244,.08);
     border:1px solid rgba(102,192,244,.2);
     margin-bottom:22px;
@@ -173,21 +236,29 @@ body{
 
 .confirm-btn{
     width:100%;
-    height:58px;
+    height:60px;
     border:none;
-    border-radius:18px;
+    border-radius:20px;
     background:linear-gradient(135deg,#8bd13b,#5da51f);
     color:white;
     font-size:16px;
     font-weight:900;
     cursor:pointer;
     box-shadow:0 14px 34px rgba(139,209,59,.25);
+    transition:.25s;
 }
 
-.confirm-btn:hover,
-.back-btn:hover{
-    transform:translateY(-3px);
+.confirm-btn:hover{
+    transform:translateY(-4px);
     filter:brightness(1.08);
+}
+
+.safe-note{
+    margin-top:18px;
+    color:#8ea3b8;
+    font-size:13px;
+    line-height:1.6;
+    text-align:center;
 }
 
 @media(max-width:900px){
@@ -203,7 +274,7 @@ body{
 
 @media(max-width:600px){
     body{
-        padding:20px;
+        padding:18px;
     }
 
     .topbar{
@@ -213,12 +284,16 @@ body{
     }
 
     .header h1{
-        font-size:34px;
+        font-size:36px;
     }
 
     .item{
-        flex-direction:column;
-        align-items:flex-start;
+        grid-template-columns:1fr;
+    }
+
+    .item-cover{
+        width:100%;
+        height:180px;
     }
 }
 </style>
@@ -235,16 +310,26 @@ body{
 
     <div class="card">
         <div class="header">
-            <h1>Checkout</h1>
-            <p>Review all games in your cart before confirming payment.</p>
+            <div class="badge">Secure Checkout</div>
+            <h1>Complete Your Order</h1>
+            <p>Review your selected games before confirming payment and adding them to your library.</p>
         </div>
 
         <div class="items">
             {% for item in cart_items %}
             <div class="item">
-                <div class="item-left">
+
+                <div class="item-cover">
+                    {% if item.game.image %}
+                        <img src="{{ item.game.image.url }}" alt="{{ item.game.title }}">
+                    {% else %}
+                        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game">
+                    {% endif %}
+                </div>
+
+                <div class="item-info">
                     <h3>{{ item.game.title }}</h3>
-                    <p>{{ item.game.category }} • Digital Game</p>
+                    <p>{{ item.game.category }} • Digital PC Game</p>
                 </div>
 
                 <div class="price">
@@ -254,6 +339,11 @@ body{
                         ${{ item.game.final_price|floatformat:2 }}
                     {% endif %}
                 </div>
+
+            </div>
+            {% empty %}
+            <div class="empty">
+                Your cart is empty.
             </div>
             {% endfor %}
         </div>
@@ -277,14 +367,19 @@ body{
             <span>Ready</span>
         </div>
 
+        <div class="summary-row">
+            <span>Delivery</span>
+            <span>Digital Library</span>
+        </div>
+
         <div class="total">
             <span>Total</span>
             <span>${{ total|floatformat:2 }}</span>
         </div>
 
         <div class="pay-box">
-            <h3>Secure Payment</h3>
-            <p>Click confirm payment to add all cart games into your library.</p>
+            <h3>Protected Payment</h3>
+            <p>After confirming payment, all games in your cart will be added to your personal library.</p>
         </div>
 
         <form method="POST">
@@ -293,6 +388,10 @@ body{
                 Confirm Payment
             </button>
         </form>
+
+        <div class="safe-note">
+            🔒 Your checkout is protected. Digital games will be available instantly after payment.
+        </div>
     </div>
 
 </div>
