@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Playing {{ game.title }}</title>
+<title>Playing {{ game.title }} - SellGame Online</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -19,7 +19,7 @@
 
 body{
     min-height:100vh;
-    background:#05080d;
+    background:#03060b;
     color:white;
     overflow-x:hidden;
 }
@@ -35,7 +35,7 @@ body{
     width:100%;
     height:100%;
     object-fit:cover;
-    filter:blur(26px) brightness(.26);
+    filter:blur(30px) brightness(.25);
     transform:scale(1.15);
 }
 
@@ -44,9 +44,9 @@ body{
     position:absolute;
     inset:0;
     background:
-    radial-gradient(circle at 18% 18%,rgba(102,192,244,.28),transparent 34%),
-    radial-gradient(circle at 85% 20%,rgba(139,197,63,.18),transparent 34%),
-    linear-gradient(180deg,rgba(6,18,29,.82),#05080d 88%);
+    radial-gradient(circle at 15% 10%,rgba(102,192,244,.28),transparent 30%),
+    radial-gradient(circle at 85% 20%,rgba(139,197,63,.16),transparent 30%),
+    linear-gradient(180deg,rgba(3,6,11,.78),#03060b 88%);
 }
 
 /* PARTICLES */
@@ -60,8 +60,8 @@ body{
 
 .particles span{
     position:absolute;
-    width:6px;
-    height:6px;
+    width:7px;
+    height:7px;
     border-radius:50%;
     background:#66c0f4;
     opacity:.35;
@@ -86,19 +86,22 @@ body{
     }
 }
 
-/* NAVBAR */
+/* TOPBAR */
 .topbar{
-    width:100%;
-    height:84px;
-    padding:0 38px;
+    max-width:1320px;
+    min-height:84px;
+    margin:24px auto 0;
+    padding:14px 24px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(5,11,18,.72);
-    border-bottom:1px solid rgba(102,192,244,.18);
+    background:rgba(9,17,29,.82);
+    border:1px solid rgba(102,192,244,.22);
+    border-radius:26px;
     backdrop-filter:blur(18px);
+    box-shadow:0 20px 60px rgba(0,0,0,.38);
     position:sticky;
-    top:0;
+    top:20px;
     z-index:10;
 }
 
@@ -113,11 +116,11 @@ body{
 }
 
 .brand-logo img{
-    width:70px;
-    height:70px;
+    width:64px;
+    height:64px;
     object-fit:cover;
-    border-radius:12px;
-    transition:0.3s;
+    border-radius:14px;
+    transition:.3s;
 }
 
 .brand-logo span{
@@ -125,51 +128,48 @@ body{
 }
 
 .brand-logo:hover img{
-    transform:scale(1.1) rotate(-5deg);
+    transform:scale(1.08) rotate(-5deg);
 }
 
-.brand-logo:hover{
-    color:#8bd7ff;
-}
 .nav-actions{
     display:flex;
     gap:12px;
 }
 
 .nav-btn{
-    padding:12px 18px;
+    padding:13px 18px;
     border-radius:15px;
     text-decoration:none;
     font-weight:900;
     color:#c7d5e0;
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.12);
+    background:#142237;
+    border:1px solid #2a475e;
     transition:.25s;
 }
 
 .nav-btn:hover{
     color:white;
     border-color:#66c0f4;
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 }
 
 /* PAGE */
 .page{
-    min-height:calc(100vh - 84px);
-    padding:50px 28px;
+    min-height:calc(100vh - 108px);
+    padding:34px 24px 42px;
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
 .launch-card{
-    width:1240px;
+    width:1320px;
     max-width:100%;
     display:grid;
-    grid-template-columns:.95fr 1.05fr;
+    grid-template-columns:1fr 1.05fr;
     overflow:hidden;
     border-radius:38px;
-    background:rgba(7,16,26,.84);
+    background:rgba(9,17,29,.88);
     border:1px solid rgba(102,192,244,.24);
     box-shadow:0 45px 120px rgba(0,0,0,.68);
     backdrop-filter:blur(24px);
@@ -177,10 +177,10 @@ body{
 
 /* POSTER */
 .poster{
-    min-height:650px;
+    min-height:660px;
     position:relative;
     overflow:hidden;
-    background:#111827;
+    background:#07111d;
 }
 
 .poster img{
@@ -191,7 +191,7 @@ body{
 }
 
 .launch-card:hover .poster img{
-    transform:scale(1.07);
+    transform:scale(1.06);
 }
 
 .poster::after{
@@ -199,15 +199,15 @@ body{
     position:absolute;
     inset:0;
     background:
-    linear-gradient(to top,rgba(5,8,13,.94),transparent 55%),
-    linear-gradient(to right,transparent,rgba(7,16,26,.32));
+    linear-gradient(to top,rgba(3,6,11,.98),transparent 58%),
+    linear-gradient(to right,transparent,rgba(9,17,29,.36));
 }
 
 .poster-content{
     position:absolute;
-    left:30px;
-    right:30px;
-    bottom:30px;
+    left:34px;
+    right:34px;
+    bottom:34px;
     z-index:2;
 }
 
@@ -236,15 +236,15 @@ body{
 }
 
 .poster-title{
-    font-size:36px;
-    line-height:1.1;
+    font-size:42px;
+    line-height:1.05;
     font-weight:900;
 }
 
 .poster-sub{
     margin-top:10px;
     color:#b9c8d8;
-    line-height:1.6;
+    line-height:1.7;
 }
 
 /* CONTENT */
@@ -272,9 +272,9 @@ body{
 .game-title{
     font-size:58px;
     font-weight:900;
-    line-height:1;
+    line-height:.95;
     letter-spacing:-2px;
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 
 .game-title span{
@@ -283,24 +283,30 @@ body{
 
 .game-desc{
     color:#c7d5e0;
-    line-height:1.8;
+    line-height:1.85;
     font-size:16px;
     margin-bottom:28px;
 }
 
-/* INFO GRID */
+/* INFO */
 .info-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:14px;
-    margin-bottom:24px;
+    margin-bottom:26px;
 }
 
 .info-card{
     padding:18px;
-    border-radius:18px;
+    border-radius:20px;
     background:rgba(255,255,255,.06);
     border:1px solid rgba(255,255,255,.1);
+    transition:.25s;
+}
+
+.info-card:hover{
+    transform:translateY(-4px);
+    border-color:#66c0f4;
 }
 
 .info-card small{
@@ -317,8 +323,8 @@ body{
 
 /* LOADER */
 .status-card{
-    padding:24px;
-    border-radius:24px;
+    padding:26px;
+    border-radius:26px;
     background:rgba(27,40,56,.78);
     border:1px solid rgba(102,192,244,.22);
     margin-bottom:24px;
@@ -340,11 +346,11 @@ body{
 .percent{
     color:#9cff45;
     font-weight:900;
-    font-size:20px;
+    font-size:22px;
 }
 
 .loader{
-    height:18px;
+    height:20px;
     background:#070d14;
     border-radius:999px;
     overflow:hidden;
@@ -355,32 +361,22 @@ body{
     width:0%;
     height:100%;
     border-radius:999px;
-    background:
-    linear-gradient(
-        90deg,
-        #ff0000,
-        #ff9900,
-        #ffee00,
-        #00ff55,
-        #00c8ff,
-        #8a2be2,
-        #ff0000
-    );
-    background-size:400% 100%;
-    animation:rainbow 3s linear infinite;
+    background:linear-gradient(90deg,#66c0f4,#8bd13b,#beee11,#66c0f4);
+    background-size:300% 100%;
+    animation:moveGradient 2.5s linear infinite;
     transition:.25s;
 }
 
-@keyframes rainbow{
+@keyframes moveGradient{
     from{background-position:0 0;}
-    to{background-position:400% 0;}
+    to{background-position:300% 0;}
 }
 
 .loader::after{
     content:"";
     position:absolute;
     inset:0;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);
     animation:shine 1.4s infinite;
 }
 
@@ -395,11 +391,11 @@ body{
     font-size:.95rem;
 }
 
-/* READY BOX */
+/* READY */
 .action-box{
     display:none;
-    padding:26px;
-    border-radius:24px;
+    padding:28px;
+    border-radius:26px;
     background:linear-gradient(135deg,rgba(139,197,63,.14),rgba(102,192,244,.08));
     border:1px solid rgba(139,197,63,.35);
     text-align:center;
@@ -418,14 +414,14 @@ body{
 }
 
 .ready-title{
-    font-size:28px;
+    font-size:30px;
     font-weight:900;
     margin-bottom:8px;
 }
 
 .ready-text{
     color:#c7d5e0;
-    line-height:1.6;
+    line-height:1.7;
 }
 
 .play-btn{
@@ -434,40 +430,33 @@ body{
     justify-content:center;
     gap:10px;
     margin-top:22px;
-    padding:18px 40px;
-    border-radius:18px;
-    background:linear-gradient(135deg,#8bc53f,#5fa31f);
+    padding:18px 42px;
+    border-radius:19px;
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
     color:white;
     text-decoration:none;
     font-weight:900;
     font-size:18px;
-    position:relative;
-    overflow:hidden;
     animation:pulse 2s infinite;
+    transition:.25s;
 }
 
 .play-btn:hover{
-    transform:translateY(-3px);
-    filter:brightness(1.1);
+    transform:translateY(-4px);
+    filter:brightness(1.08);
 }
 
 @keyframes pulse{
-    0%{
-        box-shadow:0 0 0 rgba(139,197,63,.5);
-    }
-    50%{
-        box-shadow:0 0 34px rgba(139,197,63,.85);
-    }
-    100%{
-        box-shadow:0 0 0 rgba(139,197,63,.5);
-    }
+    0%{box-shadow:0 0 0 rgba(139,197,63,.5);}
+    50%{box-shadow:0 0 34px rgba(139,197,63,.85);}
+    100%{box-shadow:0 0 0 rgba(139,197,63,.5);}
 }
 
 /* ACHIEVEMENT */
 .achievement-box{
     margin-top:26px;
-    padding:24px;
-    border-radius:24px;
+    padding:26px;
+    border-radius:26px;
     background:rgba(255,255,255,.05);
     border:1px solid rgba(255,255,255,.08);
 }
@@ -485,7 +474,7 @@ body{
 
 .achievement{
     padding:16px;
-    border-radius:14px;
+    border-radius:15px;
     background:#111827;
     border:1px solid #223548;
     font-weight:800;
@@ -494,12 +483,23 @@ body{
 
 /* RESPONSIVE */
 @media(max-width:1000px){
+    body{
+        padding:0 18px;
+    }
+
+    .topbar{
+        height:auto;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:16px;
+    }
+
     .launch-card{
         grid-template-columns:1fr;
     }
 
     .poster{
-        min-height:390px;
+        min-height:420px;
     }
 
     .content{
@@ -516,21 +516,22 @@ body{
 }
 
 @media(max-width:540px){
-    .topbar{
-        padding:0 18px;
-    }
-
-    .logo{
+    .brand-logo{
         font-size:24px;
     }
 
+    .brand-logo img{
+        width:56px;
+        height:56px;
+    }
+
     .nav-btn{
-        padding:10px 14px;
+        padding:11px 14px;
         font-size:14px;
     }
 
     .page{
-        padding:25px 14px;
+        padding:25px 0;
     }
 
     .game-title{
@@ -538,7 +539,7 @@ body{
     }
 
     .poster-title{
-        font-size:26px;
+        font-size:28px;
     }
 
     .info-grid,
@@ -571,9 +572,8 @@ body{
 <div class="topbar">
     <a href="/" class="brand-logo">
         <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
-        <div class="brand-text">
-            SELL<span>GAME</span>ONLINE
-        </div>
+        SELL<span>GAME</span>ONLINE
+    </a>
 
     <div class="nav-actions">
         <a href="/library/" class="nav-btn">← Library</a>
@@ -597,7 +597,7 @@ body{
                 </div>
 
                 <div class="game-category">
-                    🎮 {{ game.game_type }}
+                    🎮 {{ game.category }}
                 </div>
 
                 <div class="poster-title">
@@ -627,7 +627,7 @@ body{
             <div class="info-grid">
                 <div class="info-card">
                     <small>Category</small>
-                    <strong>{{ game.game_type }}</strong>
+                    <strong>{{ game.category }}</strong>
                 </div>
 
                 <div class="info-card">
