@@ -20,8 +20,8 @@
 body{
     min-height:100vh;
     background:
-    radial-gradient(circle at 15% 10%,rgba(102,192,244,.28),transparent 28%),
-    radial-gradient(circle at 85% 20%,rgba(139,209,59,.2),transparent 30%),
+    radial-gradient(circle at 12% 8%,rgba(102,192,244,.26),transparent 30%),
+    radial-gradient(circle at 88% 18%,rgba(139,209,59,.18),transparent 30%),
     linear-gradient(135deg,#03060b,#07111d 55%,#02040a);
     color:white;
     display:flex;
@@ -32,10 +32,10 @@ body{
 
 .wrapper{
     width:100%;
-    max-width:980px;
+    max-width:1040px;
     display:grid;
-    grid-template-columns:.9fr 1.1fr;
-    border-radius:36px;
+    grid-template-columns:.95fr 1.05fr;
+    border-radius:38px;
     overflow:hidden;
     background:rgba(9,17,29,.88);
     border:1px solid rgba(102,192,244,.25);
@@ -45,7 +45,7 @@ body{
 
 .visual{
     position:relative;
-    min-height:620px;
+    min-height:640px;
     background:
     linear-gradient(to top,rgba(5,8,13,.95),rgba(5,8,13,.25)),
     url("https://images.pexels.com/photos/7915437/pexels-photo-7915437.jpeg?auto=compress&cs=tinysrgb&w=1000");
@@ -65,14 +65,15 @@ body{
     color:#66c0f4;
     font-size:30px;
     font-weight:900;
+    width:max-content;
 }
 
 .brand-logo img{
-    width:70px;
-    height:70px;
+    width:66px;
+    height:66px;
     object-fit:cover;
-    border-radius:12px;
-    transition:0.3s;
+    border-radius:14px;
+    transition:.3s;
 }
 
 .brand-logo span{
@@ -80,45 +81,42 @@ body{
 }
 
 .brand-logo:hover img{
-    transform:scale(1.1) rotate(-5deg);
+    transform:scale(1.08) rotate(-5deg);
 }
 
-.brand-logo:hover{
-    color:#8bd7ff;
-}
 .visual-card{
-    padding:24px;
-    border-radius:26px;
-    background:rgba(6,13,22,.76);
+    padding:26px;
+    border-radius:28px;
+    background:rgba(6,13,22,.78);
     border:1px solid rgba(102,192,244,.28);
     backdrop-filter:blur(16px);
 }
 
 .visual-card h3{
-    font-size:24px;
+    font-size:25px;
     margin-bottom:10px;
 }
 
 .visual-card p{
     color:#b7c6d4;
-    line-height:1.7;
+    line-height:1.75;
 }
 
 .success{
-    padding:52px;
+    padding:56px;
     display:flex;
     flex-direction:column;
     justify-content:center;
 }
 
 .success-icon{
-    width:118px;
-    height:118px;
+    width:120px;
+    height:120px;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:58px;
+    font-size:60px;
     background:linear-gradient(135deg,#8bd13b,#5da51f);
     box-shadow:
     0 0 0 12px rgba(139,209,59,.08),
@@ -138,8 +136,8 @@ body{
 }
 
 h1{
-    font-size:52px;
-    line-height:1;
+    font-size:54px;
+    line-height:.98;
     font-weight:900;
     margin-bottom:18px;
 }
@@ -147,7 +145,7 @@ h1{
 .subtitle{
     color:#c7d5e0;
     font-size:17px;
-    line-height:1.8;
+    line-height:1.85;
     margin-bottom:30px;
 }
 
@@ -185,7 +183,7 @@ h1{
 
 .order-box{
     padding:20px;
-    border-radius:22px;
+    border-radius:24px;
     background:linear-gradient(135deg,rgba(102,192,244,.1),rgba(139,209,59,.08));
     border:1px solid rgba(102,192,244,.2);
     margin-bottom:28px;
@@ -194,7 +192,7 @@ h1{
 .order-row{
     display:flex;
     justify-content:space-between;
-    padding:10px 0;
+    padding:11px 0;
     color:#c7d5e0;
     font-weight:800;
     border-bottom:1px solid rgba(255,255,255,.08);
@@ -215,8 +213,8 @@ h1{
 }
 
 .btn{
-    height:58px;
-    border-radius:18px;
+    height:60px;
+    border-radius:19px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -256,7 +254,7 @@ h1{
     }
 
     .visual{
-        min-height:300px;
+        min-height:320px;
     }
 }
 
@@ -267,6 +265,15 @@ h1{
 
     .success{
         padding:34px 24px;
+    }
+
+    .brand-logo{
+        font-size:24px;
+    }
+
+    .brand-logo img{
+        width:56px;
+        height:56px;
     }
 
     h1{
@@ -287,10 +294,9 @@ h1{
 
     <div class="visual">
         <a href="/" class="brand-logo">
-        <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
-        <div class="brand-text">
+            <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
             SELL<span>GAME</span>ONLINE
-        </div>
+        </a>
 
         <div class="visual-card">
             <h3>Your games are ready</h3>

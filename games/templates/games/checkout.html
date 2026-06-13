@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Checkout - SellGame Online</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,8 +20,8 @@
 body{
     min-height:100vh;
     background:
-    radial-gradient(circle at 12% 8%,rgba(102,192,244,.22),transparent 30%),
-    radial-gradient(circle at 88% 18%,rgba(139,209,59,.15),transparent 30%),
+    radial-gradient(circle at 12% 8%,rgba(102,192,244,.24),transparent 30%),
+    radial-gradient(circle at 88% 18%,rgba(139,209,59,.16),transparent 30%),
     linear-gradient(135deg,#03060b,#07111d 50%,#02040a);
     color:white;
     padding:34px;
@@ -29,9 +30,9 @@ body{
 .topbar{
     max-width:1250px;
     margin:0 auto 28px;
-    padding:18px 22px;
-    border-radius:24px;
-    background:rgba(9,17,29,.82);
+    padding:16px 22px;
+    border-radius:26px;
+    background:rgba(9,17,29,.84);
     border:1px solid rgba(102,192,244,.22);
     display:flex;
     justify-content:space-between;
@@ -51,11 +52,11 @@ body{
 }
 
 .brand-logo img{
-    width:70px;
-    height:70px;
+    width:64px;
+    height:64px;
     object-fit:cover;
-    border-radius:12px;
-    transition:0.3s;
+    border-radius:14px;
+    transition:.3s;
 }
 
 .brand-logo span{
@@ -63,12 +64,9 @@ body{
 }
 
 .brand-logo:hover img{
-    transform:scale(1.1) rotate(-5deg);
+    transform:scale(1.08) rotate(-5deg);
 }
 
-.brand-logo:hover{
-    color:#8bd7ff;
-}
 .back-btn{
     padding:14px 22px;
     border-radius:16px;
@@ -89,30 +87,30 @@ body{
     max-width:1250px;
     margin:auto;
     display:grid;
-    grid-template-columns:1.25fr .75fr;
+    grid-template-columns:1.2fr .8fr;
     gap:28px;
 }
 
 .card{
     background:rgba(9,17,29,.86);
     border:1px solid rgba(102,192,244,.22);
-    border-radius:30px;
+    border-radius:32px;
     overflow:hidden;
     box-shadow:0 30px 90px rgba(0,0,0,.45);
     backdrop-filter:blur(18px);
 }
 
 .header{
-    padding:36px;
+    padding:38px;
     background:
-    radial-gradient(circle at top right,rgba(102,192,244,.2),transparent 40%),
+    radial-gradient(circle at top right,rgba(102,192,244,.22),transparent 40%),
     linear-gradient(135deg,#172437,#0b141d);
     border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .badge{
     display:inline-block;
-    padding:9px 15px;
+    padding:10px 16px;
     border-radius:999px;
     background:rgba(102,192,244,.12);
     border:1px solid rgba(102,192,244,.35);
@@ -140,11 +138,11 @@ body{
 
 .item{
     display:grid;
-    grid-template-columns:70px 1fr auto;
+    grid-template-columns:76px 1fr auto;
     align-items:center;
     gap:18px;
     padding:18px;
-    border-radius:22px;
+    border-radius:24px;
     background:#07111d;
     border:1px solid rgba(102,192,244,.16);
     transition:.25s;
@@ -156,8 +154,8 @@ body{
 }
 
 .item-cover{
-    width:70px;
-    height:70px;
+    width:76px;
+    height:76px;
     border-radius:18px;
     overflow:hidden;
     background:#142237;
@@ -203,6 +201,44 @@ body{
 .summary h2{
     font-size:30px;
     margin-bottom:20px;
+}
+
+.aba-box{
+    padding:20px;
+    border-radius:24px;
+    background:
+    linear-gradient(135deg,rgba(102,192,244,.12),rgba(139,209,59,.08));
+    border:1px solid rgba(102,192,244,.25);
+    margin-bottom:22px;
+    text-align:center;
+}
+
+.aba-box h3{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.aba-box p{
+    color:#9fb0c2;
+    line-height:1.6;
+    font-size:14px;
+    margin-bottom:16px;
+}
+
+.aba-qr{
+    width:100%;
+    max-width:240px;
+    margin:auto;
+    padding:12px;
+    border-radius:22px;
+    background:white;
+    box-shadow:0 20px 55px rgba(0,0,0,.4);
+}
+
+.aba-qr img{
+    width:100%;
+    display:block;
+    border-radius:16px;
 }
 
 .summary-row{
@@ -302,6 +338,15 @@ body{
         gap:16px;
     }
 
+    .brand-logo{
+        font-size:24px;
+    }
+
+    .brand-logo img{
+        width:56px;
+        height:56px;
+    }
+
     .header h1{
         font-size:36px;
     }
@@ -323,9 +368,9 @@ body{
 <div class="topbar">
     <a href="/" class="brand-logo">
         <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
-        <div class="brand-text">
-            SELL<span>GAME</span>ONLINE
-        </div>
+        SELL<span>GAME</span>ONLINE
+    </a>
+
     <a href="/cart/" class="back-btn">← Back to Cart</a>
 </div>
 
@@ -374,6 +419,15 @@ body{
 
     <div class="card summary">
         <h2>Order Summary</h2>
+
+        <div class="aba-box">
+            <h3>ABA / KHQR Payment</h3>
+            <p>Scan this KHQR with ABA Mobile or any Bakong-supported bank app.</p>
+
+            <div class="aba-qr">
+                <img src="{% static 'images/photo_2026-05-23_01-54-56.jpg' %}" alt="ABA KHQR">
+            </div>
+        </div>
 
         <div class="summary-row">
             <span>Total Items</span>
