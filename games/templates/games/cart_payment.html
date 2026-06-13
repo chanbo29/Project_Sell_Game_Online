@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Checkout - SellGame Online</title>
+<title>Cart Payment - SellGame Online</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -43,7 +43,6 @@ body{
     justify-content:space-between;
     align-items:center;
     gap:18px;
-    backdrop-filter:blur(18px);
     box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
 
@@ -62,15 +61,10 @@ body{
     height:64px;
     object-fit:cover;
     border-radius:14px;
-    transition:.3s;
 }
 
 .brand-logo span{
     color:white;
-}
-
-.brand-logo:hover img{
-    transform:scale(1.08) rotate(-5deg);
 }
 
 .back-btn{
@@ -81,13 +75,6 @@ body{
     border-radius:16px;
     background:#142237;
     border:1px solid #2a475e;
-    transition:.25s;
-    white-space:nowrap;
-}
-
-.back-btn:hover{
-    transform:translateY(-3px);
-    border-color:#66c0f4;
 }
 
 .checkout{
@@ -102,14 +89,11 @@ body{
     border-radius:34px;
     overflow:hidden;
     box-shadow:0 35px 100px rgba(0,0,0,.5);
-    backdrop-filter:blur(18px);
 }
 
 .hero{
     padding:38px;
-    background:
-    radial-gradient(circle at top right,rgba(102,192,244,.2),transparent 42%),
-    linear-gradient(135deg,#172437,#0b141d);
+    background:linear-gradient(135deg,#172437,#0b141d);
     border-bottom:1px solid rgba(255,255,255,.08);
 }
 
@@ -137,22 +121,25 @@ body{
 
 .content{
     padding:30px;
+    display:grid;
+    gap:18px;
 }
 
 .game-card{
     display:grid;
-    grid-template-columns:260px 1fr;
-    gap:24px;
-    padding:20px;
-    border-radius:26px;
+    grid-template-columns:130px 1fr auto;
+    gap:18px;
+    align-items:center;
+    padding:18px;
+    border-radius:24px;
     background:#07111d;
     border:1px solid rgba(102,192,244,.16);
-    margin-bottom:30px;
 }
 
 .game-cover{
-    height:165px;
-    border-radius:22px;
+    width:130px;
+    height:85px;
+    border-radius:18px;
     overflow:hidden;
     background:#142237;
     border:1px solid #2a475e;
@@ -165,116 +152,42 @@ body{
 }
 
 .game-info h2{
-    font-size:26px;
-    margin-bottom:10px;
+    font-size:20px;
+    margin-bottom:8px;
 }
 
 .game-meta{
     color:#8ea3b8;
-    line-height:1.7;
-    margin-bottom:18px;
+    font-size:14px;
+    line-height:1.6;
 }
 
-.price-row{
-    display:flex;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:12px;
+.price-box{
+    text-align:right;
 }
 
 .discount-badge{
-    padding:8px 12px;
+    display:inline-block;
+    padding:7px 10px;
     border-radius:10px;
     color:#beee11;
     font-weight:900;
     background:#4c6b22;
+    margin-bottom:8px;
 }
 
 .old-price{
     color:#7b8794;
     text-decoration:line-through;
     font-weight:800;
+    display:block;
+    margin-bottom:4px;
 }
 
 .final-price{
     color:#beee11;
-    font-size:30px;
-    font-weight:900;
-}
-
-.section-title{
     font-size:22px;
     font-weight:900;
-    margin-bottom:18px;
-}
-
-.payment-list{
-    display:grid;
-    gap:16px;
-}
-
-.pay-radio{
-    display:none;
-}
-
-.payment-option{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px;
-    border-radius:22px;
-    background:#07111d;
-    border:1px solid rgba(102,192,244,.16);
-    cursor:pointer;
-    transition:.25s;
-}
-
-.payment-option:hover,
-.pay-radio:checked + .payment-option{
-    border-color:#66c0f4;
-    background:#12243a;
-    box-shadow:0 0 28px rgba(102,192,244,.18);
-    transform:translateY(-3px);
-}
-
-.payment-brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.payment-brand img{
-    width:58px;
-    height:58px;
-    object-fit:contain;
-    background:white;
-    padding:7px;
-    border-radius:16px;
-}
-
-.payment-name{
-    color:white;
-    font-size:17px;
-    font-weight:900;
-    margin-bottom:5px;
-}
-
-.payment-desc{
-    color:#8ea3b8;
-    font-size:14px;
-    line-height:1.5;
-}
-
-.check-circle{
-    width:24px;
-    height:24px;
-    border-radius:50%;
-    border:2px solid #66c0f4;
-}
-
-.pay-radio:checked + .payment-option .check-circle{
-    background:#66c0f4;
-    box-shadow:0 0 15px rgba(102,192,244,.7);
 }
 
 .summary{
@@ -288,6 +201,41 @@ body{
     font-size:32px;
     font-weight:900;
     margin-bottom:24px;
+}
+
+.qr-box{
+    padding:22px;
+    border-radius:26px;
+    background:linear-gradient(135deg,rgba(102,192,244,.1),rgba(139,209,59,.08));
+    border:1px solid rgba(102,192,244,.25);
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.qr-box h3{
+    font-size:21px;
+    margin-bottom:8px;
+}
+
+.qr-box p{
+    color:#9fb0c2;
+    font-size:14px;
+    line-height:1.6;
+    margin-bottom:16px;
+}
+
+.qr-image{
+    max-width:230px;
+    margin:auto;
+    padding:12px;
+    background:white;
+    border-radius:22px;
+}
+
+.qr-image img{
+    width:100%;
+    border-radius:14px;
+    display:block;
 }
 
 .summary-box{
@@ -316,7 +264,7 @@ body{
 }
 
 .total{
-    margin-top:20px;
+    margin-bottom:22px;
     padding:22px;
     border-radius:22px;
     display:flex;
@@ -343,25 +291,8 @@ body{
     font-size:16px;
     font-weight:900;
     cursor:pointer;
-    transition:.25s;
-    box-shadow:0 14px 34px rgba(139,209,59,.25);
 }
 
-.purchase-btn:hover,
-.confirm-btn:hover{
-    transform:translateY(-4px);
-    filter:brightness(1.08);
-}
-
-.secure-note{
-    margin-top:18px;
-    color:#8ea3b8;
-    font-size:13px;
-    line-height:1.7;
-    text-align:center;
-}
-
-/* REDEEM */
 .redeem-panel{
     display:none;
     margin-top:22px;
@@ -417,7 +348,14 @@ body{
     padding:0 16px;
 }
 
-/* POPUP */
+.secure-note{
+    margin-top:18px;
+    color:#8ea3b8;
+    font-size:13px;
+    line-height:1.7;
+    text-align:center;
+}
+
 .popup-overlay{
     position:fixed;
     inset:0;
@@ -426,7 +364,6 @@ body{
     align-items:center;
     justify-content:center;
     z-index:9999;
-    backdrop-filter:blur(10px);
 }
 
 .popup-box{
@@ -437,7 +374,6 @@ body{
     text-align:center;
     background:linear-gradient(180deg,#111827,#07111d);
     border:1px solid rgba(102,192,244,.25);
-    box-shadow:0 35px 90px rgba(0,0,0,.6);
 }
 
 .popup-icon{
@@ -455,7 +391,6 @@ body{
 .popup-box h2{
     font-size:32px;
     margin-bottom:14px;
-    font-weight:900;
 }
 
 .popup-box p{
@@ -506,23 +441,8 @@ body{
     }
 
     .topbar{
-        height:auto;
-        padding:20px;
         flex-direction:column;
         align-items:flex-start;
-    }
-
-    .brand-logo{
-        font-size:24px;
-    }
-
-    .brand-logo img{
-        width:56px;
-        height:56px;
-    }
-
-    .hero h1{
-        font-size:36px;
     }
 
     .game-card{
@@ -530,16 +450,12 @@ body{
     }
 
     .game-cover{
-        height:220px;
+        width:100%;
+        height:190px;
     }
 
-    .payment-option{
-        align-items:flex-start;
-        gap:12px;
-    }
-
-    .popup-actions{
-        grid-template-columns:1fr;
+    .price-box{
+        text-align:left;
     }
 }
 </style>
@@ -555,121 +471,83 @@ body{
             SELL<span>GAME</span>ONLINE
         </a>
 
-        <a href="/" class="back-btn">← Back to Store</a>
+        <a href="/checkout/" class="back-btn">← Back to Checkout</a>
     </div>
 
     <div class="checkout">
 
         <div class="panel">
-
             <div class="hero">
-                <div class="badge">Secure Digital Checkout</div>
-                <h1>Review Purchase</h1>
-                <p>Check your game details, select a payment method, then use the redeem code to complete payment.</p>
+                <div class="badge">Cart Payment</div>
+                <h1>Complete Cart Payment</h1>
+                <p>Review all games in your cart, scan KHQR, then use the redeem code to complete payment.</p>
             </div>
 
             <div class="content">
-
+                {% for item in cart_items %}
                 <div class="game-card">
                     <div class="game-cover">
-                        {% if game.image %}
-                            <img src="{{ game.image.url }}" alt="{{ game.title }}">
+                        {% if item.game.image %}
+                            <img src="{{ item.game.image.url }}" alt="{{ item.game.title }}">
                         {% else %}
                             <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game">
                         {% endif %}
                     </div>
 
                     <div class="game-info">
-                        <h2>{{ game.title }}</h2>
+                        <h2>{{ item.game.title }}</h2>
                         <div class="game-meta">
-                            {{ game.category }} • Digital Download • Full Game • Instant Access
+                            {{ item.game.category }} • Digital PC Game • Instant Library Access
                         </div>
+                    </div>
 
-                        <div class="price-row">
-                            {% if game.discount_percent > 0 %}
-                                <span class="discount-badge">-{{ game.discount_percent }}%</span>
-                                <span class="old-price">${{ game.original_price }}</span>
+                    <div class="price-box">
+                        {% if item.game.discount_percent > 0 %}
+                            <span class="discount-badge">-{{ item.game.discount_percent }}%</span>
+                            <span class="old-price">${{ item.game.original_price }}</span>
+                        {% endif %}
+
+                        <div class="final-price">
+                            {% if item.game.final_price == 0 %}
+                                FREE
+                            {% else %}
+                                ${{ item.game.final_price|floatformat:2 }}
                             {% endif %}
-
-                            <span class="final-price">
-                                {% if game.final_price == 0 %}
-                                    FREE
-                                {% else %}
-                                    ${{ game.final_price|floatformat:2 }}
-                                {% endif %}
-                            </span>
                         </div>
                     </div>
                 </div>
-
-                <div class="section-title">Payment Method</div>
-
-                <div class="payment-list">
-
-                    <div>
-                        <input type="radio" id="aba" name="payment_method" value="ABA Pay" class="pay-radio" checked>
-                        <label for="aba" class="payment-option">
-                            <div class="payment-brand">
-                                <img src="https://cdn.brandfetch.io/domain/ababank.com/fallback/lettermark/theme/dark/h/400/w/400/icon?c=1bfwsmEH20zzEfSNTed" alt="ABA">
-                                <div>
-                                    <div class="payment-name">ABA PAY</div>
-                                    <div class="payment-desc">Fast mobile banking payment</div>
-                                </div>
-                            </div>
-                            <div class="check-circle"></div>
-                        </label>
+                {% empty %}
+                <div class="game-card">
+                    <div class="game-info">
+                        <h2>Your cart is empty</h2>
                     </div>
-
-                    <div>
-                        <input type="radio" id="acleda" name="payment_method" value="ACLEDA" class="pay-radio">
-                        <label for="acleda" class="payment-option">
-                            <div class="payment-brand">
-                                <img src="https://www.acledasecurities.com.kh/as/assets/listed_company/ABC/logo.png" alt="ACLEDA">
-                                <div>
-                                    <div class="payment-name">ACLEDA</div>
-                                    <div class="payment-desc">Fast mobile banking payment</div>
-                                </div>
-                            </div>
-                            <div class="check-circle"></div>
-                        </label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="khqr" name="payment_method" value="KHQR" class="pay-radio">
-                        <label for="khqr" class="payment-option">
-                            <div class="payment-brand">
-                                <img src="https://play-lh.googleusercontent.com/Q27JPO0Plka8m3_-h2yw3Xu22Wedt3NJcxl1NPgMlaI6VRNcmSEPArvAcmnK1_TpmMBUlTsxjS1ycy0rRDFrmA" alt="KHQR">
-                                <div>
-                                    <div class="payment-name">BAKONG KHQR</div>
-                                    <div class="payment-desc">Pay with any bank using Bakong QR</div>
-                                </div>
-                            </div>
-                            <div class="check-circle"></div>
-                        </label>
-                    </div>
-
                 </div>
-
+                {% endfor %}
             </div>
-
         </div>
 
         <div class="panel summary">
+            <h2>Payment Summary</h2>
 
-            <h2>Your Order</h2>
+            <div class="qr-box">
+                <h3>ABA / KHQR Payment</h3>
+                <p>Scan this QR with ABA Mobile or any Bakong-supported banking app.</p>
+
+                <div class="qr-image">
+                    <img src="{% static 'images/photo_2026-05-23_01-54-56.jpg' %}" alt="ABA KHQR">
+                </div>
+            </div>
 
             <div class="summary-box">
                 <div class="summary-row">
-                    <span>Original Price</span>
-                    <span>${{ game.original_price }}</span>
+                    <span>Total Items</span>
+                    <span>{{ cart_items|length }}</span>
                 </div>
 
-                {% if game.discount_percent > 0 %}
                 <div class="summary-row">
-                    <span>Discount</span>
-                    <span>-{{ game.discount_percent }}%</span>
+                    <span>Payment Method</span>
+                    <span>ABA / KHQR</span>
                 </div>
-                {% endif %}
 
                 <div class="summary-row">
                     <span>Tax</span>
@@ -684,17 +562,11 @@ body{
 
             <div class="total">
                 <span>Total</span>
-                <span>
-                    {% if game.final_price == 0 %}
-                        FREE
-                    {% else %}
-                        ${{ game.final_price|floatformat:2 }}
-                    {% endif %}
-                </span>
+                <span>${{ total|floatformat:2 }}</span>
             </div>
 
             <button type="button" class="purchase-btn" onclick="openPaymentPopup()">
-                Purchase Now
+                I Paid with ABA / KHQR
             </button>
 
             <div class="redeem-panel" id="redeemPanel">
@@ -708,10 +580,8 @@ body{
                     Copy Redeem Code
                 </button>
 
-                <form method="POST" action="{% url 'complete_payment' %}">
+                <form method="POST" action="{% url 'cart_complete_payment' %}">
                     {% csrf_token %}
-
-                    <input type="hidden" name="game_id" value="{{ game.id }}">
 
                     <input type="text"
                            name="redeem_code"
@@ -726,9 +596,8 @@ body{
             </div>
 
             <div class="secure-note">
-                🔒 Secure purchase. Your game will be added to your library after redeem verification.
+                🔒 After redeem verification, all games will be added to your Library.
             </div>
-
         </div>
 
     </div>
@@ -742,7 +611,7 @@ body{
         <h2>Confirm Payment</h2>
 
         <p>
-            Did you finish payment using your selected payment method?
+            Did you finish payment with ABA / KHQR?
             Confirm to show your redeem code.
         </p>
 
@@ -774,9 +643,7 @@ function showRedeemPanel(){
 
 function copyRedeemCode(){
     const code = document.getElementById("redeemCode").innerText.trim();
-
     navigator.clipboard.writeText(code);
-
     alert("Redeem code copied!");
 }
 </script>
