@@ -669,7 +669,7 @@ def cart_payment(request):
     cart_items = Cart.objects.filter(user=request.user)
 
     if not cart_items.exists():
-        return redirect("/cart/")
+        return redirect("cart")
 
     total = sum(item.game.final_price() for item in cart_items)
 
@@ -696,19 +696,15 @@ def cart_complete_payment(request):
                 Purchase.objects.get_or_create(
                     user=request.user,
                     game=item.game,
-                    defaults={
-                        "price": item.game.final_price()
-                    }
+                    defaults={"price": item.game.final_price()}
                 )
 
             cart_items.delete()
+            request.session.pop("cart_redeem_code", None)
 
-            if "cart_redeem_code" in request.session:
-                del request.session["cart_redeem_code"]
+            return redirect("library")
 
-            return redirect("/library/")
-
-    return redirect("/cart/")
+    return redirect("cart")
 def checkout_cart(request):
     cart_items = Cart.objects.filter(user=request.user)
     total = sum(item.game.final_price() for item in cart_items)

@@ -1,0 +1,575 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Checkout - SellGame Online</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at 12% 8%,rgba(102,192,244,.24),transparent 30%),
+    radial-gradient(circle at 88% 18%,rgba(139,209,59,.14),transparent 30%),
+    linear-gradient(135deg,#03060b,#07111d 52%,#02040a);
+    color:white;
+    padding:34px;
+}
+
+.wrapper{
+    max-width:1240px;
+    margin:auto;
+}
+
+.topbar{
+    height:78px;
+    padding:0 24px;
+    margin-bottom:28px;
+    border-radius:26px;
+    background:rgba(9,17,29,.82);
+    border:1px solid rgba(102,192,244,.22);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    backdrop-filter:blur(18px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.brand-logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:#66c0f4;
+    font-size:30px;
+    font-weight:900;
+}
+
+.brand-logo img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.brand-logo span{
+    color:white;
+}
+
+.brand-logo:hover img{
+    transform:scale(1.1) rotate(-5deg);
+}
+
+.brand-logo:hover{
+    color:#8bd7ff;
+}
+.back-btn{
+    text-decoration:none;
+    color:#c7d5e0;
+    font-weight:900;
+    padding:14px 22px;
+    border-radius:16px;
+    background:#142237;
+    border:1px solid #2a475e;
+    transition:.25s;
+}
+
+.back-btn:hover{
+    transform:translateY(-3px);
+    border-color:#66c0f4;
+}
+
+.checkout{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:28px;
+}
+
+.panel{
+    background:rgba(9,17,29,.88);
+    border:1px solid rgba(102,192,244,.22);
+    border-radius:34px;
+    overflow:hidden;
+    box-shadow:0 35px 100px rgba(0,0,0,.5);
+    backdrop-filter:blur(18px);
+}
+
+.hero{
+    padding:38px;
+    background:
+    radial-gradient(circle at top right,rgba(102,192,244,.2),transparent 42%),
+    linear-gradient(135deg,#172437,#0b141d);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.badge{
+    display:inline-flex;
+    padding:10px 16px;
+    border-radius:999px;
+    color:#8bd7ff;
+    font-weight:900;
+    background:rgba(102,192,244,.12);
+    border:1px solid rgba(102,192,244,.35);
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:46px;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.hero p{
+    color:#aebdcb;
+    line-height:1.8;
+}
+
+.content{
+    padding:30px;
+}
+
+.game-card{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    gap:24px;
+    padding:20px;
+    border-radius:26px;
+    background:#07111d;
+    border:1px solid rgba(102,192,244,.16);
+    margin-bottom:30px;
+}
+
+.game-cover{
+    height:165px;
+    border-radius:22px;
+    overflow:hidden;
+    background:#142237;
+    border:1px solid #2a475e;
+}
+
+.game-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.game-info h2{
+    font-size:26px;
+    margin-bottom:10px;
+}
+
+.game-meta{
+    color:#8ea3b8;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+.price-row{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.discount-badge{
+    padding:8px 12px;
+    border-radius:10px;
+    color:#beee11;
+    font-weight:900;
+    background:#4c6b22;
+}
+
+.old-price{
+    color:#7b8794;
+    text-decoration:line-through;
+    font-weight:800;
+}
+
+.final-price{
+    color:#beee11;
+    font-size:30px;
+    font-weight:900;
+}
+
+.section-title{
+    font-size:22px;
+    font-weight:900;
+    margin-bottom:18px;
+}
+
+.payment-list{
+    display:grid;
+    gap:16px;
+}
+
+.pay-radio{
+    display:none;
+}
+
+.payment-option{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+    border-radius:22px;
+    background:#07111d;
+    border:1px solid rgba(102,192,244,.16);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.payment-option:hover,
+.pay-radio:checked + .payment-option{
+    border-color:#66c0f4;
+    background:#12243a;
+    box-shadow:0 0 28px rgba(102,192,244,.18);
+    transform:translateY(-3px);
+}
+
+.payment-brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.payment-brand img{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+    background:white;
+    padding:7px;
+    border-radius:16px;
+}
+
+.payment-name{
+    color:white;
+    font-size:17px;
+    font-weight:900;
+    margin-bottom:5px;
+}
+
+.payment-desc{
+    color:#8ea3b8;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.check-circle{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    border:2px solid #66c0f4;
+}
+
+.pay-radio:checked + .payment-option .check-circle{
+    background:#66c0f4;
+    box-shadow:0 0 15px rgba(102,192,244,.7);
+}
+
+.summary{
+    padding:34px;
+    height:max-content;
+    position:sticky;
+    top:30px;
+}
+
+.summary h2{
+    font-size:32px;
+    font-weight:900;
+    margin-bottom:24px;
+}
+
+.summary-box{
+    padding:24px;
+    border-radius:26px;
+    background:#07111d;
+    border:1px solid rgba(102,192,244,.16);
+    margin-bottom:22px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    color:#c7d5e0;
+    font-weight:800;
+}
+
+.summary-row:last-child{
+    border-bottom:none;
+}
+
+.summary-row span:last-child{
+    color:white;
+}
+
+.total{
+    margin-top:20px;
+    padding:22px;
+    border-radius:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:linear-gradient(135deg,rgba(139,209,59,.16),rgba(102,192,244,.08));
+    border:1px solid rgba(139,209,59,.25);
+    font-size:30px;
+    font-weight:900;
+}
+
+.total span:last-child{
+    color:#beee11;
+}
+
+.purchase-btn{
+    width:100%;
+    height:60px;
+    border:none;
+    border-radius:20px;
+    background:linear-gradient(135deg,#8bd13b,#5da51f);
+    color:white;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 14px 34px rgba(139,209,59,.25);
+}
+
+.purchase-btn:hover{
+    transform:translateY(-4px);
+    filter:brightness(1.08);
+}
+
+.secure-note{
+    margin-top:18px;
+    color:#8ea3b8;
+    font-size:13px;
+    line-height:1.7;
+    text-align:center;
+}
+
+@media(max-width:950px){
+    .checkout{
+        grid-template-columns:1fr;
+    }
+
+    .summary{
+        position:relative;
+        top:auto;
+    }
+}
+
+@media(max-width:650px){
+    body{
+        padding:18px;
+    }
+
+    .topbar{
+        height:auto;
+        padding:20px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:16px;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .game-card{
+        grid-template-columns:1fr;
+    }
+
+    .game-cover{
+        height:220px;
+    }
+
+    .payment-option{
+        align-items:flex-start;
+        gap:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="topbar">
+        <a href="/" class="brand-logo">
+        <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
+        <div class="brand-text">
+            SELL<span>GAME</span>ONLINE
+        </div>
+        <a href="/" class="back-btn">← Back to Store</a>
+    </div>
+
+    <form method="POST" action="/pay-success/">
+        {% csrf_token %}
+        <input type="hidden" name="game_id" value="{{ game.id }}">
+
+        <div class="checkout">
+
+            <div class="panel">
+
+                <div class="hero">
+                    <div class="badge">Secure Digital Checkout</div>
+                    <h1>Review Purchase</h1>
+                    <p>Check your game details, select a payment method, and confirm your digital purchase.</p>
+                </div>
+
+                <div class="content">
+
+                    <div class="game-card">
+                        <div class="game-cover">
+                            {% if game.image %}
+                                <img src="{{ game.image.url }}" alt="{{ game.title }}">
+                            {% else %}
+                                <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="Game">
+                            {% endif %}
+                        </div>
+
+                        <div class="game-info">
+                            <h2>{{ game.title }}</h2>
+                            <div class="game-meta">
+                                {{ game.category }} • Digital Download • Full Game • Instant Access
+                            </div>
+
+                            <div class="price-row">
+                                {% if game.discount_percent > 0 %}
+                                    <span class="discount-badge">-{{ game.discount_percent }}%</span>
+                                    <span class="old-price">${{ game.original_price }}</span>
+                                {% endif %}
+
+                                <span class="final-price">
+                                    {% if game.final_price == 0 %}
+                                        FREE
+                                    {% else %}
+                                        ${{ game.final_price|floatformat:2 }}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-title">Payment Method</div>
+
+                    <div class="payment-list">
+
+                        <div>
+                            <input type="radio" id="aba" name="payment_method" value="ABA Pay" class="pay-radio" checked>
+                            <label for="aba" class="payment-option">
+                                <div class="payment-brand">
+                                    <img src="https://cdn.brandfetch.io/domain/ababank.com/fallback/lettermark/theme/dark/h/400/w/400/icon?c=1bfwsmEH20zzEfSNTed" alt="ABA">
+                                    <div>
+                                        <div class="payment-name">ABA PAY</div>
+                                        <div class="payment-desc">Fast mobile banking payment</div>
+                                    </div>
+                                </div>
+                                <div class="check-circle"></div>
+                            </label>
+                        </div>
+
+                        <div>
+                            <input type="radio" id="acleda" name="payment_method" value="ACLEDA" class="pay-radio">
+                            <label for="acleda" class="payment-option">
+                                <div class="payment-brand">
+                                    <img src="https://www.acledasecurities.com.kh/as/assets/listed_company/ABC/logo.png" alt="ACLEDA">
+                                    <div>
+                                        <div class="payment-name">ACLEDA</div>
+                                        <div class="payment-desc">Fast mobile banking payment</div>
+                                    </div>
+                                </div>
+                                <div class="check-circle"></div>
+                            </label>
+                        </div>
+
+                        <div>
+                            <input type="radio" id="khqr" name="payment_method" value="KHQR" class="pay-radio">
+                            <label for="khqr" class="payment-option">
+                                <div class="payment-brand">
+                                    <img src="https://play-lh.googleusercontent.com/Q27JPO0Plka8m3_-h2yw3Xu22Wedt3NJcxl1NPgMlaI6VRNcmSEPArvAcmnK1_TpmMBUlTsxjS1ycy0rRDFrmA" alt="KHQR">
+                                    <div>
+                                        <div class="payment-name">BAKONG KHQR</div>
+                                        <div class="payment-desc">Pay with any bank using Bakong QR</div>
+                                    </div>
+                                </div>
+                                <div class="check-circle"></div>
+                            </label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="panel summary">
+
+                <h2>Your Order</h2>
+
+                <div class="summary-box">
+                    <div class="summary-row">
+                        <span>Original Price</span>
+                        <span>${{ game.original_price }}</span>
+                    </div>
+
+                    {% if game.discount_percent > 0 %}
+                    <div class="summary-row">
+                        <span>Discount</span>
+                        <span>-{{ game.discount_percent }}%</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="summary-row">
+                        <span>Tax</span>
+                        <span>$0.00</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span>Digital Library</span>
+                    </div>
+                </div>
+
+                <div class="total">
+                    <span>Total</span>
+                    <span>
+                        {% if game.final_price == 0 %}
+                            FREE
+                        {% else %}
+                            ${{ game.final_price|floatformat:2 }}
+                        {% endif %}
+                    </span>
+                </div>
+
+                <button type="submit" class="purchase-btn">
+                    Purchase Now
+                </button>
+
+                <div class="secure-note">
+                    🔒 Secure purchase. Your game will be added to your purchase history after payment.
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>
