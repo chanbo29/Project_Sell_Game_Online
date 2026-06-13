@@ -46,16 +46,35 @@ body{
     box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
 
-.logo{
+.brand-logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:#66c0f4;
     font-size:30px;
     font-weight:900;
-    color:#66c0f4;
 }
 
-.logo span{
+.brand-logo img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.brand-logo span{
     color:white;
 }
 
+.brand-logo:hover img{
+    transform:scale(1.1) rotate(-5deg);
+}
+
+.brand-logo:hover{
+    color:#8bd7ff;
+}
 .status-pill{
     padding:12px 18px;
     border-radius:999px;
@@ -439,7 +458,11 @@ body{
 <div class="wrapper">
 
     <div class="top-nav">
-        <div class="logo">SELL<span>GAME</span>ONLINE</div>
+        <a href="/" class="brand-logo">
+        <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
+        <div class="brand-text">
+            SELL<span>GAME</span>ONLINE
+        </div>
         <div class="status-pill">🔒 Secure KHQR Payment</div>
     </div>
 
