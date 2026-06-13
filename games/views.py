@@ -696,15 +696,21 @@ def cart_complete_payment(request):
                 Purchase.objects.get_or_create(
                     user=request.user,
                     game=item.game,
-                    defaults={"price": item.game.final_price()}
+                    defaults={
+                        "price": item.game.final_price()
+                    }
                 )
 
             cart_items.delete()
+
             request.session.pop("cart_redeem_code", None)
 
-            return redirect("library")
+            return redirect("checkout_success")
 
     return redirect("cart")
+@login_required(login_url="/login/")
+def checkout_success(request):
+    return render(request, "games/checkout_success.html")
 def checkout_cart(request):
     cart_items = Cart.objects.filter(user=request.user)
     total = sum(item.game.final_price() for item in cart_items)
