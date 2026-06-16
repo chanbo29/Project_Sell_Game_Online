@@ -203,49 +203,53 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
+    gap:16px;
     background:
     linear-gradient(90deg,rgba(11,20,29,.92),rgba(27,40,56,.72)),
     url("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1551360/library_hero.jpg")
     center/cover no-repeat;
     border:1px solid rgba(102,192,244,.25);
-    border-radius:20px;
-    padding:30px;
-    margin-bottom:40px;
-    box-shadow:0 25px 70px rgba(0,0,0,.35);
+    border-radius:18px;
+    padding:22px 28px;
+    margin-bottom:30px;
+    min-height:120px;
+    box-shadow:0 18px 45px rgba(0,0,0,.30);
 }
 
 .library-header h1{
-    font-size:38px;
+    font-size:28px;
     font-weight:900;
-    margin-bottom:8px;
+    margin-bottom:6px;
     color:white;
 }
 
 .library-header p{
     color:var(--text);
+    font-size:14px;
     font-weight:600;
 }
 
+/* Browse Store Button */
 .store-btn{
-    height:48px;
-    padding:0 24px;
+    height:40px;
+    padding:0 18px;
     border-radius:999px;
     background:linear-gradient(to bottom,#75b022,#588a1b);
     color:white;
     display:flex;
     align-items:center;
+    justify-content:center;
     text-decoration:none;
-    font-weight:900;
+    font-size:13px;
+    font-weight:800;
     transition:.25s;
-    box-shadow:0 0 25px rgba(139,197,63,.25);
+    box-shadow:0 0 18px rgba(139,197,63,.25);
 }
 
 .store-btn:hover{
     transform:translateY(-2px);
     background:linear-gradient(to bottom,#8bc53f,#5d9122);
 }
-
 /* CONTENT */
 .content-layout{
     display:grid;
@@ -949,7 +953,7 @@ body{
 
             </section>
 
-            <aside class="filter-panel">
+            <!-- <aside class="filter-panel">
 
                 <div class="filter-head">
                     <h3>Filters</h3>
@@ -966,7 +970,7 @@ body{
                     <span>{{ purchased_games|length }}</span>
                 </div>
 
-            </aside>
+            </aside> -->
 
         </div>
 
