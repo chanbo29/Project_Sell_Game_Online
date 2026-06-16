@@ -568,9 +568,15 @@ tr:hover{
 
 /* BEST SELLING / CHARTS */
 .chart-panel{
-    padding:22px;
+    min-height:360px;
 }
 
+.chart-panel canvas{
+    width:100% !important;
+    height:240px !important;
+    max-height:240px !important;
+    display:block;
+}
 .chart-head{
     display:flex;
     justify-content:space-between;
@@ -1216,7 +1222,7 @@ if(lineCanvas){
         },
         options:{
             responsive:true,
-            maintainAspectRatio:false,
+            maintainAspectRatio:true,
             animation:{
                 duration:1400,
                 easing:"easeInOutQuart"
