@@ -30,12 +30,6 @@
     --red:#c0392b;
 }
 
-html,body{
-    width:100%;
-    min-height:100%;
-    overflow-x:hidden;
-}
-
 body{
     background:
     radial-gradient(circle at top left,rgba(102,192,244,.18),transparent 35%),
@@ -45,10 +39,8 @@ body{
 }
 
 .app{
-    width:100%;
-    max-width:100%;
     display:grid;
-    grid-template-columns:230px minmax(0,1fr);
+    grid-template-columns:250px 1fr;
     min-height:100vh;
 }
 
@@ -56,12 +48,11 @@ body{
 .sidebar{
     background:linear-gradient(180deg,#0b141d,#101822);
     border-right:1px solid rgba(102,192,244,.18);
-    padding:30px 12px;
+    padding:32px 14px;
     position:sticky;
     top:0;
     height:100vh;
 }
-
 .brand{
     margin-bottom:35px;
     text-align:center;
@@ -77,11 +68,11 @@ body{
 }
 
 .brand-logo img{
-    width:66px;
-    height:66px;
+    width:70px;
+    height:70px;
     object-fit:cover;
     border-radius:12px;
-    transition:.3s;
+    transition:0.3s;
 }
 
 .brand-logo:hover img{
@@ -90,17 +81,16 @@ body{
 
 .brand-text{
     text-align:center;
-    font-size:19px;
+    font-size:20px;
     font-weight:900;
     line-height:1.15;
     letter-spacing:1px;
-    color:var(--blue);
+    color:#66c0f4;
 }
 
 .brand-text span{
     color:white;
 }
-
 .side-menu{
     display:flex;
     flex-direction:column;
@@ -108,11 +98,11 @@ body{
 }
 
 .side-link{
-    height:56px;
+    height:58px;
     display:flex;
     align-items:center;
     gap:18px;
-    padding:0 18px;
+    padding:0 22px;
     color:var(--text);
     text-decoration:none;
     border-radius:12px;
@@ -127,19 +117,32 @@ body{
     box-shadow:0 12px 30px rgba(102,192,244,.18);
 }
 
+.download-icon{
+    position:absolute;
+    left:28px;
+    bottom:28px;
+    width:46px;
+    height:46px;
+    border:1px solid #2a475e;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--blue);
+}
+
 /* MAIN */
 .main{
-    min-width:0;
-    overflow:hidden;
-    padding:28px;
+    padding:34px;
 }
+
 
 /* TOPBAR */
 .topbar{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:22px;
+    margin-bottom:34px;
 }
 
 .search{
@@ -148,9 +151,13 @@ body{
     gap:15px;
 }
 
+.back{
+    color:var(--muted);
+    font-size:28px;
+}
+
 .search-box{
     width:360px;
-    max-width:100%;
     height:50px;
     border-radius:999px;
     background:#1b2838;
@@ -193,30 +200,23 @@ body{
 
 /* HEADER */
 .library-header{
-    width:100%;
-    min-width:0;
-    overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:18px;
+    gap:20px;
     background:
-    linear-gradient(90deg,rgba(11,20,29,.94),rgba(27,40,56,.72)),
+    linear-gradient(90deg,rgba(11,20,29,.92),rgba(27,40,56,.72)),
     url("https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1551360/library_hero.jpg")
     center/cover no-repeat;
     border:1px solid rgba(102,192,244,.25);
     border-radius:20px;
-    padding:28px;
-    margin-bottom:32px;
+    padding:30px;
+    margin-bottom:40px;
     box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
 
-.library-header > div{
-    min-width:0;
-}
-
 .library-header h1{
-    font-size:36px;
+    font-size:38px;
     font-weight:900;
     margin-bottom:8px;
     color:white;
@@ -228,16 +228,13 @@ body{
 }
 
 .store-btn{
-    flex-shrink:0;
-    white-space:nowrap;
     height:48px;
-    padding:0 22px;
+    padding:0 24px;
     border-radius:999px;
     background:linear-gradient(to bottom,#75b022,#588a1b);
     color:white;
     display:flex;
     align-items:center;
-    justify-content:center;
     text-decoration:none;
     font-weight:900;
     transition:.25s;
@@ -251,28 +248,21 @@ body{
 
 /* CONTENT */
 .content-layout{
-    width:100%;
-    min-width:0;
     display:grid;
-    grid-template-columns:minmax(0,1fr) 280px;
-    gap:24px;
-    align-items:start;
-}
-
-.content-layout section{
-    min-width:0;
+    grid-template-columns:1fr 320px;
+    gap:34px;
 }
 
 .tabs{
     display:flex;
     align-items:center;
-    gap:34px;
-    margin-bottom:28px;
+    gap:36px;
+    margin-bottom:34px;
 }
 
 .tab{
     color:var(--muted);
-    font-size:17px;
+    font-size:18px;
     font-weight:800;
     cursor:pointer;
     text-decoration:none;
@@ -290,14 +280,26 @@ body{
     bottom:-10px;
     width:100%;
     height:2px;
-    background:var(--blue);
+    background:#66c0f4;
+}
+
+.plus{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:2px solid var(--blue);
+    color:var(--blue);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
 }
 
 .sort-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    margin-bottom:24px;
+    margin-bottom:28px;
 }
 
 .sort-left{
@@ -317,23 +319,29 @@ body{
     padding:0 12px;
 }
 
+.view-icons{
+    display:flex;
+    gap:12px;
+    color:var(--blue);
+    font-size:22px;
+}
+
 /* RECENT */
 .recent-title{
-    font-size:27px;
-    margin-bottom:18px;
+    font-size:28px;
+    margin-bottom:20px;
     color:white;
 }
 
 .recent-games{
-    width:100%;
     display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:16px;
-    margin-bottom:34px;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-bottom:40px;
 }
 
 .recent-card{
-    height:165px;
+    height:200px;
     border-radius:14px;
     overflow:hidden;
     position:relative;
@@ -354,39 +362,37 @@ body{
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
-    padding:20px;
+    padding:22px;
 }
 
 .recent-overlay h3{
-    font-size:20px;
+    font-size:22px;
     margin-bottom:8px;
     color:white;
 }
 
 .recent-overlay a{
-    color:var(--blue);
+    color:#66c0f4;
     text-decoration:none;
     font-weight:900;
 }
 
 /* GRID */
+/* GRID */
 .library-grid{
-    width:100%;
     display:grid;
-    grid-template-columns:repeat(3,minmax(170px,1fr));
-    gap:24px;
+    grid-template-columns:repeat(4, minmax(220px, 1fr));
+    gap:30px;
 }
 
 .game-card{
     width:100%;
-    min-width:0;
 }
 
 .cover{
     width:100%;
     aspect-ratio:2 / 3;
-    min-height:250px;
-    max-height:360px;
+    min-height:330px;
     border-radius:12px;
     overflow:hidden;
     position:relative;
@@ -397,7 +403,7 @@ body{
 }
 
 .cover:hover{
-    border-color:var(--blue);
+    border-color:#66c0f4;
     box-shadow:0 25px 60px rgba(102,192,244,.18);
 }
 
@@ -452,30 +458,28 @@ body{
     align-items:center;
     justify-content:space-between;
     gap:12px;
-    margin-top:14px;
+    margin-top:16px;
     color:white;
 }
 
 .game-title{
-    min-width:0;
-    font-size:16px;
+    font-size:17px;
     font-weight:900;
     color:white;
     line-height:1.25;
-    word-break:break-word;
 }
 
 .card-icons{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:10px;
     flex-shrink:0;
 }
 
 .fav-btn,
 .delete-btn{
-    width:34px;
-    height:34px;
+    width:36px;
+    height:36px;
     border:none;
     border-radius:50%;
     background:#1b2838;
@@ -487,14 +491,14 @@ body{
 
 .fav-btn:hover,
 .fav-btn.active{
-    background:var(--blue);
+    background:#66c0f4;
     color:#111;
 }
 
 .delete-btn:hover{
-    background:var(--red);
+    background:#c0392b;
     color:white;
-    border-color:var(--red);
+    border-color:#c0392b;
 }
 
 .launch{
@@ -503,7 +507,7 @@ body{
     gap:6px;
     margin-top:10px;
     margin-right:8px;
-    color:var(--blue);
+    color:#66c0f4;
     text-decoration:none;
     font-weight:800;
     font-size:14px;
@@ -528,12 +532,31 @@ body{
     font-weight:700;
 }
 
+/* RESPONSIVE GRID */
+@media(max-width:1450px){
+    .library-grid{
+        grid-template-columns:repeat(3, minmax(220px, 1fr));
+    }
+}
+
+@media(max-width:1150px){
+    .library-grid{
+        grid-template-columns:repeat(2, minmax(220px, 1fr));
+    }
+}
+
+@media(max-width:750px){
+    .library-grid{
+        grid-template-columns:1fr;
+    }
+
+    .game-card,
+    .cover{
+        width:100%;
+    }
+}
 /* FILTER */
 .filter-panel{
-    position:sticky;
-    top:24px;
-    width:100%;
-    max-width:280px;
     background:linear-gradient(180deg,#1b2838,#101822);
     border:1px solid rgba(102,192,244,.22);
     border-radius:18px;
@@ -545,7 +568,7 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px;
+    padding:22px;
     border-bottom:1px solid rgba(102,192,244,.18);
 }
 
@@ -554,12 +577,12 @@ body{
 }
 
 .reset{
-    color:var(--blue);
+    color:#66c0f4;
     cursor:pointer;
 }
 
 .filter-search{
-    margin:18px;
+    margin:20px;
     height:46px;
     background:#101822;
     border:1px solid #2a475e;
@@ -579,7 +602,7 @@ body{
 }
 
 .filter-item{
-    padding:18px;
+    padding:20px;
     border-top:1px solid rgba(102,192,244,.13);
     display:flex;
     justify-content:space-between;
@@ -589,7 +612,7 @@ body{
 
 /* EMPTY */
 .empty{
-    padding:70px 30px;
+    padding:80px;
     background:#1b2838;
     border:1px solid #2a475e;
     border-radius:18px;
@@ -605,32 +628,13 @@ body{
 }
 
 .empty a{
-    color:var(--blue);
+    color:#66c0f4;
     font-weight:900;
 }
 
 /* RESPONSIVE */
-@media(max-width:1250px){
-    .content-layout{
-        grid-template-columns:minmax(0,1fr);
-    }
+@media(max-width:1100px){
 
-    .filter-panel{
-        display:none;
-    }
-}
-
-@media(max-width:1050px){
-    .library-grid{
-        grid-template-columns:repeat(2,minmax(170px,1fr));
-    }
-
-    .recent-games{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-    }
-}
-
-@media(max-width:850px){
     .app{
         grid-template-columns:1fr;
     }
@@ -640,44 +644,47 @@ body{
         height:auto;
     }
 
-    .main{
-        padding:22px;
+    .content-layout{
+        grid-template-columns:1fr;
+    }
+
+    .filter-panel{
+        display:none;
     }
 }
 
-@media(max-width:650px){
-    .library-header{
+@media(max-width:750px){
+
+    .main{
+        padding:24px 18px;
+    }
+
+    .topbar{
         flex-direction:column;
+        gap:18px;
         align-items:flex-start;
-        padding:22px;
     }
 
-    .library-header h1{
-        font-size:30px;
-    }
-
-    .store-btn{
+    .search-box{
         width:100%;
     }
 
-    .tabs{
-        gap:22px;
+    .recent-games{
+        grid-template-columns:1fr;
     }
 
-    .sort-row{
-        align-items:flex-start;
-        flex-direction:column;
-        gap:14px;
-    }
-
-    .recent-games,
     .library-grid{
         grid-template-columns:1fr;
     }
 
+    .game-card,
     .cover{
-        min-height:300px;
-        max-height:none;
+        width:100%;
+    }
+
+    .library-header{
+        flex-direction:column;
+        align-items:flex-start;
     }
 }
 </style>
