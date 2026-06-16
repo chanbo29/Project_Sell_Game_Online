@@ -16,6 +16,7 @@ from django.http import HttpResponse
 from .forms import GameForm, RegisterForm
 from .models import Game, Wishlist, Cart, Purchase
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils import timezone
 #ADMIN LOGIN
 def create_admin_once(request):
     user, created = User.objects.get_or_create(username="admin")
@@ -56,7 +57,10 @@ def logout_view(request):
 @login_required
 @user_passes_test(lambda u: u.is_staff)
 def admin_dashboard(request):
-    purchases = Purchase.objects.all().order_by('-purchased_at')
+    purchases = Purchase.objects.select_related(
+        'user',
+        'game'
+    ).order_by('-purchased_at')
 
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
@@ -68,7 +72,9 @@ def admin_dashboard(request):
 
     total_games = Game.objects.count()
     total_orders = purchases.count()
-    total_sales = purchases.aggregate(total=Sum('price'))['total'] or 0
+    total_sales = purchases.aggregate(
+        total=Sum('price')
+    )['total'] or 0
     total_users = User.objects.count()
 
     monthly_revenue = (
@@ -79,13 +85,23 @@ def admin_dashboard(request):
         .order_by('month')
     )
 
-    chart_labels = [item['month'].strftime('%b %Y') for item in monthly_revenue]
-    chart_data = [float(item['total']) for item in monthly_revenue]
+    chart_labels = [
+        item['month'].strftime('%b %Y')
+        for item in monthly_revenue
+    ]
+
+    chart_data = [
+        float(item['total'])
+        for item in monthly_revenue
+    ]
 
     best_selling_games = (
         Purchase.objects
         .values('game__title')
-        .annotate(total_sold=Count('id'), revenue=Sum('price'))
+        .annotate(
+            total_sold=Count('id'),
+            revenue=Sum('price')
+        )
         .order_by('-total_sold')[:5]
     )
 
@@ -98,6 +114,9 @@ def admin_dashboard(request):
         'chart_labels': json.dumps(chart_labels),
         'chart_data': json.dumps(chart_data),
         'best_selling_games': best_selling_games,
+
+        # Cambodia current date/time for dashboard
+        'now': timezone.localtime(),
     })
 @login_required
 @user_passes_test(lambda u: u.is_staff)
