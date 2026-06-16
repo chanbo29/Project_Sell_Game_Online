@@ -97,7 +97,11 @@ def admin_dashboard(request):
 
     best_selling_games = (
         Purchase.objects
-        .values('game__title')
+        .values(
+            'game__title',
+            'game__image',
+            'game_id'
+        )
         .annotate(
             total_sold=Count('id'),
             revenue=Sum('price')
@@ -114,8 +118,6 @@ def admin_dashboard(request):
         'chart_labels': json.dumps(chart_labels),
         'chart_data': json.dumps(chart_data),
         'best_selling_games': best_selling_games,
-
-        # Cambodia current date/time for dashboard
         'now': timezone.localtime(),
     })
 @login_required

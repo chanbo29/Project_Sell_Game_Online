@@ -697,6 +697,49 @@ tr:hover{
         gap:10px;
     }
 }
+.top-game{
+    display:grid;
+    grid-template-columns:40px 55px 1fr auto;
+    align-items:center;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.top-game:last-child{
+    border-bottom:none;
+}
+
+.rank{
+    font-size:28px;
+    font-weight:900;
+    color:#c7d5e0;
+}
+
+.top-game-img img{
+    width:50px;
+    height:50px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.top-game-info h4{
+    margin:0;
+    color:white;
+    font-size:20px;
+    font-weight:800;
+}
+
+.top-game-info span{
+    color:#8ea3b8;
+    font-size:14px;
+}
+
+.top-game-price{
+    color:#7CFF28;
+    font-size:28px;
+    font-weight:900;
+}
 </style>
 </head>
 
@@ -1070,10 +1113,32 @@ tr:hover{
 
                 <div class="best-list">
                     {% for game in best_selling_games %}
-                    <div class="best-item">
-                        <b>{{ forloop.counter }}</b>
+                <div class="top-game">
 
-                        <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/271590/library_600x900.jpg" alt="Game">
+                    <div class="rank">
+                        {{ forloop.counter }}
+                    </div>
+
+                    <div class="top-game-img">
+                        {% if game.game__image %}
+                            <img src="{{ game.game__image.url }}" alt="{{ game.game__title }}">
+                        {% else %}
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg"
+                                alt="{{ game.game__title }}">
+                        {% endif %}
+                    </div>
+
+                    <div class="top-game-info">
+                        <h4>{{ game.game__title }}</h4>
+                        <span>{{ game.total_sold }} Sales</span>
+                    </div>
+
+                    <div class="top-game-price">
+                        ${{ game.revenue|floatformat:2 }}
+                    </div>
+
+                </div>
+                {% endfor %}
 
                         <div>
                             <div class="best-title">
@@ -1105,7 +1170,7 @@ tr:hover{
             </span>
 
             <span>
-                Made with by Team6
+                Made with by Team6-GenZ
             </span>
         </div>
 
