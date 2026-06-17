@@ -3,6 +3,14 @@ from django.conf import settings
 
 
 def send_telegram_message(message):
+    if not settings.TELEGRAM_BOT_TOKEN:
+        print("TELEGRAM ERROR: Missing TELEGRAM_BOT_TOKEN")
+        return False
+
+    if not settings.TELEGRAM_CHAT_ID:
+        print("TELEGRAM ERROR: Missing TELEGRAM_CHAT_ID")
+        return False
+
     url = f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage"
 
     data = {
@@ -17,5 +25,5 @@ def send_telegram_message(message):
         print("TELEGRAM RESPONSE:", response.text)
         return response.status_code == 200
     except Exception as e:
-        print("TELEGRAM ERROR:", e)
+        print("TELEGRAM EXCEPTION:", e)
         return False

@@ -784,8 +784,12 @@ def play_game(request, game_id):
 #API
 
 def test_telegram(request):
-    send_telegram_message("✅ Telegram Test Successful from Render")
-    return HttpResponse("Telegram test sent")
+    ok = send_telegram_message("✅ Telegram test from Django Render")
+
+    if ok:
+        return HttpResponse("Telegram sent successfully")
+
+    return HttpResponse("Telegram failed. Check Render logs.")
 #IMPORT OLD DATA
 from django.core.management import call_command
 
