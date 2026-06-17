@@ -146,3 +146,6 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 } 
+#API TELEGRAM
+TELEGRAM_BOT_TOKEN = "8785011131:AAHOHYKsubUSLZp25OBfow6iCqCGF_gWWyU"
+TELEGRAM_CHAT_ID = "5483166478"

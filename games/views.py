@@ -17,6 +17,7 @@ from .forms import GameForm, RegisterForm
 from .models import Game, Wishlist, Cart, Purchase
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
+from .telegram_api import send_telegram_message
 #ADMIN LOGIN
 def create_admin_once(request):
     user, created = User.objects.get_or_create(username="admin")
@@ -540,50 +541,39 @@ def pay_success(request):
     return redirect('/')
 # from .models import Purchase
 # COMPLETE_PAYMENT
-@login_required(login_url='/login/')
-def complete_payment(request):
-    if request.method == 'POST':
-        game_id = request.POST.get('game_id')
-        user_code = request.POST.get('redeem_code')
-        session_code = request.session.get('redeem_code')
+@login_required
+def complete_payment(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
 
-        if user_code != session_code:
-            messages.error(request, 'Invalid redeem code!')
-            return redirect('/buy/' + str(game_id) + '/')
+    if request.method == "POST":
+        input_code = request.POST.get("redeem_code")
+        session_code = request.session.get("redeem_code")
 
-        game = get_object_or_404(Game, id=game_id)
+        if input_code == session_code:
+            Purchase.objects.create(
+                user=request.user,
+                game=game,
+                price=game.final_price()
+            )
 
-        Purchase.objects.create(
-            user=request.user,
-            game=game,
-            price=game.final_price()
-        )
+            send_telegram_message(
+                f"""
+🎮 <b>New Game Purchase</b>
 
-#         # TELEGRAM ALERT
-#         bot_token = "YOUR_BOT_TOKEN"
-#         chat_id = "YOUR_CHAT_ID"
+👤 User: {request.user.username}
+🎮 Game: {game.title}
+💵 Price: ${game.final_price()}
 
-#         text = f"""
-# 🎮 New Game Payment
+✅ Status: Paid
+"""
+            )
 
-# User: {request.user.username}
-# Game: {game.title}
-# Price: ${game.final_price()}
-# Redeem Code: {session_code}
-# Status: Paid with ABA
-# """
+            del request.session["redeem_code"]
+            return redirect("library")
 
-#         requests.post(
-#             f"https://api.telegram.org/bot{bot_token}/sendMessage",
-#             data={
-#                 "chat_id": chat_id,
-#                 "text": text
-#             }
-#         )
+        messages.error(request, "Invalid redeem code")
 
-        return redirect('download_game', game_id=game.id)
-
-    return redirect('/')
+    return redirect("pay_success", game_id=game.id)
 #SHOW_REDEEM_CODE
 @login_required(login_url='/login/')
 def show_redeem_code(request):
