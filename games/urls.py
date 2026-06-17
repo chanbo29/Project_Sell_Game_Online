@@ -62,7 +62,8 @@ urlpatterns = [
     path("cart-payment/", views.cart_payment, name="cart_payment"),
     path("cart-complete-payment/", views.cart_complete_payment, name="cart_complete_payment"),
     path("checkout-success/", views.checkout_success, name="checkout_success"),
-
+    #TELEGRAM API
+    path("test-telegram/", views.test_telegram),
 
     path("import-old-data/", views.import_old_data),
 ]
