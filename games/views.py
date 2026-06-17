@@ -488,13 +488,16 @@ def delete_game(request, id):
 @login_required
 def buy_game(request, game_id):
     game = get_object_or_404(Game, id=game_id)
-    return render(request,
-                  'games/pay_money.html',
-                  {
-                      'game': game,
-                      'game_title': game.title,
-                      'amount': game.final_price()
-                  })
+
+    if Purchase.objects.filter(user=request.user, game=game).exists():
+        messages.warning(request, "You already bought this game.")
+        return redirect("library")
+
+    request.session["buy_game_id"] = game.id
+
+    return render(request, "games/pay_money.html", {
+        "game": game
+    })
 @login_required
 def delete_library_game(request, game_id):
     if request.method == "POST":
@@ -542,38 +545,45 @@ def pay_success(request):
 # from .models import Purchase
 # COMPLETE_PAYMENT
 @login_required
-def complete_payment(request, game_id):
+def complete_payment(request):
+    redeem_code = request.session.get("redeem_code")
+    game_id = request.session.get("buy_game_id")
+
+    if not game_id:
+        messages.error(request, "No game selected for payment.")
+        return redirect("game_list")
+
     game = get_object_or_404(Game, id=game_id)
 
     if request.method == "POST":
         input_code = request.POST.get("redeem_code")
-        session_code = request.session.get("redeem_code")
 
-        if input_code == session_code:
-            Purchase.objects.create(
+        if input_code == redeem_code:
+            already_bought = Purchase.objects.filter(
                 user=request.user,
-                game=game,
-                price=game.final_price()
-            )
+                game=game
+            ).exists()
 
-            send_telegram_message(
-                f"""
-🎮 <b>New Game Purchase</b>
+            if not already_bought:
+                Purchase.objects.create(
+                    user=request.user,
+                    game=game,
+                    price=game.final_price()
+                )
 
-👤 User: {request.user.username}
-🎮 Game: {game.title}
-💵 Price: ${game.final_price()}
+            if "redeem_code" in request.session:
+                del request.session["redeem_code"]
 
-✅ Status: Paid
-"""
-            )
+            if "buy_game_id" in request.session:
+                del request.session["buy_game_id"]
 
-            del request.session["redeem_code"]
+            messages.success(request, "Payment completed successfully!")
             return redirect("library")
 
-        messages.error(request, "Invalid redeem code")
+        messages.error(request, "Invalid redeem code.")
+        return redirect("pay_success")
 
-    return redirect("pay_success", game_id=game.id)
+    return redirect("pay_success")
 #SHOW_REDEEM_CODE
 @login_required(login_url='/login/')
 def show_redeem_code(request):

@@ -33,7 +33,7 @@ urlpatterns = [
     path('library/delete/<int:game_id>/', views.delete_library_game, name='delete_library_game'),
     path('library/install-toggle/<int:game_id>/', views.toggle_install, name='toggle_install'),
     # PAYMENT_COMPLETED
-    path('complete-payment/', views.complete_payment, name='complete_payment'),
+    path("complete-payment/", views.complete_payment, name="complete_payment"),
     #REDEEM
     path('show-redeem-code/', views.show_redeem_code, name='show_redeem_code'),
     #DOWNLOAD
