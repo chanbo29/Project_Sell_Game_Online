@@ -586,15 +586,13 @@ body{
                 Cancel
             </button>
 
-            <form method="POST" action="{% url 'complete_payment' %}">
-                {% csrf_token %}
-                <button type="submit" class="confirm-popup">
-                    Confirm Payment
-                </button>
-            </form>
+            <button type="button" class="confirm-popup" onclick="showRedeemCode()">
+                Confirm Payment
+            </button>
         </div>
     </div>
 </div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function(){
     let timeLeft = 120;
