@@ -150,7 +150,58 @@ h1{
     margin-bottom:18px;
     text-shadow:0 8px 30px rgba(0,0,0,.5);
 }
+.history-card{
+    margin-top:30px;
+    background:#101827;
+    border:1px solid rgba(102,192,244,.25);
+    border-radius:24px;
+    padding:25px;
+}
 
+.history-card h2{
+    margin-bottom:20px;
+    color:#66c0f4;
+}
+
+.history-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.history-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    border-radius:14px;
+    background:#07111d;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.coupon-code{
+    font-weight:900;
+    color:#beff18;
+    margin-bottom:6px;
+}
+
+.active{
+    background:#8bc53f;
+    color:black;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:900;
+}
+
+.used{
+    background:#e74c3c;
+    color:white;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:900;
+}
 .subtitle{
     max-width:850px;
     color:#9ec8f5;
@@ -627,7 +678,41 @@ h1{
                     Mythic Case rolls through your store games and can add a winning game to your library automatically.
                 </p>
             </div>
+            <div class="history-card">
+                <h2>🎟 Coupon History</h2>
 
+                {% if coupon_history %}
+                    <div class="history-list">
+
+                        {% for item in coupon_history %}
+                        <div class="history-item">
+
+                            <div>
+                                <strong>{{ item.reward }}</strong>
+                                <br>
+                                <small>{{ item.created_at|date:"d M Y H:i" }}</small>
+                            </div>
+
+                            <div>
+                                <div class="coupon-code">
+                                    {{ item.code }}
+                                </div>
+
+                                {% if item.is_used %}
+                                    <span class="used">USED</span>
+                                {% else %}
+                                    <span class="active">ACTIVE</span>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                {% else %}
+                    <p>No coupon history yet.</p>
+                {% endif %}
+            </div>
             <div class="case-price">
                 <small>CHOOSE CASE</small>
 

@@ -825,88 +825,53 @@ def generate_redeem_code():
     )
 @login_required
 def lucky_spin(request):
+    rewards = [
+        "$1 Wallet",
+        "$2 Wallet",
+        "$5 Wallet",
+        "10% Discount",
+        "20% Discount",
+        "Free Game Key",
+        "Try Again",
+    ]
+
     spin_credit, created = UserSpinCredit.objects.get_or_create(
         user=request.user
     )
 
-    games = list(Game.objects.all())
-
-    normal_rewards = [
-        "20% Discount",
-        "10% Discount",
-        "$1 Wallet",
-        "$2 Wallet",
-        "$3 Wallet",
-        "$4 Wallet",
-        "$5 Wallet",
-    ]
-
-    my_codes = RewardCode.objects.filter(
-        user=request.user,
-        is_used=False
-    ).order_by("-created_at")
+    reward = None
+    redeem_code = None
 
     if request.method == "POST":
-        case_type = request.POST.get("case_type", "normal")
 
-        cost = 5 if case_type == "mythic" else 1
+        if spin_credit.spins <= 0:
+            messages.error(request, "You need to spend $10 to get 1 spin.")
+            return redirect("lucky_spin")
 
-        if spin_credit.spins < cost:
-            return JsonResponse({
-                "error": f"You need at least {cost} spins."
-            })
-
-        spin_credit.spins -= cost
+        spin_credit.spins -= 1
         spin_credit.save()
 
-        # MYTHIC CASE = FREE GAME
-        if case_type == "mythic":
-            if not games:
-                return JsonResponse({
-                    "error": "No games available."
-                })
+        reward = random.choice(rewards)
 
-            winner = random.choice(games)
+        if reward != "Try Again":
+            redeem_code = "SPIN-" + generate_reward_code()
 
-            Purchase.objects.get_or_create(
+            RewardCode.objects.create(
                 user=request.user,
-                game=winner,
-                defaults={
-                    "price": 0
-                }
+                reward=reward,
+                code=redeem_code,
+                is_used=False
             )
 
-            return JsonResponse({
-                "type": "game",
-                "winner": winner.title,
-                "image": winner.image.url if winner.image else "",
-                "id": winner.id,
-                "remaining_spins": spin_credit.spins,
-            })
-
-        # NORMAL CASE = COUPON
-        reward = random.choice(normal_rewards)
-        redeem_code = "SPIN-" + generate_reward_code()
-
-        RewardCode.objects.create(
-            user=request.user,
-            reward=reward,
-            code=redeem_code,
-            is_used=False
-        )
-
-        return JsonResponse({
-            "type": "coupon",
-            "winner": reward,
-            "code": redeem_code,
-            "remaining_spins": spin_credit.spins,
-        })
+    coupon_history = RewardCode.objects.filter(
+        user=request.user
+    ).order_by("-created_at")
 
     return render(request, "games/lucky_spin.html", {
-        "games": games,
-        "normal_rewards": normal_rewards,
+        "reward": reward,
+        "redeem_code": redeem_code,
         "spins": spin_credit.spins,
-        "my_codes": my_codes,
+        "coupon_history": coupon_history,
     })
 def generate_reward_code():
     return ''.join(
