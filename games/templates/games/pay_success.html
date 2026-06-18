@@ -352,7 +352,8 @@ body{
     width:100%;
 }
 
-.redeem-box{
+.redeem-box,
+.spin-code-box{
     width:100%;
     max-width:390px;
     background:linear-gradient(180deg,#172437,#101827);
@@ -388,7 +389,8 @@ body{
     cursor:pointer;
 }
 
-.redeem-input{
+.redeem-input,
+.reward-input{
     width:100%;
     max-width:390px;
     display:block;
@@ -401,6 +403,24 @@ body{
     text-align:center;
     font-weight:900;
     outline:none;
+}
+
+.reward-input{
+    border-color:rgba(139,197,63,.45);
+    background:rgba(139,197,63,.08);
+    color:#beee11;
+}
+
+.reward-input::placeholder,
+.redeem-input::placeholder{
+    color:#7f95aa;
+}
+
+.spin-hint{
+    color:#9fb0c2;
+    line-height:1.7;
+    font-size:14px;
+    margin-bottom:16px;
 }
 
 @media(max-width:900px){
@@ -487,7 +507,7 @@ body{
                 {% endif %}
 
                 <div class="game-info">
-                    <h2>{{ game_title }}</h2>
+                    <h2>{{ game.title }}</h2>
 
                     <div class="game-desc">
                         {{ game.description }}
@@ -539,7 +559,7 @@ body{
 
             <div id="redeemSection" class="redeem-section">
                 <div class="redeem-box">
-                    <div class="redeem-title">Your Redeem Code</div>
+                    <div class="redeem-title">Your Payment Redeem Code</div>
 
                     <div class="redeem-code" id="redeemCode">
                         {{ redeem_code }}
@@ -558,8 +578,21 @@ body{
                     <input type="text"
                            name="redeem_code"
                            class="redeem-input"
-                           placeholder="Paste redeem code here"
+                           placeholder="Paste payment redeem code here"
                            required>
+
+                    <div class="spin-code-box">
+                        <div class="redeem-title">Lucky Spin Code Optional</div>
+
+                        <div class="spin-hint">
+                            Use your saved Lucky Spin code here for 10%, 20%, $1, $2, $5 off, or free game.
+                        </div>
+
+                        <input type="text"
+                               name="reward_code"
+                               class="reward-input"
+                               placeholder="Example: SPIN-AB12CD34">
+                    </div>
 
                     <button type="submit" class="confirm-btn">
                         I Paid with ABA
@@ -638,7 +671,7 @@ function copyRedeemCode(){
 
     if(codeBox){
         navigator.clipboard.writeText(codeBox.innerText.trim());
-        alert("Redeem code copied!");
+        alert("Payment redeem code copied!");
     }
 }
 </script>

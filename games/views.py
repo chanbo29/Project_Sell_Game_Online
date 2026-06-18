@@ -561,41 +561,71 @@ def complete_payment(request):
 
     if request.method == "POST":
         input_code = request.POST.get("redeem_code")
+        reward_code_input = request.POST.get("reward_code", "").strip()
 
-        if input_code == redeem_code:
-            already_bought = Purchase.objects.filter(
-                user=request.user,
-                game=game
-            ).exists()
+        if input_code != redeem_code:
+            messages.error(request, "Invalid payment redeem code.")
+            return redirect("pay_success")
 
-            if not already_bought:
-                Purchase.objects.create(
-                user=request.user,
-                game=game,
-                price=game.final_price()
-            )
-
-            price = float(game.final_price())
-            spins_earned = int(price // 10)
-
-            if spins_earned > 0:
-                spin_credit, created = UserSpinCredit.objects.get_or_create(
-                    user=request.user
-                )
-                spin_credit.spins += spins_earned
-                spin_credit.save()
-
-            if "redeem_code" in request.session:
-                            del request.session["redeem_code"]
-
-            if "buy_game_id" in request.session:
-                            del request.session["buy_game_id"]
-
-            messages.success(request, "Payment completed successfully!")
+        if Purchase.objects.filter(user=request.user, game=game).exists():
+            messages.warning(request, "You already bought this game.")
             return redirect("library")
 
-        messages.error(request, "Invalid redeem code.")
-        return redirect("pay_success")
+        price = float(game.final_price())
+
+        if reward_code_input:
+            reward_code = RewardCode.objects.filter(
+                user=request.user,
+                code=reward_code_input,
+                is_used=False
+            ).first()
+
+            if not reward_code:
+                messages.error(request, "Invalid or already used Lucky Spin code.")
+                return redirect("pay_success")
+
+            if reward_code.reward == "20% Discount":
+                price = price * 0.80
+            elif reward_code.reward == "10% Discount":
+                price = price * 0.90
+            elif reward_code.reward == "$5 Wallet":
+                price = price - 5
+            elif reward_code.reward == "$2 Wallet":
+                price = price - 2
+            elif reward_code.reward == "$1 Wallet":
+                price = price - 1
+            elif reward_code.reward == "Free Game Key":
+                price = 0
+
+            if price < 0:
+                price = 0
+
+            reward_code.is_used = True
+            reward_code.save()
+
+        Purchase.objects.create(
+            user=request.user,
+            game=game,
+            price=price
+        )
+
+        spins_earned = int(price // 10)
+
+        if spins_earned > 0:
+            spin_credit, created = UserSpinCredit.objects.get_or_create(
+                user=request.user
+            )
+            spin_credit.spins += spins_earned
+            spin_credit.save()
+
+        if "redeem_code" in request.session:
+            del request.session["redeem_code"]
+
+        if "buy_game_id" in request.session:
+            del request.session["buy_game_id"]
+
+        messages.success(request, "Payment completed successfully!")
+        return redirect("library")
 
     return redirect("pay_success")
 #SHOW_REDEEM_CODE
