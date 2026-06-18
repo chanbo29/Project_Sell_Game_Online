@@ -17,84 +17,189 @@
     font-family:'Inter',sans-serif;
 }
 
+:root{
+    --bg:#050b14;
+    --panel:#0b1624;
+    --panel2:#101d31;
+    --blue:#66c0f4;
+    --green:#8bc53f;
+    --lime:#beff18;
+    --pink:#ff4bb8;
+    --orange:#f59e0b;
+    --text:#eaf4ff;
+    --muted:#9fb3c8;
+    --border:rgba(102,192,244,.24);
+}
+
 body{
     min-height:100vh;
     background:
-    radial-gradient(circle at top left,rgba(102,192,244,.22),transparent 35%),
-    radial-gradient(circle at top right,rgba(139,197,63,.18),transparent 35%),
-    linear-gradient(135deg,#050b14,#0b1624 55%,#02040a);
+        radial-gradient(circle at top left,rgba(102,192,244,.26),transparent 34%),
+        radial-gradient(circle at top right,rgba(255,75,184,.16),transparent 30%),
+        radial-gradient(circle at bottom,rgba(139,197,63,.15),transparent 35%),
+        linear-gradient(135deg,#020617,#07111d 55%,#02040a);
+    color:var(--text);
+    padding:34px;
+}
+
+.page{
+    width:100%;
+    max-width:1280px;
+    margin:auto;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.logo{
     color:white;
+    text-decoration:none;
+    font-size:28px;
+    font-weight:900;
+}
+
+.logo span{
+    color:var(--blue);
+}
+
+.back-btn{
+    height:46px;
+    padding:0 18px;
+    border-radius:14px;
     display:flex;
     align-items:center;
-    justify-content:center;
-    padding:30px;
+    text-decoration:none;
+    color:white;
+    font-weight:900;
+    background:rgba(102,192,244,.12);
+    border:1px solid var(--border);
 }
 
 .spin-page{
-    width:100%;
-    max-width:1100px;
     display:grid;
-    grid-template-columns:1fr 420px;
-    gap:35px;
-    align-items:center;
+    grid-template-columns:minmax(0,1.35fr) 410px;
+    gap:28px;
+    align-items:start;
 }
 
-.spin-card{
-    background:rgba(10,20,35,.88);
-    border:1px solid rgba(102,192,244,.25);
-    border-radius:30px;
-    padding:38px;
-    box-shadow:0 30px 80px rgba(0,0,0,.45);
+.main-card,
+.side-card,
+.codes-card{
+    background:
+        radial-gradient(circle at top right,rgba(102,192,244,.1),transparent 35%),
+        linear-gradient(180deg,rgba(16,29,49,.92),rgba(7,17,29,.92));
+    border:1px solid var(--border);
+    border-radius:32px;
+    box-shadow:0 30px 90px rgba(0,0,0,.45);
+    backdrop-filter:blur(18px);
+}
+
+.main-card{
+    padding:34px;
+}
+
+.hero-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:18px;
+    margin-bottom:28px;
+}
+
+.badges{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
 }
 
 .badge{
     display:inline-flex;
-    padding:10px 18px;
+    align-items:center;
+    gap:8px;
+    padding:11px 16px;
     border-radius:999px;
     background:rgba(102,192,244,.12);
-    color:#66c0f4;
+    color:var(--blue);
+    border:1px solid rgba(102,192,244,.22);
     font-weight:900;
-    margin-bottom:18px;
+}
+
+.spin-balance{
+    color:white;
+    background:linear-gradient(135deg,rgba(139,197,63,.28),rgba(102,192,244,.12));
+    border-color:rgba(139,197,63,.35);
 }
 
 h1{
-    font-size:52px;
+    font-size:58px;
+    line-height:1.05;
     font-weight:900;
-    line-height:1.1;
-    margin-bottom:18px;
+    letter-spacing:-1px;
+    margin-bottom:14px;
 }
 
-p{
-    color:#9fb3c8;
+.subtitle{
+    max-width:720px;
+    color:var(--muted);
     font-size:17px;
-    line-height:1.7;
-    margin-bottom:28px;
+    line-height:1.75;
+}
+
+.spin-layout{
+    display:grid;
+    grid-template-columns:390px minmax(0,1fr);
+    gap:34px;
+    align-items:center;
 }
 
 .wheel-wrap{
     display:flex;
     justify-content:center;
-    margin:35px 0;
+    align-items:center;
     position:relative;
+    min-height:430px;
+}
+
+.glow-ring{
+    position:absolute;
+    width:405px;
+    height:405px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle,rgba(102,192,244,.18),transparent 58%),
+        conic-gradient(from 0deg,rgba(102,192,244,.0),rgba(102,192,244,.55),rgba(139,197,63,.55),rgba(255,75,184,.55),rgba(102,192,244,.0));
+    filter:blur(10px);
+    animation:glowSpin 5s linear infinite;
+}
+
+@keyframes glowSpin{
+    to{transform:rotate(360deg);}
 }
 
 .pointer{
     position:absolute;
-    top:-10px;
-    z-index:5;
+    top:7px;
+    z-index:8;
     width:0;
     height:0;
-    border-left:20px solid transparent;
-    border-right:20px solid transparent;
-    border-top:35px solid #ffcc00;
-    filter:drop-shadow(0 0 12px rgba(255,204,0,.8));
+    border-left:25px solid transparent;
+    border-right:25px solid transparent;
+    border-top:46px solid #ffd400;
+    filter:drop-shadow(0 0 14px rgba(255,212,0,.9));
 }
 
 .wheel{
-    width:340px;
-    height:340px;
+    width:360px;
+    height:360px;
     border-radius:50%;
-    border:10px solid rgba(255,255,255,.12);
+    position:relative;
+    z-index:3;
+    border:12px solid rgba(255,255,255,.12);
     background:
     conic-gradient(
         #66c0f4 0deg 51deg,
@@ -109,109 +214,155 @@ p{
     align-items:center;
     justify-content:center;
     box-shadow:
-    inset 0 0 40px rgba(0,0,0,.45),
-    0 0 45px rgba(102,192,244,.25);
+        inset 0 0 45px rgba(0,0,0,.55),
+        0 0 55px rgba(102,192,244,.25);
     transition:transform 3s cubic-bezier(.15,.85,.25,1);
 }
 
+.wheel::before{
+    content:"";
+    position:absolute;
+    inset:18px;
+    border-radius:50%;
+    border:2px dashed rgba(255,255,255,.28);
+}
+
 .wheel-center{
-    width:120px;
-    height:120px;
+    width:132px;
+    height:132px;
     border-radius:50%;
     background:#07111d;
-    border:6px solid rgba(255,255,255,.25);
+    border:7px solid rgba(255,255,255,.22);
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
+    color:white;
     font-weight:900;
     font-size:20px;
-    box-shadow:0 0 30px rgba(0,0,0,.55);
+    z-index:4;
+    box-shadow:0 0 35px rgba(0,0,0,.6);
+}
+
+.action-panel{
+    padding:28px;
+    border-radius:26px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.action-panel h2{
+    font-size:26px;
+    margin-bottom:12px;
+}
+
+.action-panel p{
+    color:var(--muted);
+    line-height:1.7;
+    margin-bottom:22px;
 }
 
 .spin-btn{
     width:100%;
-    height:62px;
+    height:66px;
     border:none;
-    border-radius:18px;
+    border-radius:20px;
     background:linear-gradient(135deg,#8bc53f,#5d9122);
     color:white;
-    font-size:18px;
+    font-size:19px;
     font-weight:900;
     cursor:pointer;
-    box-shadow:0 18px 35px rgba(139,197,63,.28);
+    box-shadow:0 18px 40px rgba(139,197,63,.28);
     transition:.25s;
 }
 
 .spin-btn:hover{
     transform:translateY(-4px);
-    box-shadow:0 25px 45px rgba(139,197,63,.42);
+    box-shadow:0 24px 55px rgba(139,197,63,.42);
+}
+
+.notice{
+    margin-top:16px;
+    padding:14px;
+    border-radius:16px;
+    background:rgba(245,158,11,.1);
+    border:1px solid rgba(245,158,11,.28);
+    color:#ffd08a;
+    font-size:14px;
+    line-height:1.6;
 }
 
 .reward-box{
-    margin-top:25px;
-    padding:25px;
-    border-radius:22px;
-    background:linear-gradient(135deg,rgba(102,192,244,.16),rgba(139,197,63,.12));
+    margin-top:22px;
+    padding:24px;
+    border-radius:24px;
+    background:linear-gradient(135deg,rgba(102,192,244,.15),rgba(139,197,63,.11));
     border:1px solid rgba(102,192,244,.28);
     text-align:center;
 }
 
 .reward-box h2{
-    font-size:22px;
-    margin-bottom:14px;
+    font-size:20px;
+    margin-bottom:12px;
 }
 
 .reward{
-    font-size:34px;
+    font-size:32px;
     font-weight:900;
-    color:#beff18;
+    color:var(--lime);
     margin-bottom:16px;
 }
 
 .code-box{
-    padding:18px;
+    padding:16px;
     border-radius:16px;
     background:#050b14;
-    border:1px dashed #66c0f4;
-    color:#66c0f4;
-    font-size:26px;
+    border:1px dashed var(--blue);
+    color:var(--blue);
+    font-size:22px;
     font-weight:900;
-    letter-spacing:2px;
+    letter-spacing:1.5px;
+    word-break:break-all;
 }
 
 .copy-btn{
     margin-top:14px;
-    height:44px;
+    height:46px;
     padding:0 22px;
     border:none;
-    border-radius:12px;
+    border-radius:14px;
     background:linear-gradient(135deg,#66c0f4,#167ac0);
     color:white;
     font-weight:900;
     cursor:pointer;
 }
 
-.side-card{
-    background:rgba(10,20,35,.75);
-    border:1px solid rgba(102,192,244,.22);
-    border-radius:28px;
-    padding:28px;
+.side-stack{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
 }
 
-.side-card h3{
-    font-size:24px;
+.side-card,
+.codes-card{
+    padding:26px;
+}
+
+.side-card h3,
+.codes-card h3{
+    font-size:23px;
     margin-bottom:18px;
 }
 
-.reward-list{
+.reward-list,
+.codes-list{
     display:flex;
     flex-direction:column;
-    gap:14px;
+    gap:12px;
 }
 
 .reward-item{
-    padding:15px;
+    padding:14px 15px;
     border-radius:16px;
     background:rgba(255,255,255,.05);
     border:1px solid rgba(255,255,255,.08);
@@ -219,26 +370,88 @@ p{
     font-weight:800;
 }
 
-.back-btn{
-    display:inline-flex;
-    margin-top:22px;
-    color:#66c0f4;
-    text-decoration:none;
-    font-weight:900;
+.saved-code{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:10px;
+    align-items:center;
+    padding:14px;
+    border-radius:16px;
+    background:rgba(102,192,244,.06);
+    border:1px solid rgba(102,192,244,.16);
 }
 
-@media(max-width:900px){
-    .spin-page{
+.saved-code strong{
+    color:var(--blue);
+    font-size:14px;
+    word-break:break-all;
+}
+
+.saved-code span{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:800;
+}
+
+.mini-copy{
+    height:36px;
+    padding:0 12px;
+    border:none;
+    border-radius:11px;
+    color:white;
+    background:rgba(102,192,244,.22);
+    font-weight:900;
+    cursor:pointer;
+}
+
+.empty-text{
+    color:var(--muted);
+    line-height:1.7;
+}
+
+@media(max-width:1100px){
+    .spin-page,
+    .spin-layout{
         grid-template-columns:1fr;
     }
 
+    .wheel-wrap{
+        min-height:390px;
+    }
+}
+
+@media(max-width:650px){
+    body{
+        padding:18px;
+    }
+
+    .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
     h1{
-        font-size:38px;
+        font-size:40px;
+    }
+
+    .main-card{
+        padding:22px;
     }
 
     .wheel{
         width:280px;
         height:280px;
+    }
+
+    .glow-ring{
+        width:315px;
+        height:315px;
+    }
+
+    .wheel-center{
+        width:105px;
+        height:105px;
+        font-size:16px;
     }
 }
 </style>
@@ -246,73 +459,132 @@ p{
 
 <body>
 
-<div class="spin-page">
+<div class="page">
 
-    <div class="spin-card">
-        <div class="badge">🎰 Daily Reward</div>
-        <div class="badge">
-            🎰 Your Spins: {{ spins }}
-        </div>
-
-        <h1>Lucky Spin</h1>
-
-        <p>
-            Spin the wheel and win wallet credit, discount coupons, or a free game key.
-            If you win, you will receive a redeem code to use next time.
-        </p>
-
-        <div class="wheel-wrap">
-            <div class="pointer"></div>
-
-            <div class="wheel" id="wheel">
-                <div class="wheel-center">
-                    SELL<br>GAME
-                </div>
-            </div>
-        </div>
-
-        <form method="POST" id="spinForm">
-            {% csrf_token %}
-            <button type="submit" class="spin-btn" onclick="spinWheel(event)">
-                SPIN NOW
-            </button>
-        </form>
-
-        {% if reward %}
-        <div class="reward-box">
-            <h2>🎁 Your Reward</h2>
-
-            <div class="reward">
-                {{ reward }}
-            </div>
-
-            {% if redeem_code %}
-            <div class="code-box" id="redeemCode">
-                {{ redeem_code }}
-            </div>
-
-            <button class="copy-btn" type="button" onclick="copyCode()">
-                Copy Code
-            </button>
-            {% endif %}
-        </div>
-        {% endif %}
-
+    <div class="topbar">
+        <a href="/" class="logo">SELL<span>GAME</span>ONLINE</a>
         <a href="/" class="back-btn">← Back to Store</a>
     </div>
 
-    <div class="side-card">
-        <h3>Possible Rewards</h3>
+    <div class="spin-page">
 
-        <div class="reward-list">
-            <div class="reward-item">💵 $1 Wallet Credit</div>
-            <div class="reward-item">💵 $2 Wallet Credit</div>
-            <div class="reward-item">💵 $5 Wallet Credit</div>
-            <div class="reward-item">🎟 10% Discount Coupon</div>
-            <div class="reward-item">🎟 20% Discount Coupon</div>
-            <div class="reward-item">🎮 Free Game Key</div>
-            <div class="reward-item">😢 Try Again</div>
-        </div>
+        <main class="main-card">
+
+            <div class="hero-head">
+                <div>
+                    <div class="badges">
+                        <div class="badge">🎰 Lucky Reward</div>
+                        <div class="badge spin-balance">Your Spins: {{ spins }}</div>
+                    </div>
+
+                    <h1>Lucky Spin</h1>
+
+                    <p class="subtitle">
+                        Spend $10 in the store to earn 1 spin. Spin the wheel to win wallet credit,
+                        discounts, or a free game key. Winning rewards are saved as redeem codes for next time.
+                    </p>
+                </div>
+            </div>
+
+            <div class="spin-layout">
+
+                <div class="wheel-wrap">
+                    <div class="glow-ring"></div>
+                    <div class="pointer"></div>
+
+                    <div class="wheel" id="wheel">
+                        <div class="wheel-center">
+                            SELL<br>GAME<br>SPIN
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-panel">
+                    <h2>Ready to spin?</h2>
+                    <p>
+                        Click the button below. If you win, your reward code will be stored in your account
+                        until you use it during checkout.
+                    </p>
+
+                    <form method="POST" id="spinForm">
+                        {% csrf_token %}
+                        <button type="submit" class="spin-btn" onclick="spinWheel(event)">
+                            SPIN NOW
+                        </button>
+                    </form>
+
+                    <div class="notice">
+                        💡 You need at least 1 spin. Every $10 spent gives you 1 spin.
+                    </div>
+
+                    {% if reward %}
+                    <div class="reward-box">
+                        <h2>🎁 Your Reward</h2>
+
+                        <div class="reward">
+                            {{ reward }}
+                        </div>
+
+                        {% if redeem_code %}
+                        <div class="code-box" id="redeemCode">
+                            {{ redeem_code }}
+                        </div>
+
+                        <button class="copy-btn" type="button" onclick="copyCode('redeemCode')">
+                            Copy Code
+                        </button>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </main>
+
+        <aside class="side-stack">
+
+            <div class="codes-card">
+                <h3>🎟 My Redeem Codes</h3>
+
+                <div class="codes-list">
+                    {% for code in my_codes %}
+                    <div class="saved-code">
+                        <div>
+                            <strong id="savedCode{{ forloop.counter }}">
+                                {{ code.code }}
+                            </strong>
+                            <span>{{ code.reward }}</span>
+                        </div>
+
+                        <button class="mini-copy" type="button" onclick="copyCode('savedCode{{ forloop.counter }}')">
+                            Copy
+                        </button>
+                    </div>
+                    {% empty %}
+                    <p class="empty-text">
+                        No saved redeem codes yet. Spin the wheel to win a code.
+                    </p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="side-card">
+                <h3>🏆 Possible Rewards</h3>
+
+                <div class="reward-list">
+                    <div class="reward-item">💵 $1 Wallet Credit</div>
+                    <div class="reward-item">💵 $2 Wallet Credit</div>
+                    <div class="reward-item">💵 $5 Wallet Credit</div>
+                    <div class="reward-item">🎟 10% Discount Coupon</div>
+                    <div class="reward-item">🎟 20% Discount Coupon</div>
+                    <div class="reward-item">🎮 Free Game Key</div>
+                    <div class="reward-item">😢 Try Again</div>
+                </div>
+            </div>
+
+        </aside>
+
     </div>
 
 </div>
@@ -333,8 +605,8 @@ function spinWheel(event){
     }, 3000);
 }
 
-function copyCode(){
-    const code = document.getElementById("redeemCode").innerText;
+function copyCode(id){
+    const code = document.getElementById(id).innerText.trim();
 
     navigator.clipboard.writeText(code);
 

@@ -823,20 +823,24 @@ def lucky_spin(request):
             RewardCode.objects.create(
                 user=request.user,
                 reward=reward,
-                code=redeem_code
+                code=redeem_code,
+                is_used=False
             )
+
+    my_codes = RewardCode.objects.filter(
+        user=request.user,
+        is_used=False
+    ).order_by("-created_at")
 
     return render(request, "games/lucky_spin.html", {
         "reward": reward,
         "redeem_code": redeem_code,
         "spins": spin_credit.spins,
+        "my_codes": my_codes,
     })
 def generate_reward_code():
     return ''.join(
-        random.choices(
-            string.ascii_uppercase + string.digits,
-            k=8
-        )
+        random.choices(string.ascii_uppercase + string.digits, k=8)
     )
 @login_required(login_url='/login/')
 def play_game(request, game_id):

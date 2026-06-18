@@ -80,19 +80,10 @@ class LuckySpin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 class RewardCode(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
     reward = models.CharField(max_length=100)
-
-    code = models.CharField(
-        max_length=20,
-        unique=True
-    )
-
+    code = models.CharField(max_length=30, unique=True)
     is_used = models.BooleanField(default=False)
-
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
 class UserSpinCredit(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     spins = models.PositiveIntegerField(default=0)
