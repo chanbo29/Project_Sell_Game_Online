@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rddq14cfj$^&!lxyler9+65ssssl1x&jsfeif3$6#2n9qxi7*e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
@@ -131,7 +131,9 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "/media/"
-
+STATICFILES_DIRS = [
+    BASE_DIR / "games" / "static",
+]
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME", "dqreww6yt"),
     "API_KEY": os.environ.get("CLOUDINARY_API_KEY", "898997961179595"),
