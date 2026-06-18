@@ -280,9 +280,36 @@ h1{
     gap:18px;
     padding:0 26px;
     transform:translateX(0);
-    transition:transform 6s cubic-bezier(.08,.82,.18,1);
+    will-change:transform;
 }
 
+.reel.rolling{
+    animation:reelRoll .12s linear infinite;
+}
+
+@keyframes reelRoll{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(-248px);
+    }
+}
+
+.result-box.winner{
+    animation:winnerFlash .8s ease infinite alternate;
+}
+
+@keyframes winnerFlash{
+    from{
+        box-shadow:0 0 20px rgba(190,238,17,.3);
+    }
+    to{
+        box-shadow:
+            0 0 40px rgba(190,238,17,.9),
+            0 0 80px rgba(190,238,17,.4);
+    }
+}
 .game-box{
     flex:0 0 230px;
     height:258px;
@@ -663,14 +690,26 @@ function openCase(){
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
 
-    let distance = selectedCase === "mythic"
-        ? 18000 + Math.floor(Math.random() * 5000)
-        : 12000 + Math.floor(Math.random() * 3000);
+    reel.style.transition = "none";
+    reel.style.transform = "translateX(0)";
+    reel.classList.add("rolling");
 
-    let speed = selectedCase === "mythic" ? 10 : 7;
+    setTimeout(() => {
+        reel.classList.remove("rolling");
 
-    reel.style.transition = `transform ${speed}s cubic-bezier(.08,.82,.18,1)`;
-    reel.style.transform = "translateX(-" + distance + "px)";
+        const distance = selectedCase === "mythic"
+            ? 22000 + Math.floor(Math.random() * 7000)
+            : 15000 + Math.floor(Math.random() * 4000);
+
+        const speed = selectedCase === "mythic" ? 10 : 8;
+
+        reel.style.transition =
+            `transform ${speed}s cubic-bezier(0.05,0.9,0.15,1)`;
+
+        reel.style.transform =
+            "translateX(-" + distance + "px)";
+
+    }, 1200);
 
     const formData = new FormData();
     formData.append("case_type", selectedCase);
@@ -684,6 +723,8 @@ function openCase(){
     })
     .then(response => response.json())
     .then(data => {
+        const waitTime = selectedCase === "mythic" ? 11200 : 9200;
+
         setTimeout(function(){
             if(data.error){
                 alert(data.error);
@@ -696,9 +737,9 @@ function openCase(){
             const rewardDesc = document.getElementById("rewardDesc");
 
             rewardCard.style.display = "block";
+            document.querySelector(".result-box").classList.add("winner");
 
             if(data.type === "game"){
-
                 winnerName.innerText = data.winner;
 
                 if(data.image){
@@ -709,27 +750,18 @@ function openCase(){
                 rewardTitle.innerText = "🎮 FREE GAME WON";
                 rewardDesc.innerText =
                     "The game has been added to your library automatically.";
-
             }else{
-
                 winnerName.innerText = data.winner;
 
                 rewardTitle.innerText = "🎟 COUPON WON";
-
-                rewardDesc.innerText =
-                    "Redeem Code: " + data.code;
+                rewardDesc.innerText = "Redeem Code: " + data.code;
             }
-            // else{
-            //     winnerName.innerText = "🎟 You won: " + data.winner + "\nCode: " + data.code;
-
-            //     alert("🎉 You won coupon: " + data.winner + "\nRedeem Code: " + data.code);
-            // }
 
             setTimeout(function(){
                 location.reload();
-            }, 2200);
+            }, 2600);
 
-        }, selectedCase === "mythic" ? 7100 : 5600);
+        }, waitTime);
     })
     .catch(() => {
         alert("Something went wrong.");
