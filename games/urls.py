@@ -67,5 +67,5 @@ urlpatterns = [
     #TELEGRAM API
     path("test-telegram/", views.test_telegram),
 
-    path("import-old-data/", views.import_old_data),
+    # path("import-old-data/", views.import_old_data),
 ]
