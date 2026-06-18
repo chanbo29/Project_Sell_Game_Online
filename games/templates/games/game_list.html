@@ -872,72 +872,55 @@
 .game-card{
     width:100%;
     position:relative;
+    background:linear-gradient(180deg,#01000fad,#02001a71);
+    border:1px solid rgba(0,162,255,.18);
     border-radius:22px;
     overflow:hidden;
-    background:linear-gradient(180deg,#01000fad,#02001a71);
-    transition:.35s;
+    transition:.3s;
+    box-shadow:0 18px 45px rgba(0,0,0,.28);
     z-index:1;
 }
 
-/* RGB BORDER */
+/* RGB BORDER HIDDEN */
 .game-card::before{
     content:"";
     position:absolute;
-    inset:-3px;
-    border-radius:24px;
+    inset:-2px;
+    border-radius:22px;
 
     background:conic-gradient(
         from 0deg,
+        transparent,
         #00d4ff,
         #0099ff,
         #66c0f4,
-        #00d4ff,
         #0099ff,
-        #66c0f4,
-        #00d4ff
+        #00d4ff,
+        transparent
     );
 
-    animation:rgbSpin 2.5s linear infinite;
-    z-index:-2;
-}
-
-/* INNER CARD */
-.game-card::after{
-    content:"";
-    position:absolute;
-    inset:2px;
-    border-radius:20px;
-    background:linear-gradient(
-        180deg,
-        #01000fad,
-        #02001a71
-    );
+    opacity:0;
     z-index:-1;
 }
 
-@keyframes rgbSpin{
-    from{
-        transform:rotate(0deg);
-    }
-    to{
+/* SHOW RGB ONLY ON HOVER */
+.game-card:hover::before{
+    opacity:1;
+    animation:rgbBorder 1.5s linear infinite;
+}
+
+@keyframes rgbBorder{
+    100%{
         transform:rotate(360deg);
     }
 }
 
 .game-card:hover{
     transform:translateY(-8px);
+    border-color:#66c0f4;
     box-shadow:
-        0 0 20px rgba(0,212,255,.35),
-        0 0 40px rgba(0,153,255,.25),
-        0 25px 70px rgba(0,89,255,.25);
-}
-
-.game-card:hover::before{
-    filter:
-        blur(1px)
-        drop-shadow(0 0 12px #00d4ff)
-        drop-shadow(0 0 25px #0099ff)
-        drop-shadow(0 0 40px #66c0f4);
+        0 30px 70px rgba(0,89,255,.27),
+        0 0 18px rgba(102,192,244,.25);
 }
 .discount{
     position:absolute;
