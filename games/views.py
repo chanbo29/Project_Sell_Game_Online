@@ -16,6 +16,7 @@ from django.db.models.functions import TruncDate, TruncMonth
 from django.http import HttpResponse
 from .forms import GameForm, RegisterForm
 from .models import Game, RewardCode, Wishlist, Cart, Purchase, LuckySpin, UserSpinCredit
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
 from .telegram_api import send_telegram_message
@@ -878,6 +879,54 @@ def generate_reward_code():
         random.choices(string.ascii_uppercase + string.digits, k=8)
     )
 @login_required(login_url='/login/')
+@login_required
+def lucky_case(request):
+
+    spin_credit, created = UserSpinCredit.objects.get_or_create(
+        user=request.user
+    )
+
+    games = list(Game.objects.all())
+
+    if request.method == "POST":
+
+        # Need 5 spins to open case
+        if spin_credit.spins < 5:
+            return JsonResponse({
+                "error": "You need at least 5 spins."
+            })
+
+        # Deduct 5 spins
+        spin_credit.spins -= 5
+        spin_credit.save()
+
+        # Pick random game
+        winner = random.choice(games)
+
+        # Add game to library if not owned
+        Purchase.objects.get_or_create(
+            user=request.user,
+            game=winner,
+            defaults={
+                "price": 0
+            }
+        )
+
+        return JsonResponse({
+            "winner": winner.title,
+            "image": winner.image.url if winner.image else "",
+            "id": winner.id,
+            "remaining_spins": spin_credit.spins
+        })
+
+    return render(
+        request,
+        "games/lucky_case.html",
+        {
+            "games": games,
+            "spins": spin_credit.spins
+        }
+    )
 def play_game(request, game_id):
 
     game = get_object_or_404(Game, id=game_id)
