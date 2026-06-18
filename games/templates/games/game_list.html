@@ -1368,8 +1368,24 @@
             <!-- RECOMMEND -->
             <div class="search-results" id="searchResults">
                 <div class="recommend-title">
-                    Recommended Games
+                    All Games
                 </div>
+
+                {% for game in games %}
+                <a href="/buy/{{ game.id }}/"
+                class="search-result-item">
+
+                    {% if game.image %}
+                        <img src="{{ game.image.url }}">
+                    {% endif %}
+
+                    <div class="search-result-info">
+                        <h4>{{ game.title }}</h4>
+                        <p>${{ game.final_price|floatformat:2 }}</p>
+                    </div>
+
+                </a>
+                {% endfor %}
                 {% for game in games|slice:":4" %}
                 <a href="/game/{{ game.id }}/"
                 class="search-result-item">
@@ -1628,17 +1644,80 @@ function confirmDelete(){
     return confirm(
         "⚠️ Delete this game permanently?");
 }
-function filterGames(){
-    let input = document.getElementById("searchInput").value.toLowerCase();
-    let cards = document.querySelectorAll(".searchable-card");
+function filterGames() {
 
-    cards.forEach(function(card){
-        let title = card.querySelector(".game-title").innerText.toLowerCase();
+    let input = document.getElementById("searchInput").value.toLowerCase();
+
+    let cards = document.querySelectorAll(".searchable-card");
+    let results = document.getElementById("searchResults");
+
+    results.innerHTML = `
+        <div class="recommend-title">
+            Search Results
+        </div>
+    `;
+
+    let found = 0;
+
+    cards.forEach(card => {
+
+        let title = card.dataset.title.toLowerCase();
 
         if(title.includes(input)){
+
             card.style.display = "";
+
+            if(found < 10){
+
+                results.innerHTML += `
+                    <a href="#"
+                       class="search-result-item"
+                       onclick="scrollToGame('${card.dataset.title}')">
+
+                        <div class="search-result-info">
+                            <h4>${card.dataset.title}</h4>
+                        </div>
+
+                    </a>
+                `;
+
+                found++;
+            }
+
         }else{
             card.style.display = "none";
+        }
+    });
+
+    if(input === ""){
+        results.style.display = "none";
+
+        cards.forEach(card=>{
+            card.style.display = "";
+        });
+
+    }else{
+        results.style.display = "block";
+    }
+}
+function scrollToGame(title){
+
+    const cards = document.querySelectorAll(".searchable-card");
+
+    cards.forEach(card => {
+
+        if(card.dataset.title === title){
+
+            card.scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+            card.style.border = "2px solid #66c0f4";
+
+            setTimeout(()=>{
+                card.style.border = "";
+            },2000);
         }
     });
 }
