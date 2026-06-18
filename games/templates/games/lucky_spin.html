@@ -662,7 +662,7 @@ h1{
                 {% for i in "123456789" %}
 
                     {% for reward in normal_rewards %}
-                    <div class="game-box coupon-box">
+                    <div class="game-box coupon-box" data-name="{{ reward }}">
                         <div class="coupon-icon">🎟</div>
                         <div class="game-box-info">
                             <h4>{{ reward }}</h4>
@@ -672,7 +672,7 @@ h1{
                     {% endfor %}
 
                     {% for game in games %}
-                    <div class="game-box game-prize">
+                    <div class="game-box game-prize" data-name="{{ game.title }}">
                         {% if game.image %}
                             <img src="{{ game.image.url }}" alt="{{ game.title }}">
                         {% else %}
@@ -796,23 +796,9 @@ function openCase(){
     const winnerImage = document.getElementById("winnerImage");
     const openBtn = document.getElementById("openBtn");
 
-    const spinTime = selectedCase === "mythic" ? 10000 : 8500;
-    const distance = selectedCase === "mythic" ? 24000 : 18000;
-
-    makeReelLongEnough(reel, distance + 3000);
-
     openBtn.disabled = true;
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
-
-    reel.style.transition = "none";
-    reel.style.transform = "translateX(0)";
-    reel.offsetHeight;
-
-    reel.style.transition =
-        `transform ${spinTime / 1000}s cubic-bezier(0.05,0.9,0.15,1)`;
-
-    reel.style.transform = `translateX(-${distance}px)`;
 
     const formData = new FormData();
     formData.append("case_type", selectedCase);
@@ -827,14 +813,43 @@ function openCase(){
     .then(response => response.json())
     .then(data => {
 
+        if(data.error){
+            alert(data.error);
+            location.reload();
+            return;
+        }
+
+        makeReelLongEnough(reel, 30000);
+
+        const items = Array.from(reel.children);
+        const matchingItems = items.filter(item => {
+            return item.dataset.name === data.winner &&
+                   item.offsetParent !== null;
+        });
+
+        const winnerItem = matchingItems[Math.floor(matchingItems.length / 2)];
+
+        const windowBox = document.querySelector(".case-window");
+        const windowCenter = windowBox.offsetWidth / 2;
+
+        const itemLeft = winnerItem.offsetLeft;
+        const itemCenter = winnerItem.offsetWidth / 2;
+
+        const finalDistance = itemLeft + itemCenter - windowCenter;
+
+        reel.style.transition = "none";
+        reel.style.transform = "translateX(0)";
+        reel.offsetHeight;
+
+        const spinTime = selectedCase === "mythic" ? 10 : 8;
+
+        reel.style.transition =
+            `transform ${spinTime}s cubic-bezier(0.05,0.9,0.15,1)`;
+
+        reel.style.transform = `translateX(-${finalDistance}px)`;
+
         reel.addEventListener("transitionend", function showResult(){
             reel.removeEventListener("transitionend", showResult);
-
-            if(data.error){
-                alert(data.error);
-                location.reload();
-                return;
-            }
 
             const rewardCard = document.getElementById("winnerRewardCard");
             const rewardTitle = document.getElementById("rewardTitle");
@@ -843,9 +858,9 @@ function openCase(){
             rewardCard.style.display = "block";
             document.querySelector(".result-box").classList.add("winner");
 
-            if(data.type === "game"){
-                winnerName.innerText = data.winner;
+            winnerName.innerText = data.winner;
 
+            if(data.type === "game"){
                 if(data.image){
                     winnerImage.src = data.image;
                     winnerImage.style.display = "block";
@@ -855,8 +870,6 @@ function openCase(){
                 rewardDesc.innerText =
                     "The game has been added to your library automatically.";
             }else{
-                winnerName.innerText = data.winner;
-
                 rewardTitle.innerText = "🎟 COUPON WON";
                 rewardDesc.innerText = "Redeem Code: " + data.code;
             }
