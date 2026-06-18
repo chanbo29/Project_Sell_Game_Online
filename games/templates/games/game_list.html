@@ -1434,9 +1434,10 @@
 <div class="game-grid">
     {% for game in games %}
     <div class="game-card searchable-card"
-         data-title="{{ game.title }}"
-         data-price="{{ game.final_price }}"
-         data-category="{{ game.category }}">
+     data-title="{{ game.title }}"
+     data-price="{{ game.final_price }}"
+     data-category="{{ game.category }}"
+     data-image="{% if game.image %}{{ game.image.url }}{% else %}https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg{% endif %}">
 
         <div class="game-image-wrapper">
 
@@ -1670,16 +1671,19 @@ function filterGames() {
             if(found < 10){
 
                 results.innerHTML += `
-                    <a href="#"
-                       class="search-result-item"
-                       onclick="scrollToGame('${card.dataset.title}')">
+                <a href="#"
+                class="search-result-item"
+                onclick="scrollToGame('${card.dataset.title}')">
 
-                        <div class="search-result-info">
-                            <h4>${card.dataset.title}</h4>
-                        </div>
+                    <img src="${card.dataset.image}" alt="${card.dataset.title}">
 
-                    </a>
-                `;
+                    <div class="search-result-info">
+                        <h4>${card.dataset.title}</h4>
+                        <p>$${card.dataset.price}</p>
+                    </div>
+
+                </a>
+            `;
 
                 found++;
             }
