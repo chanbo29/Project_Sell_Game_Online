@@ -381,7 +381,51 @@ h1{
     opacity:.45;
     cursor:not-allowed;
 }
+.coupon-box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:
+    radial-gradient(circle at top,#1f3b5c,#07111d);
+}
 
+.coupon-icon{
+    font-size:64px;
+    margin-bottom:20px;
+    filter:drop-shadow(0 0 18px rgba(102,192,244,.7));
+}
+
+.coupon-box h4{
+    text-align:center;
+    font-size:20px;
+    white-space:normal;
+}
+
+.game-prize{
+    display:none;
+}
+
+.mythic-mode .coupon-box{
+    display:none;
+}
+
+.mythic-mode .game-prize{
+    display:block;
+}
+
+.mythic-mode .case-card{
+    box-shadow:
+    0 0 40px rgba(190,238,17,.25),
+    0 35px 100px rgba(0,0,0,.5);
+}
+
+.mythic-mode .case-window{
+    border-color:#beee11;
+    box-shadow:
+    inset 0 0 50px rgba(0,0,0,.58),
+    0 0 70px rgba(190,238,17,.25);
+}
 .notice{
     margin-top:16px;
     padding:14px;
@@ -510,15 +554,22 @@ h1{
         </div>
         </div>
 
-        <div class="case-window">
-            <div class="center-line"></div>
-            <div class="case-pointer"></div>
-            <div class="case-pointer-bottom"></div>
+        <div class="reel" id="reel">
 
-            <div class="reel" id="reel">
                 {% for i in "123456789" %}
+
+                    {% for reward in normal_rewards %}
+                    <div class="game-box coupon-box">
+                        <div class="coupon-icon">🎟</div>
+                        <div class="game-box-info">
+                            <h4>{{ reward }}</h4>
+                            <span>COUPON</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+
                     {% for game in games %}
-                    <div class="game-box">
+                    <div class="game-box game-prize">
                         {% if game.image %}
                             <img src="{{ game.image.url }}" alt="{{ game.title }}">
                         {% else %}
@@ -527,11 +578,13 @@ h1{
 
                         <div class="game-box-info">
                             <h4>{{ game.title }}</h4>
-                            <span>WIN GAME</span>
+                            <span>FREE GAME</span>
                         </div>
                     </div>
                     {% endfor %}
+
                 {% endfor %}
+
             </div>
         </div>
 
@@ -572,7 +625,38 @@ h1{
                 </div>
 
                 <img id="winnerImage" class="result-img" src="" alt="Winner">
+                <div id="winnerRewardCard" style="
+                    display:none;
+                    margin-top:18px;
+                    padding:18px;
+                    border-radius:20px;
+                    background:linear-gradient(135deg,#101f33,#07111d);
+                    border:1px solid rgba(102,192,244,.25);
+                ">
+                    <div style="
+                        font-size:12px;
+                        color:#66c0f4;
+                        font-weight:900;
+                        letter-spacing:2px;
+                        margin-bottom:8px;
+                    ">
+                        REWARD RECEIVED
+                    </div>
 
+                    <div id="rewardTitle" style="
+                        font-size:24px;
+                        font-weight:900;
+                        color:#beee11;
+                        margin-bottom:10px;
+                    ">
+                    </div>
+
+                    <div id="rewardDesc" style="
+                        color:#c7d5e0;
+                        line-height:1.7;
+                    ">
+                    </div>
+                </div>
                 <div class="result-note">
                     Your winning game will appear here after the reel stops.
                 </div>
@@ -600,32 +684,22 @@ function selectCase(type, cost, element){
     element.querySelector("input").checked = true;
 
     const btnText = document.getElementById("openBtnText");
-    const openBtn = document.getElementById("openBtn");
 
     if(type === "mythic"){
         btnText.innerText = "OPEN MYTHIC CASE - 5 SPINS";
+        document.body.classList.add("mythic-mode");
     }else{
         btnText.innerText = "OPEN NORMAL CASE - 1 SPIN";
-    }
-
-    const userSpins = Number("{{ spins }}");
-
-    if(userSpins < cost){
-        openBtn.disabled = true;
-    }else{
-        openBtn.disabled = false;
+        document.body.classList.remove("mythic-mode");
     }
 }
 
 function openCase(){
-    if(isOpening){
-        return;
-    }
-
-    const selectedCase = document.querySelector("input[name='case_type']:checked").value;
+    if(isOpening) return;
 
     isOpening = true;
 
+    const selectedCase = document.querySelector("input[name='case_type']:checked").value;
     const reel = document.getElementById("reel");
     const winnerName = document.getElementById("winnerName");
     const winnerImage = document.getElementById("winnerImage");
@@ -635,17 +709,14 @@ function openCase(){
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
 
-    let randomDistance;
+    let distance = selectedCase === "mythic"
+        ? 18000 + Math.floor(Math.random() * 5000)
+        : 12000 + Math.floor(Math.random() * 3000);
 
-    if(selectedCase === "mythic"){
-        randomDistance = 10000 + Math.floor(Math.random() * 4000);
-        reel.style.transition = "transform 7s cubic-bezier(.08,.82,.18,1)";
-    }else{
-        randomDistance = 6500 + Math.floor(Math.random() * 2500);
-        reel.style.transition = "transform 5.5s cubic-bezier(.08,.82,.18,1)";
-    }
-
-    reel.style.transform = "translateX(-" + randomDistance + "px)";
+    let speed = selectedCase === "mythic" ? 10 : 7;
+    
+    reel.style.transition = `transform ${speed}s cubic-bezier(.08,.82,.18,1)`;
+    reel.style.transform = "translateX(-" + distance + "px)";
 
     const formData = new FormData();
     formData.append("case_type", selectedCase);
@@ -659,8 +730,6 @@ function openCase(){
     })
     .then(response => response.json())
     .then(data => {
-        const waitTime = selectedCase === "mythic" ? 7100 : 5600;
-
         setTimeout(function(){
             if(data.error){
                 alert(data.error);
@@ -668,23 +737,48 @@ function openCase(){
                 return;
             }
 
-            winnerName.innerText = data.winner;
+            const rewardCard = document.getElementById("winnerRewardCard");
+            const rewardTitle = document.getElementById("rewardTitle");
+            const rewardDesc = document.getElementById("rewardDesc");
 
-            if(data.image){
-                winnerImage.src = data.image;
-                winnerImage.style.display = "block";
+            rewardCard.style.display = "block";
+
+            if(data.type === "game"){
+
+                winnerName.innerText = data.winner;
+
+                if(data.image){
+                    winnerImage.src = data.image;
+                    winnerImage.style.display = "block";
+                }
+
+                rewardTitle.innerText = "🎮 FREE GAME WON";
+                rewardDesc.innerText =
+                    "The game has been added to your library automatically.";
+
+            }else{
+
+                winnerName.innerText = data.winner;
+
+                rewardTitle.innerText = "🎟 COUPON WON";
+
+                rewardDesc.innerText =
+                    "Redeem Code: " + data.code;
             }
+            // else{
+            //     winnerName.innerText = "🎟 You won: " + data.winner + "\nCode: " + data.code;
 
-            alert("🎉 You won: " + data.winner + "\nAdded to your Library!");
+            //     alert("🎉 You won coupon: " + data.winner + "\nRedeem Code: " + data.code);
+            // }
 
             setTimeout(function(){
                 location.reload();
-            }, 1800);
+            }, 2200);
 
-        }, waitTime);
+        }, selectedCase === "mythic" ? 7100 : 5600);
     })
     .catch(() => {
-        alert("Something went wrong. Please try again.");
+        alert("Something went wrong.");
         location.reload();
     });
 }

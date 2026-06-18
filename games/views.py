@@ -887,43 +887,72 @@ def lucky_case(request):
 
     games = list(Game.objects.all())
 
+    normal_rewards = [
+        "20% Discount",
+        "10% Discount",
+        "$1 Wallet",
+        "$2 Wallet",
+        "$3 Wallet",
+        "$4 Wallet",
+        "$5 Wallet",
+    ]
+
     if request.method == "POST":
         case_type = request.POST.get("case_type", "normal")
 
-        cost = 5 if case_type == "mythic" else 1
+        if case_type == "mythic":
+            cost = 5
+        else:
+            cost = 1
 
         if spin_credit.spins < cost:
             return JsonResponse({
                 "error": f"You need at least {cost} spins."
             })
 
-        if not games:
-            return JsonResponse({
-                "error": "No games available."
-            })
-
         spin_credit.spins -= cost
         spin_credit.save()
 
-        winner = random.choice(games)
+        if case_type == "mythic":
+            if not games:
+                return JsonResponse({"error": "No games available."})
 
-        Purchase.objects.get_or_create(
+            winner = random.choice(games)
+
+            Purchase.objects.get_or_create(
+                user=request.user,
+                game=winner,
+                defaults={"price": 0}
+            )
+
+            return JsonResponse({
+                "type": "game",
+                "winner": winner.title,
+                "image": winner.image.url if winner.image else "",
+                "remaining_spins": spin_credit.spins
+            })
+
+        reward = random.choice(normal_rewards)
+        code = "SPIN-" + generate_reward_code()
+
+        RewardCode.objects.create(
             user=request.user,
-            game=winner,
-            defaults={"price": 0}
+            reward=reward,
+            code=code,
+            is_used=False
         )
 
         return JsonResponse({
-            "winner": winner.title,
-            "image": winner.image.url if winner.image else "",
-            "id": winner.id,
-            "case_type": case_type,
-            "remaining_spins": spin_credit.spins,
+            "type": "coupon",
+            "winner": reward,
+            "code": code,
+            "remaining_spins": spin_credit.spins
         })
 
     return render(request, "games/lucky_case.html", {
         "games": games,
-        "spins": spin_credit.spins
+        "spins": spin_credit.spins,
+        "normal_rewards": normal_rewards,
     })
 def play_game(request, game_id):
 
