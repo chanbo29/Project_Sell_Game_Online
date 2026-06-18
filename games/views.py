@@ -631,7 +631,7 @@ def complete_payment(request):
             del request.session["buy_game_id"]
 
         messages.success(request, "Payment completed successfully!")
-        return redirect("library")
+        return redirect("download_game", game_id=game.id)
 
     return redirect("pay_success")
 #SHOW_REDEEM_CODE
@@ -656,34 +656,33 @@ def show_redeem_code(request):
 
     return redirect('/')
 #DOWNLOAD
-@login_required(login_url='/login/')
+@login_required
 def download_game(request, game_id):
-    try:
-        game = get_object_or_404(Game, id=game_id)
+    game = get_object_or_404(Game, id=game_id)
 
-        purchase = Purchase.objects.filter(
-            user=request.user,
-            game=game
-        ).first()
+    purchase = get_object_or_404(
+        Purchase,
+        user=request.user,
+        game=game
+    )
 
-        if not purchase:
-            return HttpResponse("ERROR: You did not purchase this game yet.")
+    if request.method == "POST":
+        purchase.is_installed = True
+        purchase.save()
 
-        install_mode = request.GET.get("install") == "1"
+        messages.success(
+            request,
+            f"{game.title} installed successfully!"
+        )
 
-        if request.method == "POST":
-            purchase.is_installed = True
-            purchase.save()
-            return redirect('/library/')
-
-        return render(request, "games/download.html", {
+    return render(
+        request,
+        "games/download.html",
+        {
             "game": game,
             "purchase": purchase,
-            "install_mode": install_mode,
-        })
-
-    except Exception as e:
-        return HttpResponse(f"DOWNLOAD ERROR: {e}")
+        }
+    )
 # LIBRARY
 @login_required
 def library(request):
