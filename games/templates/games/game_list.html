@@ -872,35 +872,36 @@
 .game-card{
     width:100%;
     position:relative;
-    background:linear-gradient(180deg,#01000fad,#02001a71);
     border-radius:22px;
     overflow:hidden;
-    transition:.3s;
-    box-shadow:0 18px 45px rgba(0,0,0,.28);
+    background:linear-gradient(180deg,#01000fad,#02001a71);
+    transition:.35s;
     z-index:1;
 }
 
-/* SPINNING BORDER */
+/* RGB BORDER */
 .game-card::before{
     content:"";
     position:absolute;
-    inset:-2px;
+    inset:-3px;
     border-radius:24px;
 
     background:conic-gradient(
         from 0deg,
-        transparent,
+        #00d4ff,
+        #0099ff,
         #66c0f4,
-        transparent,
+        #00d4ff,
+        #0099ff,
         #66c0f4,
-        transparent
+        #00d4ff
     );
 
-    animation:spinBorder 4s linear infinite;
+    animation:rgbSpin 2.5s linear infinite;
     z-index:-2;
 }
 
-/* INNER PANEL */
+/* INNER CARD */
 .game-card::after{
     content:"";
     position:absolute;
@@ -914,8 +915,11 @@
     z-index:-1;
 }
 
-@keyframes spinBorder{
-    100%{
+@keyframes rgbSpin{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
         transform:rotate(360deg);
     }
 }
@@ -923,14 +927,17 @@
 .game-card:hover{
     transform:translateY(-8px);
     box-shadow:
-        0 30px 70px rgba(0,89,255,.25),
-        0 0 25px rgba(102,192,244,.35);
+        0 0 20px rgba(0,212,255,.35),
+        0 0 40px rgba(0,153,255,.25),
+        0 25px 70px rgba(0,89,255,.25);
 }
 
 .game-card:hover::before{
     filter:
-        drop-shadow(0 0 10px #66c0f4)
-        drop-shadow(0 0 25px #66c0f4);
+        blur(1px)
+        drop-shadow(0 0 12px #00d4ff)
+        drop-shadow(0 0 25px #0099ff)
+        drop-shadow(0 0 40px #66c0f4);
 }
 .discount{
     position:absolute;
