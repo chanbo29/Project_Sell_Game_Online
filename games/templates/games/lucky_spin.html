@@ -551,15 +551,15 @@ h1{
                         type="button"
                         class="open-btn"
                         onclick="openCase()"
-                        {% if spins < 5 %}disabled{% endif %}
+                        {% if spins < 1 %}disabled{% endif %}
                     >
                         <span id="openBtnText">OPEN NORMAL CASE - 1 SPIN</span>
                     </button>
                 </form>
 
-                {% if spins < 5 %}
+                {% if spins < 1 %}
                 <div class="notice">
-                    You need at least 5 spins to open this case.
+                    You need at least 1 spin to open Normal Case.
                 </div>
                 {% endif %}
             </div>
@@ -591,10 +591,38 @@ function getCSRFToken(){
     return input ? input.value : "";
 }
 
+function selectCase(type, cost, element){
+    document.querySelectorAll(".case-option").forEach(item=>{
+        item.classList.remove("active");
+    });
+
+    element.classList.add("active");
+    element.querySelector("input").checked = true;
+
+    const btnText = document.getElementById("openBtnText");
+    const openBtn = document.getElementById("openBtn");
+
+    if(type === "mythic"){
+        btnText.innerText = "OPEN MYTHIC CASE - 5 SPINS";
+    }else{
+        btnText.innerText = "OPEN NORMAL CASE - 1 SPIN";
+    }
+
+    const userSpins = Number("{{ spins }}");
+
+    if(userSpins < cost){
+        openBtn.disabled = true;
+    }else{
+        openBtn.disabled = false;
+    }
+}
+
 function openCase(){
     if(isOpening){
         return;
     }
+
+    const selectedCase = document.querySelector("input[name='case_type']:checked").value;
 
     isOpening = true;
 
@@ -607,23 +635,32 @@ function openCase(){
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
 
-    const randomDistance = 7200 + Math.floor(Math.random() * 2600);
+    let randomDistance;
 
-    reel.style.transition = "transform 6s cubic-bezier(.08,.82,.18,1)";
+    if(selectedCase === "mythic"){
+        randomDistance = 10000 + Math.floor(Math.random() * 4000);
+        reel.style.transition = "transform 7s cubic-bezier(.08,.82,.18,1)";
+    }else{
+        randomDistance = 6500 + Math.floor(Math.random() * 2500);
+        reel.style.transition = "transform 5.5s cubic-bezier(.08,.82,.18,1)";
+    }
+
     reel.style.transform = "translateX(-" + randomDistance + "px)";
-    const selectedCase = document.querySelector("input[name='case_type']:checked").value;
-    const formData = new FormData();
-formData.append("case_type", selectedCase);
 
-fetch("{% url 'lucky_case' %}", {
-    method:"POST",
-    headers:{
-        "X-CSRFToken": getCSRFToken()
-    },
-    body: formData
-})
+    const formData = new FormData();
+    formData.append("case_type", selectedCase);
+
+    fetch("{% url 'lucky_case' %}", {
+        method:"POST",
+        headers:{
+            "X-CSRFToken": getCSRFToken()
+        },
+        body: formData
+    })
     .then(response => response.json())
     .then(data => {
+        const waitTime = selectedCase === "mythic" ? 7100 : 5600;
+
         setTimeout(function(){
             if(data.error){
                 alert(data.error);
@@ -638,32 +675,18 @@ fetch("{% url 'lucky_case' %}", {
                 winnerImage.style.display = "block";
             }
 
+            alert("🎉 You won: " + data.winner + "\nAdded to your Library!");
+
             setTimeout(function(){
                 location.reload();
-            }, 2600);
+            }, 1800);
 
-        }, 6100);
+        }, waitTime);
     })
     .catch(() => {
         alert("Something went wrong. Please try again.");
         location.reload();
     });
-}
-function selectCase(type, cost, element){
-    document.querySelectorAll(".case-option").forEach(item=>{
-        item.classList.remove("active");
-    });
-
-    element.classList.add("active");
-    element.querySelector("input").checked = true;
-
-    const btnText = document.getElementById("openBtnText");
-
-    if(type === "mythic"){
-        btnText.innerText = "OPEN MYTHIC CASE - 5 SPINS";
-    }else{
-        btnText.innerText = "OPEN NORMAL CASE - 1 SPIN";
-    }
 }
 </script>
 

@@ -890,10 +890,7 @@ def lucky_case(request):
     if request.method == "POST":
         case_type = request.POST.get("case_type", "normal")
 
-        if case_type == "mythic":
-            cost = 5
-        else:
-            cost = 1
+        cost = 5 if case_type == "mythic" else 1
 
         if spin_credit.spins < cost:
             return JsonResponse({
@@ -913,16 +910,15 @@ def lucky_case(request):
         Purchase.objects.get_or_create(
             user=request.user,
             game=winner,
-            defaults={
-                "price": 0
-            }
+            defaults={"price": 0}
         )
 
         return JsonResponse({
             "winner": winner.title,
             "image": winner.image.url if winner.image else "",
             "id": winner.id,
-            "remaining_spins": spin_credit.spins
+            "case_type": case_type,
+            "remaining_spins": spin_credit.spins,
         })
 
     return render(request, "games/lucky_case.html", {
