@@ -307,9 +307,9 @@ h1{
     will-change:transform;
 }
 
-.reel.rolling{
+/* .reel.rolling{
     animation:reelRoll .12s linear infinite;
-}
+} */
 
 @keyframes reelRoll{
     from{transform:translateX(0);}
@@ -777,10 +777,17 @@ function selectCase(type, cost, element){
     const userSpins = Number("{{ spins }}");
     openBtn.disabled = userSpins < cost;
 }
+function makeReelLongEnough(reel, minWidth){
+    const items = Array.from(reel.children);
 
+    while(reel.scrollWidth < minWidth){
+        items.forEach(item=>{
+            reel.appendChild(item.cloneNode(true));
+        });
+    }
+}
 function openCase(){
     if(isOpening) return;
-
     isOpening = true;
 
     const selectedCase = document.querySelector("input[name='case_type']:checked").value;
@@ -789,28 +796,23 @@ function openCase(){
     const winnerImage = document.getElementById("winnerImage");
     const openBtn = document.getElementById("openBtn");
 
+    const spinTime = selectedCase === "mythic" ? 10000 : 8500;
+    const distance = selectedCase === "mythic" ? 24000 : 18000;
+
+    makeReelLongEnough(reel, distance + 3000);
+
     openBtn.disabled = true;
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
 
-    const spinTime = selectedCase === "mythic" ? 11000 : 9000;
-
     reel.style.transition = "none";
     reel.style.transform = "translateX(0)";
-    reel.classList.add("rolling");
+    reel.offsetHeight;
 
-    setTimeout(() => {
-        reel.classList.remove("rolling");
+    reel.style.transition =
+        `transform ${spinTime / 1000}s cubic-bezier(0.05,0.9,0.15,1)`;
 
-        const distance = selectedCase === "mythic"
-            ? 26000 + Math.floor(Math.random() * 5000)
-            : 19000 + Math.floor(Math.random() * 4000);
-
-        reel.style.transition =
-            `transform ${spinTime / 1000}s cubic-bezier(0.05,0.9,0.15,1)`;
-
-        reel.style.transform = "translateX(-" + distance + "px)";
-    }, 500);
+    reel.style.transform = `translateX(-${distance}px)`;
 
     const formData = new FormData();
     formData.append("case_type", selectedCase);
@@ -825,7 +827,8 @@ function openCase(){
     .then(response => response.json())
     .then(data => {
 
-        setTimeout(function(){
+        reel.addEventListener("transitionend", function showResult(){
+            reel.removeEventListener("transitionend", showResult);
 
             if(data.error){
                 alert(data.error);
@@ -861,8 +864,7 @@ function openCase(){
             setTimeout(function(){
                 location.reload();
             }, 3200);
-
-        }, spinTime + 800);
+        });
     })
     .catch(() => {
         alert("Something went wrong.");
