@@ -150,91 +150,7 @@ h1{
     margin-bottom:18px;
     text-shadow:0 8px 30px rgba(0,0,0,.5);
 }
-.history-dropdown{
-    margin-top:30px;
-    border-radius:24px;
-    overflow:hidden;
-    background:#101827;
-    border:1px solid rgba(102,192,244,.25);
-}
 
-.history-toggle{
-    width:100%;
-    padding:18px 22px;
-    background:linear-gradient(135deg,#101827,#07111d);
-    border:none;
-    color:white;
-    font-size:18px;
-    font-weight:900;
-    cursor:pointer;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.history-content{
-    display:none;
-    padding:18px;
-    border-top:1px solid rgba(102,192,244,.18);
-}
-
-.history-content.show{
-    display:block;
-}
-
-.history-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    padding:15px;
-    margin-bottom:12px;
-    border-radius:16px;
-    background:#07111d;
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.history-item strong{
-    display:block;
-    color:white;
-    margin-bottom:5px;
-}
-
-.history-item small{
-    color:#9fb3c8;
-}
-
-.history-right{
-    text-align:right;
-}
-
-.coupon-code{
-    color:#beff18;
-    font-weight:900;
-    margin-bottom:6px;
-}
-
-.active,
-.used{
-    padding:5px 10px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:900;
-}
-
-.active{
-    background:#8bc53f;
-    color:#06111d;
-}
-
-.used{
-    background:#e74c3c;
-    color:white;
-}
-
-.empty-history{
-    color:#9fb3c8;
-}
 .subtitle{
     max-width:850px;
     color:#9ec8f5;
@@ -711,23 +627,25 @@ h1{
                     Mythic Case rolls through your store games and can add a winning game to your library automatically.
                 </p>
             </div>
-            <div class="history-dropdown">
-                <button type="button" class="history-toggle" onclick="toggleCouponHistory()">
-                    <span>🎟 Coupon History</span>
-                    <span id="historyArrow">▼</span>
-                </button>
+            <div class="history-card">
+                <h2>🎟 Coupon History</h2>
 
-                <div id="couponHistoryBox" class="history-content">
-                    {% if coupon_history %}
+                {% if coupon_history %}
+                    <div class="history-list">
+
                         {% for item in coupon_history %}
                         <div class="history-item">
+
                             <div>
                                 <strong>{{ item.reward }}</strong>
+                                <br>
                                 <small>{{ item.created_at|date:"d M Y H:i" }}</small>
                             </div>
 
-                            <div class="history-right">
-                                <div class="coupon-code">{{ item.code }}</div>
+                            <div>
+                                <div class="coupon-code">
+                                    {{ item.code }}
+                                </div>
 
                                 {% if item.is_used %}
                                     <span class="used">USED</span>
@@ -735,12 +653,14 @@ h1{
                                     <span class="active">ACTIVE</span>
                                 {% endif %}
                             </div>
+
                         </div>
                         {% endfor %}
-                    {% else %}
-                        <p class="empty-history">No coupon history yet.</p>
-                    {% endif %}
-                </div>
+
+                    </div>
+                {% else %}
+                    <p>No coupon history yet.</p>
+                {% endif %}
             </div>
             <div class="case-price">
                 <small>CHOOSE CASE</small>
@@ -1051,18 +971,6 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 });
-function toggleCouponHistory(){
-    const box = document.getElementById("couponHistoryBox");
-    const arrow = document.getElementById("historyArrow");
-
-    box.classList.toggle("show");
-
-    if(box.classList.contains("show")){
-        arrow.innerText = "▲";
-    }else{
-        arrow.innerText = "▼";
-    }
-}
 </script>
 
 </body>
