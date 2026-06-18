@@ -665,14 +665,23 @@ function selectCase(type, cost, element){
     element.querySelector("input").checked = true;
 
     const btnText = document.getElementById("openBtnText");
+    const openBtn = document.getElementById("openBtn");
+    const reel = document.getElementById("reel");
+
+    reel.style.transition = "none";
+    reel.style.transform = "translateX(0)";
 
     if(type === "mythic"){
-        btnText.innerText = "OPEN MYTHIC CASE - 5 SPINS";
         document.body.classList.add("mythic-mode");
+        btnText.innerText = "OPEN MYTHIC CASE - 5 SPINS";
     }else{
-        btnText.innerText = "OPEN NORMAL CASE - 1 SPIN";
         document.body.classList.remove("mythic-mode");
+        btnText.innerText = "OPEN NORMAL CASE - 1 SPIN";
     }
+
+    const userSpins = Number("{{ spins }}");
+
+    openBtn.disabled = userSpins < cost;
 }
 
 function openCase(){
@@ -768,6 +777,15 @@ function openCase(){
         location.reload();
     });
 }
+document.addEventListener("DOMContentLoaded", function(){
+    const selected = document.querySelector(".case-option.active");
+    if(selected){
+        const input = selected.querySelector("input");
+        if(input.value === "mythic"){
+            document.body.classList.add("mythic-mode");
+        }
+    }
+});
 </script>
 
 </body>
