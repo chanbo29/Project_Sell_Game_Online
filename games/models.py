@@ -74,3 +74,22 @@ class Cart(models.Model):
 
     def __str__(self):
         return f"{self.user.username} cart {self.game.title}"
+class LuckySpin(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    reward = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+class RewardCode(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    reward = models.CharField(max_length=100)
+
+    code = models.CharField(
+        max_length=20,
+        unique=True
+    )
+
+    is_used = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )

@@ -1,0 +1,343 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lucky Spin - SellGame</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top left,rgba(102,192,244,.22),transparent 35%),
+    radial-gradient(circle at top right,rgba(139,197,63,.18),transparent 35%),
+    linear-gradient(135deg,#050b14,#0b1624 55%,#02040a);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+}
+
+.spin-page{
+    width:100%;
+    max-width:1100px;
+    display:grid;
+    grid-template-columns:1fr 420px;
+    gap:35px;
+    align-items:center;
+}
+
+.spin-card{
+    background:rgba(10,20,35,.88);
+    border:1px solid rgba(102,192,244,.25);
+    border-radius:30px;
+    padding:38px;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+
+.badge{
+    display:inline-flex;
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(102,192,244,.12);
+    color:#66c0f4;
+    font-weight:900;
+    margin-bottom:18px;
+}
+
+h1{
+    font-size:52px;
+    font-weight:900;
+    line-height:1.1;
+    margin-bottom:18px;
+}
+
+p{
+    color:#9fb3c8;
+    font-size:17px;
+    line-height:1.7;
+    margin-bottom:28px;
+}
+
+.wheel-wrap{
+    display:flex;
+    justify-content:center;
+    margin:35px 0;
+    position:relative;
+}
+
+.pointer{
+    position:absolute;
+    top:-10px;
+    z-index:5;
+    width:0;
+    height:0;
+    border-left:20px solid transparent;
+    border-right:20px solid transparent;
+    border-top:35px solid #ffcc00;
+    filter:drop-shadow(0 0 12px rgba(255,204,0,.8));
+}
+
+.wheel{
+    width:340px;
+    height:340px;
+    border-radius:50%;
+    border:10px solid rgba(255,255,255,.12);
+    background:
+    conic-gradient(
+        #66c0f4 0deg 51deg,
+        #8bc53f 51deg 102deg,
+        #ff4bb8 102deg 153deg,
+        #f59e0b 153deg 204deg,
+        #7c3aed 204deg 255deg,
+        #22c55e 255deg 306deg,
+        #ef4444 306deg 360deg
+    );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:
+    inset 0 0 40px rgba(0,0,0,.45),
+    0 0 45px rgba(102,192,244,.25);
+    transition:transform 3s cubic-bezier(.15,.85,.25,1);
+}
+
+.wheel-center{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:#07111d;
+    border:6px solid rgba(255,255,255,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-weight:900;
+    font-size:20px;
+    box-shadow:0 0 30px rgba(0,0,0,.55);
+}
+
+.spin-btn{
+    width:100%;
+    height:62px;
+    border:none;
+    border-radius:18px;
+    background:linear-gradient(135deg,#8bc53f,#5d9122);
+    color:white;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 18px 35px rgba(139,197,63,.28);
+    transition:.25s;
+}
+
+.spin-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 25px 45px rgba(139,197,63,.42);
+}
+
+.reward-box{
+    margin-top:25px;
+    padding:25px;
+    border-radius:22px;
+    background:linear-gradient(135deg,rgba(102,192,244,.16),rgba(139,197,63,.12));
+    border:1px solid rgba(102,192,244,.28);
+    text-align:center;
+}
+
+.reward-box h2{
+    font-size:22px;
+    margin-bottom:14px;
+}
+
+.reward{
+    font-size:34px;
+    font-weight:900;
+    color:#beff18;
+    margin-bottom:16px;
+}
+
+.code-box{
+    padding:18px;
+    border-radius:16px;
+    background:#050b14;
+    border:1px dashed #66c0f4;
+    color:#66c0f4;
+    font-size:26px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.copy-btn{
+    margin-top:14px;
+    height:44px;
+    padding:0 22px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#66c0f4,#167ac0);
+    color:white;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.side-card{
+    background:rgba(10,20,35,.75);
+    border:1px solid rgba(102,192,244,.22);
+    border-radius:28px;
+    padding:28px;
+}
+
+.side-card h3{
+    font-size:24px;
+    margin-bottom:18px;
+}
+
+.reward-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.reward-item{
+    padding:15px;
+    border-radius:16px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    color:#dcecff;
+    font-weight:800;
+}
+
+.back-btn{
+    display:inline-flex;
+    margin-top:22px;
+    color:#66c0f4;
+    text-decoration:none;
+    font-weight:900;
+}
+
+@media(max-width:900px){
+    .spin-page{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:38px;
+    }
+
+    .wheel{
+        width:280px;
+        height:280px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="spin-page">
+
+    <div class="spin-card">
+        <div class="badge">🎰 Daily Reward</div>
+
+        <h1>Lucky Spin</h1>
+
+        <p>
+            Spin the wheel and win wallet credit, discount coupons, or a free game key.
+            If you win, you will receive a redeem code to use next time.
+        </p>
+
+        <div class="wheel-wrap">
+            <div class="pointer"></div>
+
+            <div class="wheel" id="wheel">
+                <div class="wheel-center">
+                    SELL<br>GAME
+                </div>
+            </div>
+        </div>
+
+        <form method="POST" id="spinForm">
+            {% csrf_token %}
+            <button type="submit" class="spin-btn" onclick="spinWheel(event)">
+                SPIN NOW
+            </button>
+        </form>
+
+        {% if reward %}
+        <div class="reward-box">
+            <h2>🎁 Your Reward</h2>
+
+            <div class="reward">
+                {{ reward }}
+            </div>
+
+            {% if redeem_code %}
+            <div class="code-box" id="redeemCode">
+                {{ redeem_code }}
+            </div>
+
+            <button class="copy-btn" type="button" onclick="copyCode()">
+                Copy Code
+            </button>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <a href="/" class="back-btn">← Back to Store</a>
+    </div>
+
+    <div class="side-card">
+        <h3>Possible Rewards</h3>
+
+        <div class="reward-list">
+            <div class="reward-item">💵 $1 Wallet Credit</div>
+            <div class="reward-item">💵 $2 Wallet Credit</div>
+            <div class="reward-item">💵 $5 Wallet Credit</div>
+            <div class="reward-item">🎟 10% Discount Coupon</div>
+            <div class="reward-item">🎟 20% Discount Coupon</div>
+            <div class="reward-item">🎮 Free Game Key</div>
+            <div class="reward-item">😢 Try Again</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function spinWheel(event){
+    event.preventDefault();
+
+    const wheel = document.getElementById("wheel");
+    const form = document.getElementById("spinForm");
+
+    const randomDegree = 1800 + Math.floor(Math.random() * 720);
+
+    wheel.style.transform = "rotate(" + randomDegree + "deg)";
+
+    setTimeout(function(){
+        form.submit();
+    }, 3000);
+}
+
+function copyCode(){
+    const code = document.getElementById("redeemCode").innerText;
+
+    navigator.clipboard.writeText(code);
+
+    alert("Redeem code copied: " + code);
+}
+</script>
+
+</body>
+</html>

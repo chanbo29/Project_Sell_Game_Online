@@ -62,6 +62,8 @@ urlpatterns = [
     path("cart-payment/", views.cart_payment, name="cart_payment"),
     path("cart-complete-payment/", views.cart_complete_payment, name="cart_complete_payment"),
     path("checkout-success/", views.checkout_success, name="checkout_success"),
+    #LUCKY SPIN
+    path("lucky-spin/", views.lucky_spin, name="lucky_spin"),
     #TELEGRAM API
     path("test-telegram/", views.test_telegram),
 

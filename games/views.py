@@ -15,7 +15,7 @@ from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate, TruncMonth
 from django.http import HttpResponse
 from .forms import GameForm, RegisterForm
-from .models import Game, Wishlist, Cart, Purchase
+from .models import Game, RewardCode, Wishlist, Cart, Purchase, LuckySpin
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
 from .telegram_api import send_telegram_message
@@ -777,6 +777,54 @@ def generate_redeem_code():
     return "WU-" + ''.join(
         random.choices(string.ascii_uppercase + string.digits, k=8)
     )
+@login_required
+def lucky_spin(request):
+
+    rewards = [
+        "$1 Wallet Credit",
+        "$2 Wallet Credit",
+        "$5 Wallet Credit",
+        "10% Discount Coupon",
+        "20% Discount Coupon",
+        "Free Game",
+        "Try Again"
+    ]
+
+    reward = None
+    redeem_code = None
+
+    if request.method == "POST":
+
+        reward = random.choice(rewards)
+
+        if reward != "Try Again":
+
+            redeem_code = (
+                "SPIN-" +
+                generate_reward_code()
+            )
+
+            RewardCode.objects.create(
+                user=request.user,
+                reward=reward,
+                code=redeem_code
+            )
+
+    return render(
+        request,
+        "games/lucky_spin.html",
+        {
+            "reward": reward,
+            "redeem_code": redeem_code
+        }
+    )
+def generate_reward_code():
+    return ''.join(
+        random.choices(
+            string.ascii_uppercase + string.digits,
+            k=8
+        )
+    )
 @login_required(login_url='/login/')
 def play_game(request, game_id):
 
@@ -794,9 +842,9 @@ def test_telegram(request):
         return HttpResponse("Telegram sent successfully")
 
     return HttpResponse("Telegram failed. Check Render logs.")
-#IMPORT OLD DATA
-from django.core.management import call_command
+# #IMPORT OLD DATA
+# from django.core.management import call_command
 
-def import_old_data(request):
-    call_command("loaddata", "data.json")
-    return HttpResponse("Old SQLite data imported to Render PostgreSQL")
+# def import_old_data(request):
+#     call_command("loaddata", "data.json")
+#     return HttpResponse("Old SQLite data imported to Render PostgreSQL")
