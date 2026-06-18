@@ -4,6 +4,7 @@ import json
 import csv
 # import requests
 from django.db.models import Q
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -287,19 +288,22 @@ def logout_view(request):
 # បង្ហាញបញ្ជីហ្គេមទាំងអស់ (ទំព័រដើម)=
 #@login_required(login_url='/login/')
 def game_list(request):
-    games = Game.objects.all()
+    games = Game.objects.all().order_by("-id")
 
     purchased_game_ids = []
-
     if request.user.is_authenticated:
-        purchased_game_ids = list(
-            Purchase.objects.filter(user=request.user)
-            .values_list('game_id', flat=True)
-        )
+        purchased_game_ids = Purchase.objects.filter(
+            user=request.user
+        ).values_list("game_id", flat=True)
 
-    return render(request, 'games/game_list.html', {
-        'games': games,
-        'purchased_game_ids': purchased_game_ids
+    paginator = Paginator(games, 20)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "games/game_list.html", {
+        "games": page_obj,
+        "page_obj": page_obj,
+        "purchased_game_ids": purchased_game_ids,
     })
 # ថែមហ្គេមថ្មី
 @login_required(login_url='/login/')
