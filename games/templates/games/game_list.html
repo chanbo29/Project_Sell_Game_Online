@@ -873,55 +873,36 @@
     width:100%;
     position:relative;
     background:linear-gradient(180deg,#01000fad,#02001a71);
-    border:1px solid rgba(0,162,255,.18);
+    border:1px solid rgba(0, 162, 255, 0.18);
     border-radius:22px;
     overflow:hidden;
     transition:.3s;
     box-shadow:0 18px 45px rgba(0,0,0,.28);
-    z-index:1;
-}
-
-/* RGB BORDER HIDDEN */
-.game-card::before{
-    content:"";
-    position:absolute;
-    inset:-2px;
-    border-radius:22px;
-
-    background:conic-gradient(
-        from 0deg,
-        transparent,
-        #00d4ff,
-        #0099ff,
-        #66c0f4,
-        #0099ff,
-        #00d4ff,
-        transparent
-    );
-
-    opacity:0;
-    z-index:-1;
-}
-
-/* SHOW RGB ONLY ON HOVER */
-.game-card:hover::before{
-    opacity:1;
-    animation:rgbBorder 1.5s linear infinite;
-}
-
-@keyframes rgbBorder{
-    100%{
-        transform:rotate(360deg);
-    }
 }
 
 .game-card:hover{
     transform:translateY(-8px);
     border-color:#66c0f4;
-    box-shadow:
-        0 30px 70px rgba(0,89,255,.27),
-        0 0 18px rgba(102,192,244,.25);
+    box-shadow:0 30px 70px rgba(0, 89, 255, 0.274);
 }
+
+.game-image-wrapper{
+    height:190px;
+    position:relative;
+    overflow:hidden;
+    background:#07111d;
+}
+
+.game-image{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+
+.game-card:hover .game-image{
+    transform:scale(1.08);
+}
+
 .discount{
     position:absolute;
     top:14px;
