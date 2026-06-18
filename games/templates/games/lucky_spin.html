@@ -627,41 +627,7 @@ h1{
                     Mythic Case rolls through your store games and can add a winning game to your library automatically.
                 </p>
             </div>
-            <div class="history-card">
-                <h2>🎟 Coupon History</h2>
 
-                {% if coupon_history %}
-                    <div class="history-list">
-
-                        {% for item in coupon_history %}
-                        <div class="history-item">
-
-                            <div>
-                                <strong>{{ item.reward }}</strong>
-                                <br>
-                                <small>{{ item.created_at|date:"d M Y H:i" }}</small>
-                            </div>
-
-                            <div>
-                                <div class="coupon-code">
-                                    {{ item.code }}
-                                </div>
-
-                                {% if item.is_used %}
-                                    <span class="used">USED</span>
-                                {% else %}
-                                    <span class="active">ACTIVE</span>
-                                {% endif %}
-                            </div>
-
-                        </div>
-                        {% endfor %}
-
-                    </div>
-                {% else %}
-                    <p>No coupon history yet.</p>
-                {% endif %}
-            </div>
             <div class="case-price">
                 <small>CHOOSE CASE</small>
 
