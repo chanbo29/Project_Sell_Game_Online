@@ -1095,55 +1095,47 @@
         padding:0 18px 40px;
     }
 }
-/* PAGINATION LIKE IMAGE */
+/* PAGINATION */
 .pagination{
     display:flex;
     justify-content:center;
     align-items:center;
-    gap:14px;
-    margin:55px auto 25px;
-    padding:16px 22px;
-    width:max-content;
-    max-width:90%;
-    background:rgba(255,255,255,.92);
-    border-radius:28px;
-    box-shadow:0 18px 45px rgba(0,0,0,.22);
+    gap:10px;
+    margin:50px 0 20px;
+    flex-wrap:wrap;
 }
 
 .page-btn{
-    width:58px;
-    height:58px;
-    border-radius:18px;
+    min-width:46px;
+    height:46px;
+    padding:0 16px;
+    border-radius:14px;
     display:flex;
     align-items:center;
     justify-content:center;
     text-decoration:none;
-    color:#1f2937;
-    font-size:22px;
     font-weight:900;
-    background:rgba(255,255,255,.65);
-    transition:.25s ease;
+    color:#c7d5e0;
+    background:linear-gradient(145deg,#111827,#1b2838);
+    border:1px solid rgba(102,192,244,.25);
+    transition:.25s;
 }
 
 .page-btn:hover{
+    color:white;
+    background:linear-gradient(135deg,#66c0f4,#1b6fa8);
     transform:translateY(-3px);
-    background:#eef2ff;
+    box-shadow:0 0 25px rgba(102,192,244,.35);
 }
 
 .page-btn.active{
     color:white;
-    background:linear-gradient(135deg,#ff4bb8,#4b6cff);
-    box-shadow:0 12px 25px rgba(75,108,255,.35);
-}
-
-.page-btn.arrow{
-    background:transparent;
-    font-size:34px;
-    color:#555;
+    background:linear-gradient(135deg,#8bc53f,#5d9122);
+    border-color:#8bc53f;
 }
 
 .page-btn.disabled{
-    opacity:.35;
+    opacity:.45;
     pointer-events:none;
 }
 /* ADMIN */
@@ -1559,9 +1551,11 @@
 <div class="pagination">
 
     {% if page_obj.has_previous %}
-        <a class="page-btn arrow" href="?page={{ page_obj.previous_page_number }}">‹</a>
+        <a class="page-btn" href="?page={{ page_obj.previous_page_number }}">
+            ←
+        </a>
     {% else %}
-        <span class="page-btn arrow disabled">‹</span>
+        <span class="page-btn disabled">← Prev</span>
     {% endif %}
 
     {% for num in page_obj.paginator.page_range %}
@@ -1573,9 +1567,11 @@
     {% endfor %}
 
     {% if page_obj.has_next %}
-        <a class="page-btn arrow" href="?page={{ page_obj.next_page_number }}">›</a>
+        <a class="page-btn" href="?page={{ page_obj.next_page_number }}">
+            →
+        </a>
     {% else %}
-        <span class="page-btn arrow disabled">›</span>
+        <span class="page-btn disabled">Next →</span>
     {% endif %}
 
 </div>
