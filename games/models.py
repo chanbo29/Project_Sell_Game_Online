@@ -93,3 +93,9 @@ class RewardCode(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True
     )
+class UserSpinCredit(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    spins = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.spins} spins"

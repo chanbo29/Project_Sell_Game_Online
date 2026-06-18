@@ -15,7 +15,7 @@ from django.db.models import Sum, Count
 from django.db.models.functions import TruncDate, TruncMonth
 from django.http import HttpResponse
 from .forms import GameForm, RegisterForm
-from .models import Game, RewardCode, Wishlist, Cart, Purchase, LuckySpin
+from .models import Game, RewardCode, Wishlist, Cart, Purchase, LuckySpin, UserSpinCredit
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils import timezone
 from .telegram_api import send_telegram_message
@@ -570,16 +570,26 @@ def complete_payment(request):
 
             if not already_bought:
                 Purchase.objects.create(
-                    user=request.user,
-                    game=game,
-                    price=game.final_price()
+                user=request.user,
+                game=game,
+                price=game.final_price()
+            )
+
+            price = float(game.final_price())
+            spins_earned = int(price // 10)
+
+            if spins_earned > 0:
+                spin_credit, created = UserSpinCredit.objects.get_or_create(
+                    user=request.user
                 )
+                spin_credit.spins += spins_earned
+                spin_credit.save()
 
             if "redeem_code" in request.session:
-                del request.session["redeem_code"]
+                            del request.session["redeem_code"]
 
             if "buy_game_id" in request.session:
-                del request.session["buy_game_id"]
+                            del request.session["buy_game_id"]
 
             messages.success(request, "Payment completed successfully!")
             return redirect("library")
@@ -779,30 +789,36 @@ def generate_redeem_code():
     )
 @login_required
 def lucky_spin(request):
-
     rewards = [
-        "$1 Wallet Credit",
-        "$2 Wallet Credit",
-        "$5 Wallet Credit",
-        "10% Discount Coupon",
-        "20% Discount Coupon",
-        "Free Game",
-        "Try Again"
+        "$1 Wallet",
+        "$2 Wallet",
+        "$5 Wallet",
+        "10% Discount",
+        "20% Discount",
+        "Free Game Key",
+        "Try Again",
     ]
+
+    spin_credit, created = UserSpinCredit.objects.get_or_create(
+        user=request.user
+    )
 
     reward = None
     redeem_code = None
 
     if request.method == "POST":
 
+        if spin_credit.spins <= 0:
+            messages.error(request, "You need to spend $10 to get 1 spin.")
+            return redirect("lucky_spin")
+
+        spin_credit.spins -= 1
+        spin_credit.save()
+
         reward = random.choice(rewards)
 
         if reward != "Try Again":
-
-            redeem_code = (
-                "SPIN-" +
-                generate_reward_code()
-            )
+            redeem_code = "SPIN-" + generate_reward_code()
 
             RewardCode.objects.create(
                 user=request.user,
@@ -810,14 +826,11 @@ def lucky_spin(request):
                 code=redeem_code
             )
 
-    return render(
-        request,
-        "games/lucky_spin.html",
-        {
-            "reward": reward,
-            "redeem_code": redeem_code
-        }
-    )
+    return render(request, "games/lucky_spin.html", {
+        "reward": reward,
+        "redeem_code": redeem_code,
+        "spins": spin_credit.spins,
+    })
 def generate_reward_code():
     return ''.join(
         random.choices(
