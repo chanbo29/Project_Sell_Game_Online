@@ -793,6 +793,8 @@ function openCase(){
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
 
+    const spinTime = selectedCase === "mythic" ? 11000 : 9000;
+
     reel.style.transition = "none";
     reel.style.transform = "translateX(0)";
     reel.classList.add("rolling");
@@ -801,17 +803,14 @@ function openCase(){
         reel.classList.remove("rolling");
 
         const distance = selectedCase === "mythic"
-            ? 22000 + Math.floor(Math.random() * 7000)
-            : 15000 + Math.floor(Math.random() * 4000);
-
-        const speed = selectedCase === "mythic" ? 10 : 8;
+            ? 26000 + Math.floor(Math.random() * 5000)
+            : 19000 + Math.floor(Math.random() * 4000);
 
         reel.style.transition =
-            `transform ${speed}s cubic-bezier(0.05,0.9,0.15,1)`;
+            `transform ${spinTime / 1000}s cubic-bezier(0.05,0.9,0.15,1)`;
 
-        reel.style.transform =
-            "translateX(-" + distance + "px)";
-    }, 1200);
+        reel.style.transform = "translateX(-" + distance + "px)";
+    }, 500);
 
     const formData = new FormData();
     formData.append("case_type", selectedCase);
@@ -825,9 +824,9 @@ function openCase(){
     })
     .then(response => response.json())
     .then(data => {
-        const waitTime = selectedCase === "mythic" ? 11200 : 9200;
 
         setTimeout(function(){
+
             if(data.error){
                 alert(data.error);
                 location.reload();
@@ -861,16 +860,15 @@ function openCase(){
 
             setTimeout(function(){
                 location.reload();
-            }, 2600);
+            }, 3200);
 
-        }, waitTime);
+        }, spinTime + 800);
     })
     .catch(() => {
         alert("Something went wrong.");
         location.reload();
     });
 }
-
 document.addEventListener("DOMContentLoaded", function(){
     const selected = document.querySelector(".case-option.active");
     if(selected){
