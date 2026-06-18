@@ -742,13 +742,8 @@ h1{
     </div>
 
 </div>
-<audio id="spinSound" preload="auto" loop>
-    <source src="{% static 'sounds/spin.mp3' %}" type="audio/mpeg">
-</audio>
-
-<audio id="winSound" preload="auto">
-    <source src="{% static 'sounds/win.mp3' %}" type="audio/mpeg">
-</audio>
+<audio id="spinSound" src="{% static 'sounds/spin.mp3' %}" preload="auto" loop></audio>
+<audio id="winSound" src="{% static 'sounds/win.mp3' %}" preload="auto"></audio>
 <script>
 let isOpening = false;
 
@@ -824,7 +819,7 @@ function openCase(){
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
 
-    playSound("spinSound");
+    startSpinSound();
 
     const formData = new FormData();
     formData.append("case_type", selectedCase);
@@ -883,8 +878,8 @@ function openCase(){
         reel.addEventListener("transitionend", function showResult(){
             reel.removeEventListener("transitionend", showResult);
 
-            stopSound("spinSound");
-            playSound("winSound");
+            stopSpinSound();
+            playWinSound();
 
             const rewardCard = document.getElementById("winnerRewardCard");
             const rewardTitle = document.getElementById("rewardTitle");
@@ -920,34 +915,64 @@ function openCase(){
         location.reload();
     });
 }
-function playSound(id){
-    const sound = document.getElementById(id);
+let spinAudioUnlocked = false;
 
-    if(!sound){
-        console.log(id + " not found");
-        return;
+function unlockAudio(){
+    if(spinAudioUnlocked) return;
+
+    const spin = document.getElementById("spinSound");
+    const win = document.getElementById("winSound");
+
+    if(spin){
+        spin.volume = 1;
+        spin.muted = false;
+        spin.load();
     }
+
+    if(win){
+        win.volume = 1;
+        win.muted = false;
+        win.load();
+    }
+
+    spinAudioUnlocked = true;
+}
+
+function startSpinSound(){
+    unlockAudio();
+
+    const sound = document.getElementById("spinSound");
+    if(!sound) return;
+
+    sound.pause();
+    sound.currentTime = 0;
+    sound.volume = 1;
+    sound.loop = true;
+
+    sound.play().catch(error => {
+        console.log("Spin sound blocked:", error);
+    });
+}
+
+function stopSpinSound(){
+    const sound = document.getElementById("spinSound");
+    if(!sound) return;
+
+    sound.pause();
+    sound.currentTime = 0;
+}
+
+function playWinSound(){
+    const sound = document.getElementById("winSound");
+    if(!sound) return;
 
     sound.pause();
     sound.currentTime = 0;
     sound.volume = 1;
 
-    sound.play()
-    .then(() => {
-        console.log(id + " playing");
-    })
-    .catch(error => {
-        console.log(id + " error:", error);
+    sound.play().catch(error => {
+        console.log("Win sound blocked:", error);
     });
-}
-
-function stopSound(id){
-    const sound = document.getElementById(id);
-
-    if(sound){
-        sound.pause();
-        sound.currentTime = 0;
-    }
 }
 document.addEventListener("DOMContentLoaded", function(){
     const selected = document.querySelector(".case-option.active");
@@ -960,6 +985,7 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 </script>
-</audio>
+<audio id="spinSound" src="{% static 'sounds/spin.mp3' %}" preload="auto" loop></audio>
+<audio id="winSound" src="{% static 'sounds/win.mp3' %}" preload="auto"></audio>
 </body>
 </html>
