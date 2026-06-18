@@ -20,53 +20,49 @@
     --blue:#66c0f4;
     --cyan:#00d4ff;
     --lime:#beff18;
-    --green:#8bc53f;
+    --gold:#ffd400;
     --dark:#020617;
     --panel:#07111d;
     --panel2:#101827;
-    --text:#dbeafe;
-    --muted:#93a4b8;
-    --border:rgba(102,192,244,.25);
+    --muted:#9bb4cc;
+    --border:rgba(102,192,244,.28);
 }
 
 body{
     min-height:100vh;
-    color:white;
     padding:30px;
+    color:white;
     background:
-        radial-gradient(circle at 10% 10%,rgba(102,192,244,.28),transparent 28%),
-        radial-gradient(circle at 90% 15%,rgba(190,255,24,.16),transparent 30%),
-        radial-gradient(circle at 50% 100%,rgba(0,212,255,.12),transparent 35%),
-        linear-gradient(135deg,#020617,#07111d 55%,#02040a);
+        radial-gradient(circle at 8% 8%,rgba(102,192,244,.28),transparent 28%),
+        radial-gradient(circle at 88% 10%,rgba(255,212,0,.14),transparent 26%),
+        radial-gradient(circle at 50% 95%,rgba(190,255,24,.12),transparent 35%),
+        linear-gradient(135deg,#01040a,#07111d 52%,#020617);
 }
 
 .page{
-    max-width:1360px;
+    max-width:1380px;
     margin:auto;
 }
 
-/* TOPBAR */
 .topbar{
     min-height:78px;
-    padding:16px 22px;
+    padding:16px 24px;
     margin-bottom:28px;
     border-radius:28px;
-    background:rgba(7,17,29,.82);
+    background:rgba(7,17,29,.86);
     border:1px solid var(--border);
     backdrop-filter:blur(18px);
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:18px;
-    box-shadow:0 25px 80px rgba(0,0,0,.35);
+    align-items:center;
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
 }
 
 .logo{
     color:white;
     text-decoration:none;
-    font-size:28px;
+    font-size:29px;
     font-weight:900;
-    letter-spacing:-1px;
 }
 
 .logo span{
@@ -86,43 +82,48 @@ body{
     color:white;
     text-decoration:none;
     font-weight:900;
-    background:rgba(102,192,244,.12);
-    border:1px solid rgba(102,192,244,.25);
-    transition:.25s;
+    background:linear-gradient(180deg,rgba(102,192,244,.18),rgba(102,192,244,.06));
+    border:1px solid rgba(102,192,244,.32);
 }
 
-.back-btn:hover,
-.top-pill:hover{
-    transform:translateY(-2px);
-    box-shadow:0 0 25px rgba(102,192,244,.25);
-}
-
-/* MAIN CARD */
 .case-card{
     padding:34px;
-    border-radius:38px;
-    background:
-        radial-gradient(circle at top right,rgba(102,192,244,.14),transparent 34%),
-        radial-gradient(circle at bottom left,rgba(190,255,24,.08),transparent 30%),
-        linear-gradient(180deg,rgba(16,29,49,.96),rgba(7,17,29,.96));
-    border:1px solid var(--border);
-    box-shadow:0 40px 110px rgba(0,0,0,.55);
+    border-radius:40px;
+    position:relative;
     overflow:hidden;
+    background:
+        radial-gradient(circle at top right,rgba(102,192,244,.16),transparent 32%),
+        radial-gradient(circle at bottom left,rgba(190,255,24,.1),transparent 30%),
+        linear-gradient(180deg,rgba(15,29,47,.98),rgba(5,13,24,.98));
+    border:1px solid var(--border);
+    box-shadow:
+        0 0 80px rgba(102,192,244,.12),
+        0 45px 120px rgba(0,0,0,.62);
+}
+
+.case-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.045),transparent);
+    pointer-events:none;
 }
 
 .hero{
+    position:relative;
+    z-index:2;
     display:grid;
-    grid-template-columns:1fr 310px;
-    gap:28px;
+    grid-template-columns:1fr 320px;
+    gap:32px;
     align-items:start;
-    margin-bottom:30px;
+    margin-bottom:34px;
 }
 
 .badges{
     display:flex;
     gap:12px;
     flex-wrap:wrap;
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 
 .badge{
@@ -130,39 +131,40 @@ body{
     border-radius:999px;
     color:var(--blue);
     background:rgba(102,192,244,.12);
-    border:1px solid rgba(102,192,244,.24);
+    border:1px solid rgba(102,192,244,.28);
     font-weight:900;
     font-size:14px;
 }
 
 .badge.green{
     color:white;
-    background:linear-gradient(135deg,rgba(139,197,63,.35),rgba(102,192,244,.12));
-    border-color:rgba(139,197,63,.4);
+    background:linear-gradient(135deg,rgba(139,197,63,.38),rgba(102,192,244,.1));
+    border-color:rgba(190,255,24,.35);
 }
 
 h1{
-    font-size:62px;
-    line-height:.96;
+    font-size:66px;
+    line-height:.95;
     font-weight:900;
-    letter-spacing:-2px;
-    margin-bottom:16px;
+    letter-spacing:-3px;
+    margin-bottom:18px;
+    text-shadow:0 8px 30px rgba(0,0,0,.5);
 }
 
 .subtitle{
     max-width:850px;
-    color:var(--muted);
-    font-size:17px;
+    color:#9ec8f5;
+    font-size:18px;
     line-height:1.75;
 }
 
-/* CASE CHOOSE */
 .case-price{
     padding:22px;
-    border-radius:28px;
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:inset 0 0 30px rgba(255,255,255,.03);
+    border-radius:30px;
+    background:
+        linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.035));
+    border:1px solid rgba(255,255,255,.13);
+    box-shadow:inset 0 0 35px rgba(255,255,255,.04);
 }
 
 .case-price small{
@@ -170,23 +172,22 @@ h1{
     margin-bottom:14px;
     color:var(--muted);
     font-weight:900;
-    letter-spacing:1px;
+    letter-spacing:1.5px;
 }
 
 .case-option{
     display:block;
-    margin-top:12px;
-    padding:16px;
-    border-radius:20px;
-    background:rgba(102,192,244,.08);
-    border:1px solid rgba(102,192,244,.22);
+    margin-top:13px;
+    padding:17px;
+    border-radius:22px;
     cursor:pointer;
-    text-align:left;
+    background:linear-gradient(180deg,rgba(102,192,244,.13),rgba(102,192,244,.05));
+    border:1px solid rgba(102,192,244,.28);
     transition:.25s;
 }
 
 .case-option:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 }
 
 .case-option input{
@@ -196,44 +197,45 @@ h1{
 .case-option strong{
     display:block;
     color:white;
-    font-size:19px;
-    margin-bottom:5px;
+    font-size:21px;
+    font-weight:900;
 }
 
 .case-option span{
+    display:block;
+    margin-top:5px;
     color:var(--blue);
     font-weight:900;
 }
 
 .case-option.active{
     border-color:var(--blue);
-    background:linear-gradient(135deg,rgba(102,192,244,.2),rgba(255,255,255,.04));
-    box-shadow:0 0 28px rgba(102,192,244,.25);
+    box-shadow:0 0 30px rgba(102,192,244,.3);
 }
 
 .case-option.mythic.active{
     border-color:var(--lime);
-    box-shadow:0 0 32px rgba(255, 238, 0, 0.76);
+    box-shadow:0 0 36px rgba(190,255,24,.45);
 }
 
 .case-option.mythic span{
     color:var(--lime);
 }
 
-/* CASE WINDOW */
 .case-window{
     position:relative;
+    z-index:2;
     width:100%;
-    height:340px;
+    height:360px;
     overflow:hidden;
-    border-radius:34px;
+    border-radius:36px;
     background:
-        radial-gradient(circle at center,rgba(102,192,244,.12),transparent 45%),
-        linear-gradient(180deg,#092033,#06111f);
-    border:1px solid rgba(102,192,244,.34);
+        radial-gradient(circle at center,rgba(102,192,244,.14),transparent 45%),
+        linear-gradient(180deg,#092033,#04101e);
+    border:1px solid rgba(102,192,244,.38);
     box-shadow:
-        inset 0 0 60px rgba(0,0,0,.65),
-        0 0 65px rgba(102,192,244,.18);
+        inset 0 0 70px rgba(0,0,0,.7),
+        0 0 80px rgba(102,192,244,.18);
 }
 
 .case-window::before,
@@ -241,32 +243,32 @@ h1{
     content:"";
     position:absolute;
     top:0;
-    width:180px;
+    width:190px;
     height:100%;
-    z-index:6;
+    z-index:8;
     pointer-events:none;
 }
 
 .case-window::before{
     left:0;
-    background:linear-gradient(90deg,#06111f,transparent);
+    background:linear-gradient(90deg,#04101e,transparent);
 }
 
 .case-window::after{
     right:0;
-    background:linear-gradient(270deg,#06111f,transparent);
+    background:linear-gradient(270deg,#04101e,transparent);
 }
 
 .center-line{
     position:absolute;
     left:50%;
     top:0;
-    width:4px;
+    width:5px;
     height:100%;
     transform:translateX(-50%);
-    background:linear-gradient(to bottom,transparent,#c7a70abe,var(--blue),transparent);
+    background:linear-gradient(to bottom,transparent,var(--gold),var(--blue),transparent);
     z-index:18;
-    box-shadow:0 0 24px rgba(255,212,0,.9);
+    box-shadow:0 0 28px rgba(255,212,0,.9);
 }
 
 .case-pointer{
@@ -274,13 +276,13 @@ h1{
     left:50%;
     top:0;
     transform:translateX(-50%);
-    z-index:20;
+    z-index:22;
     width:0;
     height:0;
-    border-left:30px solid transparent;
-    border-right:30px solid transparent;
-    border-top:54px solid #ffd400;
-    filter:drop-shadow(0 0 18px rgba(255,212,0,.95));
+    border-left:34px solid transparent;
+    border-right:34px solid transparent;
+    border-top:62px solid var(--gold);
+    filter:drop-shadow(0 0 20px rgba(255,212,0,.95));
 }
 
 .case-pointer-bottom{
@@ -288,13 +290,13 @@ h1{
     left:50%;
     bottom:0;
     transform:translateX(-50%);
-    z-index:20;
+    z-index:22;
     width:0;
     height:0;
-    border-left:30px solid transparent;
-    border-right:30px solid transparent;
-    border-bottom:54px solid var(--blue);
-    filter:drop-shadow(0 0 18px rgba(102,192,244,.95));
+    border-left:34px solid transparent;
+    border-right:34px solid transparent;
+    border-bottom:62px solid var(--blue);
+    filter:drop-shadow(0 0 20px rgba(102,192,244,.95));
 }
 
 .reel{
@@ -302,35 +304,34 @@ h1{
     display:flex;
     align-items:center;
     gap:18px;
-    padding:0 28px;
+    padding:0 30px;
     transform:translateX(0);
     will-change:transform;
 }
 
-/* .reel.rolling{
-    animation:reelRoll .12s linear infinite;
-} */
-
-@keyframes reelRoll{
-    from{transform:translateX(0);}
-    to{transform:translateX(-248px);}
-}
-
-/* PRIZES */
 .game-box{
     flex:0 0 230px;
-    height:260px;
+    height:262px;
     border-radius:24px;
     overflow:hidden;
-    background:linear-gradient(180deg,#111827,#07111d);
-    border:1px solid rgba(102,192,244,.24);
-    box-shadow:0 20px 48px rgba(0,0,0,.4);
+    background:linear-gradient(180deg,#111827,#06111f);
+    border:1px solid rgba(102,192,244,.25);
+    box-shadow:0 22px 52px rgba(0,0,0,.45);
     position:relative;
+}
+
+.game-box::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.12),transparent);
+    opacity:.35;
+    pointer-events:none;
 }
 
 .game-box img{
     width:100%;
-    height:172px;
+    height:174px;
     object-fit:cover;
     display:block;
 }
@@ -365,19 +366,19 @@ h1{
     align-items:center;
     justify-content:center;
     background:
-        radial-gradient(circle at top,rgba(102,192,244,.22),transparent 42%),
-        linear-gradient(180deg,#183557,#07111d);
+        radial-gradient(circle at top,rgba(102,192,244,.25),transparent 42%),
+        linear-gradient(180deg,#183557,#06111f);
 }
 
 .coupon-icon{
     font-size:66px;
     margin-bottom:18px;
-    filter:drop-shadow(0 0 18px rgba(102,192,244,.75));
+    filter:drop-shadow(0 0 18px rgba(102,192,244,.8));
 }
 
 .coupon-box h4{
     text-align:center;
-    font-size:20px;
+    font-size:22px;
     white-space:normal;
 }
 
@@ -393,82 +394,67 @@ h1{
     display:block;
 }
 
-.mythic-mode .case-card{
-    box-shadow:
-        0 0 55px rgba(255, 251, 20, 0.411),
-        0 40px 110px rgba(0,0,0,.55);
-}
-
 .mythic-mode .case-window{
     border-color:var(--lime);
     box-shadow:
-        inset 0 0 60px rgba(0,0,0,.65),
-        0 0 80px rgba(255, 238, 0, 0.493);
+        inset 0 0 70px rgba(0,0,0,.72),
+        0 0 95px rgba(190,255,24,.28);
 }
 
-/* BOTTOM PANEL */
 .open-panel{
+    position:relative;
+    z-index:2;
     margin-top:28px;
     display:grid;
-    grid-template-columns:1fr 420px;
+    grid-template-columns:1fr 430px;
     gap:24px;
 }
 
 .info-box,
 .result-box{
-    padding:26px;
-    border-radius:28px;
-    background:rgba(255,255,255,.055);
-    border:1px solid rgba(255,255,255,.09);
+    padding:28px;
+    border-radius:30px;
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.035));
+    border:1px solid rgba(255,255,255,.11);
+    box-shadow:inset 0 0 30px rgba(255,255,255,.025);
 }
 
 .info-box h2,
 .result-box h2{
-    font-size:26px;
+    font-size:28px;
     font-weight:900;
-    margin-bottom:12px;
+    margin-bottom:14px;
 }
 
 .info-box p{
-    color:var(--muted);
+    color:#a8c7e8;
     line-height:1.75;
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
 .open-btn{
     width:100%;
-    height:64px;
+    height:66px;
     border:none;
-    border-radius:20px;
+    border-radius:22px;
     cursor:pointer;
     color:#06111d;
     font-size:17px;
     font-weight:900;
-    background:linear-gradient(135deg,#66c0f4,#66c0f4);
-    box-shadow:0 0 35px rgba(102,192,244,.28);
+    background:linear-gradient(135deg,var(--lime),var(--blue));
+    box-shadow:0 0 42px rgba(102,192,244,.32);
     transition:.25s;
 }
 
 .open-btn:hover{
     transform:translateY(-3px);
-    box-shadow:0 0 48px rgba(21, 255, 0, 0.4);
+    box-shadow:0 0 55px rgba(190,255,24,.42);
 }
 
 .open-btn:disabled{
-    cursor:not-allowed;
     opacity:.45;
+    cursor:not-allowed;
     transform:none;
-}
-
-.notice{
-    margin-top:16px;
-    padding:14px;
-    border-radius:16px;
-    color:#ffd08a;
-    background:rgba(245,158,11,.1);
-    border:1px solid rgba(245,158,11,.28);
-    line-height:1.6;
-    font-size:14px;
 }
 
 .result-box{
@@ -479,47 +465,40 @@ h1{
 .result-box::before{
     content:"";
     position:absolute;
-    inset:-80px;
-    background:radial-gradient(circle,rgba(102,192,244,.13),transparent 45%);
+    inset:-90px;
+    background:radial-gradient(circle,rgba(190,255,24,.15),transparent 45%);
     pointer-events:none;
 }
 
 .result-box > *{
     position:relative;
-    z-index:1;
+    z-index:2;
 }
 
 .result-name{
-    margin-top:12px;
     color:var(--lime);
-    font-size:25px;
+    font-size:28px;
     font-weight:900;
+    margin-top:12px;
 }
 
 .result-img{
     width:100%;
-    height:190px;
+    height:195px;
     object-fit:cover;
     border-radius:20px;
-    margin-top:14px;
+    margin-top:15px;
     display:none;
-    border:1px solid rgba(255,255,255,.12);
-}
-
-.result-note{
-    margin-top:12px;
-    color:var(--muted);
-    line-height:1.6;
-    font-size:14px;
+    border:1px solid rgba(255,255,255,.14);
 }
 
 .reward-card{
     display:none;
     margin-top:18px;
-    padding:18px;
-    border-radius:22px;
-    background:linear-gradient(135deg,#101f33,#07111d);
-    border:1px solid rgba(102,192,244,.25);
+    padding:19px;
+    border-radius:24px;
+    background:linear-gradient(135deg,#0b1c31,#06111f);
+    border:1px solid rgba(102,192,244,.3);
 }
 
 .reward-label{
@@ -531,33 +510,47 @@ h1{
 }
 
 .reward-title{
-    font-size:24px;
+    font-size:25px;
     font-weight:900;
     color:var(--lime);
     margin-bottom:10px;
 }
 
-.reward-desc{
-    color:#c7d5e0;
+.reward-desc,
+.result-note{
+    color:#a8b8ca;
     line-height:1.7;
+    font-size:14px;
+}
+
+.result-note{
+    margin-top:13px;
 }
 
 .result-box.winner{
-    animation:winnerFlash .8s ease infinite alternate;
+    animation:winnerFlash .75s ease infinite alternate;
 }
 
 @keyframes winnerFlash{
     from{
-        box-shadow:0 0 20px rgba(255, 238, 0, 0.25);
+        box-shadow:0 0 22px rgba(190,255,24,.28);
     }
     to{
         box-shadow:
-            0 0 42px rgba(190,255,24,.85),
-            0 0 90px rgba(190,255,24,.35);
+            0 0 48px rgba(190,255,24,.85),
+            0 0 95px rgba(190,255,24,.34);
     }
 }
 
-/* RESPONSIVE */
+.notice{
+    margin-top:16px;
+    padding:14px;
+    border-radius:16px;
+    color:#ffd08a;
+    background:rgba(245,158,11,.1);
+    border:1px solid rgba(245,158,11,.28);
+}
+
 @media(max-width:980px){
     .hero,
     .open-panel{
@@ -581,11 +574,11 @@ h1{
 
     .case-card{
         padding:22px;
-        border-radius:28px;
+        border-radius:30px;
     }
 
     .case-window{
-        height:295px;
+        height:300px;
     }
 
     .game-box{
@@ -611,9 +604,8 @@ h1{
 
     <div class="topbar">
         <a href="/" class="logo">SELL<span>GAME</span>ONLINE</a>
-
         <div class="top-actions">
-            <div class="top-pill">🎮 Game Case</div>
+            <div class="top-pill">🎮 Premium Case</div>
             <a href="/" class="back-btn">← Back to Store</a>
         </div>
     </div>
@@ -631,8 +623,8 @@ h1{
                 <h1>Open Game Case</h1>
 
                 <p class="subtitle">
-                    Spend your spins to open a premium SellGame case. Normal Case gives coupon rewards,
-                    while Mythic Case rolls through your store games and can add a winning game to your library automatically.
+                    Open a realistic SellGame case. Normal Case gives coupon rewards.
+                    Mythic Case rolls through your store games and can add a winning game to your library automatically.
                 </p>
             </div>
 
@@ -676,7 +668,7 @@ h1{
                         {% if game.image %}
                             <img src="{{ game.image.url }}" alt="{{ game.title }}">
                         {% else %}
-                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg">
+                            <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg" alt="{{ game.title }}">
                         {% endif %}
                         <div class="game-box-info">
                             <h4>{{ game.title }}</h4>
@@ -694,8 +686,8 @@ h1{
                 <h2>How it works</h2>
 
                 <p>
-                    Every $10 spent gives you 1 spin. Choose Normal or Mythic Case, open the case,
-                    and wait for the reel to stop. Your reward will appear on the winner panel.
+                    Every $10 spent gives you 1 spin. Choose a case, open it, and wait for the reel to stop.
+                    The reward under the center pointer is your final result.
                 </p>
 
                 <form method="POST" id="caseForm">
@@ -740,10 +732,11 @@ h1{
         </div>
 
     </div>
-
 </div>
+
 <audio id="spinSound" src="{% static 'sounds/spin.mp3' %}" preload="auto" loop></audio>
 <audio id="winSound" src="{% static 'sounds/win.mp3' %}" preload="auto"></audio>
+
 <script>
 let isOpening = false;
 
@@ -752,20 +745,39 @@ function getCSRFToken(){
     return input ? input.value : "";
 }
 
-function playSound(id){
-    const sound = document.getElementById(id);
-    if(sound){
-        sound.currentTime = 0;
-        sound.play().catch(() => {});
-    }
+function startSpinSound(){
+    const sound = document.getElementById("spinSound");
+    if(!sound) return;
+
+    sound.pause();
+    sound.currentTime = 0;
+    sound.volume = 1;
+    sound.loop = true;
+
+    sound.play().catch(error=>{
+        console.log("Spin sound error:", error);
+    });
 }
 
-function stopSound(id){
-    const sound = document.getElementById(id);
-    if(sound){
-        sound.pause();
-        sound.currentTime = 0;
-    }
+function stopSpinSound(){
+    const sound = document.getElementById("spinSound");
+    if(!sound) return;
+
+    sound.pause();
+    sound.currentTime = 0;
+}
+
+function playWinSound(){
+    const sound = document.getElementById("winSound");
+    if(!sound) return;
+
+    sound.pause();
+    sound.currentTime = 0;
+    sound.volume = 1;
+
+    sound.play().catch(error=>{
+        console.log("Win sound error:", error);
+    });
 }
 
 function selectCase(type, cost, element){
@@ -829,23 +841,23 @@ function openCase(){
         headers:{
             "X-CSRFToken": getCSRFToken()
         },
-        body: formData
+        body:formData
     })
-    .then(response => response.json())
-    .then(data => {
+    .then(response=>response.json())
+    .then(data=>{
 
         if(data.error){
-            stopSound("spinSound");
+            stopSpinSound();
             alert(data.error);
             location.reload();
             return;
         }
 
-        makeReelLongEnough(reel, 40000);
+        makeReelLongEnough(reel, 48000);
 
         const items = Array.from(reel.children);
 
-        const matchingItems = items.filter(item => {
+        const matchingItems = items.filter(item=>{
             return item.dataset.name === data.winner &&
                    window.getComputedStyle(item).display !== "none";
         });
@@ -853,7 +865,7 @@ function openCase(){
         let winnerItem = matchingItems[Math.floor(matchingItems.length / 2)];
 
         if(!winnerItem){
-            winnerItem = items.find(item => window.getComputedStyle(item).display !== "none");
+            winnerItem = items.find(item=>window.getComputedStyle(item).display !== "none");
         }
 
         const windowBox = document.querySelector(".case-window");
@@ -861,17 +873,17 @@ function openCase(){
 
         const finalDistance =
             winnerItem.offsetLeft +
-            (winnerItem.offsetWidth / 2) -
+            winnerItem.offsetWidth / 2 -
             windowCenter;
 
         reel.style.transition = "none";
         reel.style.transform = "translateX(0)";
         reel.offsetHeight;
 
-        const spinTime = selectedCase === "mythic" ? 10 : 8;
+        const spinTime = selectedCase === "mythic" ? 11 : 8.5;
 
         reel.style.transition =
-            `transform ${spinTime}s cubic-bezier(0.05,0.9,0.15,1)`;
+            `transform ${spinTime}s cubic-bezier(.05,.85,.08,1)`;
 
         reel.style.transform = `translateX(-${finalDistance}px)`;
 
@@ -906,74 +918,16 @@ function openCase(){
 
             setTimeout(function(){
                 location.reload();
-            }, 3500);
+            }, 3800);
         });
     })
-    .catch(() => {
-        stopSound("spinSound");
+    .catch(()=>{
+        stopSpinSound();
         alert("Something went wrong.");
         location.reload();
     });
 }
-let spinAudioUnlocked = false;
 
-function unlockAudio(){
-    if(spinAudioUnlocked) return;
-
-    const spin = document.getElementById("spinSound");
-    const win = document.getElementById("winSound");
-
-    if(spin){
-        spin.volume = 1;
-        spin.muted = false;
-        spin.load();
-    }
-
-    if(win){
-        win.volume = 1;
-        win.muted = false;
-        win.load();
-    }
-
-    spinAudioUnlocked = true;
-}
-
-function startSpinSound(){
-    unlockAudio();
-
-    const sound = document.getElementById("spinSound");
-    if(!sound) return;
-
-    sound.pause();
-    sound.currentTime = 0;
-    sound.volume = 1;
-    sound.loop = true;
-
-    sound.play().catch(error => {
-        console.log("Spin sound blocked:", error);
-    });
-}
-
-function stopSpinSound(){
-    const sound = document.getElementById("spinSound");
-    if(!sound) return;
-
-    sound.pause();
-    sound.currentTime = 0;
-}
-
-function playWinSound(){
-    const sound = document.getElementById("winSound");
-    if(!sound) return;
-
-    sound.pause();
-    sound.currentTime = 0;
-    sound.volume = 1;
-
-    sound.play().catch(error => {
-        console.log("Win sound blocked:", error);
-    });
-}
 document.addEventListener("DOMContentLoaded", function(){
     const selected = document.querySelector(".case-option.active");
     if(selected){
@@ -983,9 +937,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 });
-
 </script>
-<audio id="spinSound" src="{% static 'sounds/spin.mp3' %}" preload="auto" loop></audio>
-<audio id="winSound" src="{% static 'sounds/win.mp3' %}" preload="auto"></audio>
+
 </body>
 </html>
