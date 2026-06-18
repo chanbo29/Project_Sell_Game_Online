@@ -235,7 +235,41 @@ h1{
     border-bottom:50px solid var(--blue);
     filter:drop-shadow(0 0 16px rgba(102,192,244,.9));
 }
+.case-option{
+    display:block;
+    margin-top:12px;
+    padding:14px;
+    border-radius:18px;
+    background:rgba(102,192,244,.08);
+    border:1px solid rgba(102,192,244,.22);
+    cursor:pointer;
+    text-align:left;
+}
 
+.case-option input{
+    display:none;
+}
+
+.case-option strong{
+    display:block;
+    color:white;
+    font-size:18px;
+}
+
+.case-option span{
+    color:var(--blue);
+    font-weight:900;
+}
+
+.case-option.active{
+    border-color:#66c0f4;
+    box-shadow:0 0 25px rgba(102,192,244,.25);
+}
+
+.case-option.mythic.active{
+    border-color:#beee11;
+    box-shadow:0 0 30px rgba(190,238,17,.3);
+}
 .reel{
     height:100%;
     display:flex;
@@ -460,9 +494,20 @@ h1{
             </div>
 
             <div class="case-price">
-                <small>Cost per open</small>
-                <strong>5 Spins</strong>
-            </div>
+            <small>Choose Case</small>
+
+            <label class="case-option active" onclick="selectCase('normal', 1, this)">
+                <input type="radio" name="case_type" value="normal" checked>
+                <strong>Normal</strong>
+                <span>1 Spin</span>
+            </label>
+
+            <label class="case-option mythic" onclick="selectCase('mythic', 5, this)">
+                <input type="radio" name="case_type" value="mythic">
+                <strong>Mythic</strong>
+                <span>5 Spins</span>
+            </label>
+        </div>
         </div>
 
         <div class="case-window">
@@ -508,7 +553,7 @@ h1{
                         onclick="openCase()"
                         {% if spins < 5 %}disabled{% endif %}
                     >
-                        OPEN CASE - 5 SPINS
+                        <span id="openBtnText">OPEN NORMAL CASE - 1 SPIN</span>
                     </button>
                 </form>
 
@@ -566,13 +611,17 @@ function openCase(){
 
     reel.style.transition = "transform 6s cubic-bezier(.08,.82,.18,1)";
     reel.style.transform = "translateX(-" + randomDistance + "px)";
+    const selectedCase = document.querySelector("input[name='case_type']:checked").value;
+    const formData = new FormData();
+formData.append("case_type", selectedCase);
 
-    fetch("{% url 'lucky_case' %}", {
-        method:"POST",
-        headers:{
-            "X-CSRFToken": getCSRFToken()
-        }
-    })
+fetch("{% url 'lucky_case' %}", {
+    method:"POST",
+    headers:{
+        "X-CSRFToken": getCSRFToken()
+    },
+    body: formData
+})
     .then(response => response.json())
     .then(data => {
         setTimeout(function(){
@@ -599,6 +648,22 @@ function openCase(){
         alert("Something went wrong. Please try again.");
         location.reload();
     });
+}
+function selectCase(type, cost, element){
+    document.querySelectorAll(".case-option").forEach(item=>{
+        item.classList.remove("active");
+    });
+
+    element.classList.add("active");
+    element.querySelector("input").checked = true;
+
+    const btnText = document.getElementById("openBtnText");
+
+    if(type === "mythic"){
+        btnText.innerText = "OPEN MYTHIC CASE - 5 SPINS";
+    }else{
+        btnText.innerText = "OPEN NORMAL CASE - 1 SPIN";
+    }
 }
 </script>
 
