@@ -520,7 +520,7 @@ body{
 
                     <div class="order-row">
                         <span>Total Amount</span>
-                        <strong class="amount">
+                        <strong class="amount" id="totalAmount" data-original="{{ amount }}">
                             {% if amount == 0 %}
                                 FREE
                             {% else %}
@@ -606,6 +606,8 @@ body{
                             <input type="radio"
                                 name="reward_code"
                                 value="{{ code.code }}"
+                                data-reward="{{ code.reward }}"
+                                onclick="previewDiscount(this)"
                                 style="margin-right:8px;">
 
                             <strong style="color:#beee11;">
@@ -623,7 +625,17 @@ body{
                         </p>
                         {% endfor %}
                     </div>
-
+                    <div id="discountPreview" style="
+                        margin-top:14px;
+                        padding:14px;
+                        border-radius:14px;
+                        background:rgba(139,197,63,.1);
+                        border:1px solid rgba(139,197,63,.3);
+                        color:#beee11;
+                        font-weight:900;
+                        display:none;
+                    ">
+                    </div>
                     <button type="submit" class="confirm-btn">
                         I Paid with ABA
                     </button>
@@ -703,6 +715,44 @@ function copyRedeemCode(){
         navigator.clipboard.writeText(codeBox.innerText.trim());
         alert("Payment redeem code copied!");
     }
+}
+function previewDiscount(input){
+    const reward = input.dataset.reward;
+    const totalAmount = document.getElementById("totalAmount");
+    const preview = document.getElementById("discountPreview");
+
+    let original = parseFloat(totalAmount.dataset.original);
+    let finalPrice = original;
+    let text = "";
+
+    if(reward === "20% Discount"){
+        finalPrice = original * 0.80;
+        text = "🎟 20% discount applied";
+    }else if(reward === "10% Discount"){
+        finalPrice = original * 0.90;
+        text = "🎟 10% discount applied";
+    }else if(reward === "$5 Wallet"){
+        finalPrice = original - 5;
+        text = "💵 $5 off applied";
+    }else if(reward === "$2 Wallet"){
+        finalPrice = original - 2;
+        text = "💵 $2 off applied";
+    }else if(reward === "$1 Wallet"){
+        finalPrice = original - 1;
+        text = "💵 $1 off applied";
+    }else if(reward === "Free Game Key"){
+        finalPrice = 0;
+        text = "🎮 Free game code applied";
+    }
+
+    if(finalPrice < 0){
+        finalPrice = 0;
+    }
+
+    totalAmount.innerText = finalPrice === 0 ? "FREE" : "$" + finalPrice.toFixed(2);
+
+    preview.style.display = "block";
+    preview.innerText = text + " → New total: " + (finalPrice === 0 ? "FREE" : "$" + finalPrice.toFixed(2));
 }
 </script>
 
