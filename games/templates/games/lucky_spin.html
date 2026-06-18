@@ -751,6 +751,22 @@ function getCSRFToken(){
     return input ? input.value : "";
 }
 
+function playSound(id){
+    const sound = document.getElementById(id);
+    if(sound){
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+    }
+}
+
+function stopSound(id){
+    const sound = document.getElementById(id);
+    if(sound){
+        sound.pause();
+        sound.currentTime = 0;
+    }
+}
+
 function selectCase(type, cost, element){
     document.querySelectorAll(".case-option").forEach(item=>{
         item.classList.remove("active");
@@ -777,15 +793,17 @@ function selectCase(type, cost, element){
     const userSpins = Number("{{ spins }}");
     openBtn.disabled = userSpins < cost;
 }
+
 function makeReelLongEnough(reel, minWidth){
-    const items = Array.from(reel.children);
+    const originalItems = Array.from(reel.children);
 
     while(reel.scrollWidth < minWidth){
-        items.forEach(item=>{
+        originalItems.forEach(item=>{
             reel.appendChild(item.cloneNode(true));
         });
     }
 }
+
 function openCase(){
     if(isOpening) return;
     isOpening = true;
@@ -800,10 +818,7 @@ function openCase(){
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
 
-    const spinSound = document.getElementById("spinSound");
-
-    spinSound.currentTime = 0;
-    spinSound.play();
+    playSound("spinSound");
 
     const formData = new FormData();
     formData.append("case_type", selectedCase);
@@ -819,28 +834,34 @@ function openCase(){
     .then(data => {
 
         if(data.error){
+            stopSound("spinSound");
             alert(data.error);
             location.reload();
             return;
         }
 
-        makeReelLongEnough(reel, 30000);
+        makeReelLongEnough(reel, 40000);
 
         const items = Array.from(reel.children);
+
         const matchingItems = items.filter(item => {
             return item.dataset.name === data.winner &&
-                   item.offsetParent !== null;
+                   window.getComputedStyle(item).display !== "none";
         });
 
-        const winnerItem = matchingItems[Math.floor(matchingItems.length / 2)];
+        let winnerItem = matchingItems[Math.floor(matchingItems.length / 2)];
+
+        if(!winnerItem){
+            winnerItem = items.find(item => window.getComputedStyle(item).display !== "none");
+        }
 
         const windowBox = document.querySelector(".case-window");
         const windowCenter = windowBox.offsetWidth / 2;
 
-        const itemLeft = winnerItem.offsetLeft;
-        const itemCenter = winnerItem.offsetWidth / 2;
-
-        const finalDistance = itemLeft + itemCenter - windowCenter;
+        const finalDistance =
+            winnerItem.offsetLeft +
+            (winnerItem.offsetWidth / 2) -
+            windowCenter;
 
         reel.style.transition = "none";
         reel.style.transform = "translateX(0)";
@@ -852,12 +873,12 @@ function openCase(){
             `transform ${spinTime}s cubic-bezier(0.05,0.9,0.15,1)`;
 
         reel.style.transform = `translateX(-${finalDistance}px)`;
-        
-        reel.addEventListener("transitionend", function showResult(){
-            spinSound.pause();
-            spinSound.currentTime = 0;
 
+        reel.addEventListener("transitionend", function showResult(){
             reel.removeEventListener("transitionend", showResult);
+
+            stopSound("spinSound");
+            playSound("winSound");
 
             const rewardCard = document.getElementById("winnerRewardCard");
             const rewardTitle = document.getElementById("rewardTitle");
@@ -865,7 +886,7 @@ function openCase(){
 
             rewardCard.style.display = "block";
             document.querySelector(".result-box").classList.add("winner");
-            const winSound = document.getElementById("winSound");
+
             winnerName.innerText = data.winner;
 
             if(data.type === "game"){
@@ -884,14 +905,16 @@ function openCase(){
 
             setTimeout(function(){
                 location.reload();
-            }, 3200);
+            }, 3500);
         });
     })
     .catch(() => {
+        stopSound("spinSound");
         alert("Something went wrong.");
         location.reload();
     });
 }
+
 document.addEventListener("DOMContentLoaded", function(){
     const selected = document.querySelector(".case-option.active");
     if(selected){
@@ -905,6 +928,7 @@ document.addEventListener("DOMContentLoaded", function(){
 <audio id="spinSound" preload="auto">
     <source src="{% static 'sounds/spin.mp3' %}" type="audio/mpeg">
 </audio>
+
 <audio id="winSound" preload="auto">
     <source src="{% static 'sounds/win.mp3' %}" type="audio/mpeg">
 </audio>
