@@ -800,6 +800,11 @@ function openCase(){
     winnerName.innerText = "Rolling...";
     winnerImage.style.display = "none";
 
+    const spinSound = document.getElementById("spinSound");
+
+    spinSound.currentTime = 0;
+    spinSound.play();
+
     const formData = new FormData();
     formData.append("case_type", selectedCase);
 
@@ -847,8 +852,11 @@ function openCase(){
             `transform ${spinTime}s cubic-bezier(0.05,0.9,0.15,1)`;
 
         reel.style.transform = `translateX(-${finalDistance}px)`;
-
+        
         reel.addEventListener("transitionend", function showResult(){
+            spinSound.pause();
+            spinSound.currentTime = 0;
+
             reel.removeEventListener("transitionend", showResult);
 
             const rewardCard = document.getElementById("winnerRewardCard");
@@ -857,7 +865,7 @@ function openCase(){
 
             rewardCard.style.display = "block";
             document.querySelector(".result-box").classList.add("winner");
-
+            const winSound = document.getElementById("winSound");
             winnerName.innerText = data.winner;
 
             if(data.type === "game"){
@@ -894,6 +902,11 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 });
 </script>
-
+<audio id="spinSound" preload="auto">
+    <source src="{% static 'sounds/spin.mp3' %}" type="audio/mpeg">
+</audio>
+<audio id="winSound" preload="auto">
+    <source src="{% static 'sounds/win.mp3' %}" type="audio/mpeg">
+</audio>
 </body>
 </html>
