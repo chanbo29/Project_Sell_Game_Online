@@ -1215,6 +1215,25 @@
         padding:0 18px 40px;
     }
 }
+.telegram-support{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:9999;
+    padding:15px 22px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#229ED9,#66c0f4);
+    color:white;
+    text-decoration:none;
+    font-weight:900;
+    box-shadow:0 15px 45px rgba(34,158,217,.45);
+    transition:.25s;
+}
+
+.telegram-support:hover{
+    transform:translateY(-4px);
+    box-shadow:0 20px 60px rgba(34,158,217,.65);
+}
 </style>
 </head>
 <body>
@@ -1235,6 +1254,9 @@
         <a href="/library/" class="nav-item">Library</a>
         <a href="/wishlist/" class="nav-item">Wishlist</a>
     </nav>
+    <a href="https://t.me/Dome_vichka" target="_blank" class="telegram-support">
+        💬 Support Chat
+    </a>
     <div class="header-actions">
         <a href="/cart/" class="cart-btn-header">
             🛒
