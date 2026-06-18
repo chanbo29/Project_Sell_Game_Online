@@ -742,7 +742,13 @@ h1{
     </div>
 
 </div>
+<audio id="spinSound" preload="auto" loop>
+    <source src="{% static 'sounds/spin.mp3' %}" type="audio/mpeg">
+</audio>
 
+<audio id="winSound" preload="auto">
+    <source src="{% static 'sounds/win.mp3' %}" type="audio/mpeg">
+</audio>
 <script>
 let isOpening = false;
 
@@ -914,7 +920,35 @@ function openCase(){
         location.reload();
     });
 }
+function playSound(id){
+    const sound = document.getElementById(id);
 
+    if(!sound){
+        console.log(id + " not found");
+        return;
+    }
+
+    sound.pause();
+    sound.currentTime = 0;
+    sound.volume = 1;
+
+    sound.play()
+    .then(() => {
+        console.log(id + " playing");
+    })
+    .catch(error => {
+        console.log(id + " error:", error);
+    });
+}
+
+function stopSound(id){
+    const sound = document.getElementById(id);
+
+    if(sound){
+        sound.pause();
+        sound.currentTime = 0;
+    }
+}
 document.addEventListener("DOMContentLoaded", function(){
     const selected = document.querySelector(".case-option.active");
     if(selected){
@@ -924,13 +958,8 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 });
-</script>
-<audio id="spinSound" preload="auto">
-    <source src="{% static 'sounds/spin.mp3' %}" type="audio/mpeg">
-</audio>
 
-<audio id="winSound" preload="auto">
-    <source src="{% static 'sounds/win.mp3' %}" type="audio/mpeg">
+</script>
 </audio>
 </body>
 </html>
