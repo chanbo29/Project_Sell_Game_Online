@@ -17,34 +17,44 @@
     font-family:'Inter',sans-serif;
 }
 
+:root{
+    --bg:#020617;
+    --panel:#07111d;
+    --panel2:#0b1728;
+    --blue:#66c0f4;
+    --green:#8bc53f;
+    --lime:#beee11;
+    --muted:#9fb0c2;
+    --border:rgba(102,192,244,.24);
+}
+
 body{
     min-height:100vh;
     background:
-    radial-gradient(circle at 12% 8%,rgba(102,192,244,.25),transparent 30%),
-    radial-gradient(circle at 88% 18%,rgba(139,209,59,.15),transparent 30%),
-    linear-gradient(135deg,#03060b,#07111d 52%,#02040a);
+    radial-gradient(circle at top left,rgba(102,192,244,.24),transparent 34%),
+    radial-gradient(circle at top right,rgba(139,197,63,.16),transparent 32%),
+    linear-gradient(135deg,#020617,#07111d 55%,#02040a);
     color:white;
-    padding:34px;
+    padding:32px;
 }
 
 .wrapper{
-    max-width:1220px;
+    max-width:1280px;
     margin:auto;
 }
 
 .top-nav{
     min-height:86px;
     padding:14px 24px;
-    margin-bottom:28px;
-    border-radius:26px;
-    background:rgba(9,17,29,.84);
-    border:1px solid rgba(102,192,244,.22);
+    margin-bottom:30px;
+    border-radius:28px;
+    background:rgba(7,17,29,.88);
+    border:1px solid var(--border);
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:20px;
-    backdrop-filter:blur(18px);
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    box-shadow:0 24px 70px rgba(0,0,0,.42);
 }
 
 .brand-logo{
@@ -52,7 +62,7 @@ body{
     align-items:center;
     gap:14px;
     text-decoration:none;
-    color:#66c0f4;
+    color:var(--blue);
     font-size:30px;
     font-weight:900;
 }
@@ -61,45 +71,40 @@ body{
     width:64px;
     height:64px;
     object-fit:cover;
-    border-radius:14px;
-    transition:.3s;
+    border-radius:16px;
 }
 
 .brand-logo span{
     color:white;
 }
 
-.brand-logo:hover img{
-    transform:scale(1.08) rotate(-5deg);
-}
-
 .status-pill{
     padding:12px 18px;
     border-radius:999px;
     background:rgba(102,192,244,.1);
-    border:1px solid rgba(102,192,244,.25);
+    border:1px solid var(--border);
     color:#c7d5e0;
     font-weight:900;
-    white-space:nowrap;
 }
 
 .payment-shell{
     display:grid;
-    grid-template-columns:1.08fr .92fr;
+    grid-template-columns:1fr 440px;
+    gap:26px;
+}
+
+.panel{
+    background:
+    radial-gradient(circle at top right,rgba(102,192,244,.1),transparent 35%),
+    linear-gradient(180deg,rgba(16,29,49,.95),rgba(7,17,29,.95));
+    border:1px solid var(--border);
     border-radius:34px;
+    box-shadow:0 34px 100px rgba(0,0,0,.5);
     overflow:hidden;
-    background:rgba(9,17,29,.88);
-    border:1px solid rgba(102,192,244,.22);
-    box-shadow:0 38px 110px rgba(0,0,0,.55);
-    backdrop-filter:blur(18px);
 }
 
 .left-panel{
-    padding:44px;
-    background:
-    radial-gradient(circle at top right,rgba(102,192,244,.14),transparent 38%),
-    linear-gradient(160deg,#172232,#07111d);
-    border-right:1px solid rgba(102,192,244,.18);
+    padding:38px;
 }
 
 .step-label{
@@ -115,15 +120,14 @@ body{
 
 .title{
     font-size:48px;
-    line-height:1;
     font-weight:900;
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
 .subtitle{
     color:#c7d5e0;
     line-height:1.8;
-    margin-bottom:30px;
+    margin-bottom:28px;
 }
 
 .game-preview{
@@ -131,12 +135,11 @@ body{
     border:1px solid rgba(102,192,244,.18);
     border-radius:28px;
     overflow:hidden;
-    margin-bottom:24px;
 }
 
 .game-preview img{
     width:100%;
-    height:285px;
+    height:300px;
     object-fit:cover;
     display:block;
 }
@@ -153,38 +156,38 @@ body{
 .game-desc{
     color:#9ca3af;
     line-height:1.8;
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 .order-row{
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    padding:15px 0;
+    gap:20px;
+    padding:16px 0;
     border-top:1px solid rgba(255,255,255,.07);
     color:#c7d5e0;
     font-weight:800;
 }
 
 .amount{
-    color:#beee11 !important;
-    font-size:30px;
+    color:var(--lime);
+    font-size:32px;
     font-weight:900;
 }
 
 .notice{
-    background:rgba(102,192,244,.08);
-    border:1px solid rgba(102,192,244,.25);
-    color:#c7d5e0;
-    border-radius:22px;
+    margin-top:22px;
     padding:18px;
+    border-radius:20px;
+    background:rgba(245,158,11,.1);
+    border:1px solid rgba(245,158,11,.28);
+    color:#ffd08a;
     line-height:1.7;
     font-size:14px;
 }
 
 .right-panel{
-    padding:44px;
-    background:#07111d;
+    padding:34px;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -196,36 +199,33 @@ body{
     background:linear-gradient(135deg,#00bcd4,#0077ff);
     font-weight:900;
     margin-bottom:18px;
-    box-shadow:0 14px 34px rgba(0,119,255,.22);
 }
 
 .countdown-box{
     width:100%;
-    max-width:390px;
     padding:15px 18px;
     border-radius:18px;
     background:rgba(102,192,244,.08);
-    border:1px solid rgba(102,192,244,.25);
+    border:1px solid var(--border);
     color:#c7d5e0;
     font-weight:900;
     text-align:center;
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 #countdownTimer{
-    color:#66c0f4;
+    color:var(--blue);
     font-size:22px;
     margin-left:8px;
 }
 
 .qr-frame{
     width:100%;
-    max-width:370px;
     padding:18px;
     background:white;
     border-radius:30px;
-    margin-bottom:22px;
-    box-shadow:0 25px 70px rgba(0,0,0,.45);
+    margin-bottom:20px;
+    box-shadow:0 24px 70px rgba(0,0,0,.45);
 }
 
 .qr-frame img{
@@ -235,17 +235,15 @@ body{
 }
 
 .scan-text{
-    max-width:390px;
-    color:#9fb0c2;
+    color:var(--muted);
     text-align:center;
     line-height:1.7;
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 .scan-btn,
 .confirm-btn{
     width:100%;
-    max-width:390px;
     border:none;
     padding:17px;
     border-radius:18px;
@@ -257,22 +255,124 @@ body{
 .scan-btn{
     background:linear-gradient(135deg,#66c0f4,#1d7bc1);
     color:white;
-    margin-bottom:20px;
-    box-shadow:0 14px 34px rgba(102,192,244,.22);
 }
 
 .confirm-btn{
-    display:block;
-    margin:auto;
+    margin-top:14px;
     background:linear-gradient(135deg,#8bd13b,#5da51f);
     color:white;
-    box-shadow:0 14px 30px rgba(139,197,63,.25);
 }
 
 .scan-btn:hover,
 .confirm-btn:hover{
     transform:translateY(-4px);
-    filter:brightness(1.08);
+}
+
+.redeem-section{
+    display:none;
+    width:100%;
+    margin-top:22px;
+}
+
+.redeem-box,
+.spin-code-box{
+    background:linear-gradient(180deg,#101827,#07111d);
+    border:1px solid rgba(102,192,244,.3);
+    border-radius:24px;
+    padding:22px;
+    margin-bottom:18px;
+    text-align:center;
+}
+
+.redeem-title{
+    color:#c7d5e0;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.redeem-code{
+    color:var(--lime);
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:3px;
+    margin-bottom:16px;
+}
+
+.copy-btn{
+    border:none;
+    padding:12px 22px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#66c0f4,#1b8bd6);
+    color:white;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.redeem-input{
+    width:100%;
+    padding:16px;
+    border-radius:16px;
+    border:1px solid rgba(102,192,244,.35);
+    background:#0b1420;
+    color:white;
+    text-align:center;
+    font-weight:900;
+    outline:none;
+    margin-bottom:16px;
+}
+
+.spin-hint{
+    color:#9fb0c2;
+    line-height:1.7;
+    font-size:14px;
+    margin-bottom:16px;
+}
+
+.code-card{
+    display:block;
+    margin-bottom:12px;
+    padding:14px;
+    border-radius:16px;
+    background:rgba(102,192,244,.08);
+    border:1px solid rgba(102,192,244,.2);
+    cursor:pointer;
+    text-align:left;
+    transition:.25s;
+}
+
+.code-card:hover{
+    transform:translateY(-3px);
+    border-color:#66c0f4;
+    background:rgba(102,192,244,.14);
+}
+
+.code-card input{
+    margin-right:8px;
+}
+
+.code-card strong{
+    color:var(--lime);
+}
+
+.code-card span{
+    display:block;
+    margin-left:26px;
+    margin-top:5px;
+    color:#c7d5e0;
+    font-size:13px;
+    font-weight:800;
+}
+
+.discount-preview{
+    margin-top:14px;
+    padding:16px;
+    border-radius:16px;
+    background:rgba(139,197,63,.1);
+    border:1px solid rgba(139,197,63,.35);
+    color:var(--lime);
+    font-weight:900;
+    display:none;
+    text-align:center;
 }
 
 .popup-overlay{
@@ -293,8 +393,7 @@ body{
     border-radius:30px;
     text-align:center;
     background:linear-gradient(180deg,#111827,#07111d);
-    border:1px solid rgba(102,192,244,.25);
-    box-shadow:0 35px 90px rgba(0,0,0,.6);
+    border:1px solid var(--border);
 }
 
 .popup-icon{
@@ -312,7 +411,6 @@ body{
 .popup-box h2{
     font-size:32px;
     margin-bottom:14px;
-    font-weight:900;
 }
 
 .popup-box p{
@@ -347,107 +445,25 @@ body{
     color:#c7d5e0;
 }
 
-.redeem-section{
-    display:none;
-    width:100%;
-}
-
-.redeem-box,
-.spin-code-box{
-    width:100%;
-    max-width:390px;
-    background:linear-gradient(180deg,#172437,#101827);
-    border:1px solid rgba(102,192,244,.35);
-    border-radius:24px;
-    padding:24px;
-    margin:20px auto;
-    text-align:center;
-    box-shadow:0 18px 45px rgba(0,0,0,.35);
-}
-
-.redeem-title{
-    color:#c7d5e0;
-    font-weight:900;
-    margin-bottom:14px;
-}
-
-.redeem-code{
-    color:#beee11;
-    font-size:32px;
-    font-weight:900;
-    letter-spacing:3px;
-    margin-bottom:18px;
-}
-
-.copy-btn{
-    border:none;
-    padding:13px 24px;
-    border-radius:14px;
-    background:linear-gradient(135deg,#66c0f4,#1b8bd6);
-    color:white;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.redeem-input,
-.reward-input{
-    width:100%;
-    max-width:390px;
-    display:block;
-    margin:0 auto 16px;
-    padding:17px;
-    border-radius:18px;
-    border:1px solid rgba(102,192,244,.35);
-    background:#0b1420;
-    color:white;
-    text-align:center;
-    font-weight:900;
-    outline:none;
-}
-
-.reward-input{
-    border-color:rgba(139,197,63,.45);
-    background:rgba(139,197,63,.08);
-    color:#beee11;
-}
-
-.reward-input::placeholder,
-.redeem-input::placeholder{
-    color:#7f95aa;
-}
-
-.spin-hint{
-    color:#9fb0c2;
-    line-height:1.7;
-    font-size:14px;
-    margin-bottom:16px;
-}
-
-@media(max-width:900px){
-    body{
-        padding:20px;
-    }
-
-    .top-nav{
-        height:auto;
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
+@media(max-width:950px){
     .payment-shell{
         grid-template-columns:1fr;
-    }
-
-    .left-panel{
-        border-right:none;
-        border-bottom:1px solid rgba(102,192,244,.18);
     }
 }
 
 @media(max-width:600px){
+    body{
+        padding:18px;
+    }
+
+    .top-nav{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
     .left-panel,
     .right-panel{
-        padding:28px;
+        padding:24px;
     }
 
     .title{
@@ -460,15 +476,6 @@ body{
 
     .popup-actions{
         grid-template-columns:1fr;
-    }
-
-    .brand-logo{
-        font-size:24px;
-    }
-
-    .brand-logo img{
-        width:56px;
-        height:56px;
     }
 }
 </style>
@@ -489,7 +496,7 @@ body{
 
     <div class="payment-shell">
 
-        <div class="left-panel">
+        <div class="panel left-panel">
             <div class="step-label">STEP 2 OF 2</div>
 
             <div class="title">Complete Payment</div>
@@ -532,12 +539,12 @@ body{
             </div>
 
             <div class="notice">
-                ⚠️ This student project cannot detect real ABA approval automatically
-                without ABA/Bakong API. Confirm only after completing payment.
+                ⚠️ This student project cannot detect real ABA approval automatically.
+                Confirm only after completing payment.
             </div>
         </div>
 
-        <div class="right-panel">
+        <div class="panel right-panel">
             <div class="aba-badge">ABA PAY</div>
 
             <div class="countdown-box">
@@ -558,6 +565,7 @@ body{
             </button>
 
             <div id="redeemSection" class="redeem-section">
+
                 <div class="redeem-box">
                     <div class="redeem-title">Your Payment Redeem Code</div>
 
@@ -585,7 +593,7 @@ body{
                         <div class="redeem-title">Lucky Spin Code Optional</div>
 
                         <div class="spin-hint">
-                            Use your saved Lucky Spin code here for 10%, 20%, $1, $2, $5 off, or free game.
+                            Choose one of your Lucky Spin codes to preview discount live.
                         </div>
 
                         <h4 style="margin-bottom:12px;color:#66c0f4;">
@@ -593,53 +601,30 @@ body{
                         </h4>
 
                         {% for code in my_codes %}
-                        <label style="
-                            display:block;
-                            margin-bottom:10px;
-                            padding:12px;
-                            border-radius:12px;
-                            background:rgba(102,192,244,.08);
-                            border:1px solid rgba(102,192,244,.2);
-                            cursor:pointer;
-                            text-align:left;
-                        ">
+                        <label class="code-card">
                             <input type="radio"
-                                name="reward_code"
-                                value="{{ code.code }}"
-                                data-reward="{{ code.reward }}"
-                                onclick="previewDiscount(this)"
-                                style="margin-right:8px;">
+                                   name="reward_code"
+                                   value="{{ code.code }}"
+                                   data-reward="{{ code.reward }}"
+                                   onclick="previewDiscount(this)">
 
-                            <strong style="color:#beee11;">
-                                {{ code.code }}
-                            </strong>
-                            <br>
-
-                            <span style="color:#c7d5e0;margin-left:25px;">
-                                {{ code.reward }}
-                            </span>
+                            <strong>{{ code.code }}</strong>
+                            <span>{{ code.reward }}</span>
                         </label>
                         {% empty %}
                         <p style="color:#9fb0c2;">
                             No Lucky Spin Codes Available
                         </p>
                         {% endfor %}
+
+                        <div id="discountPreview" class="discount-preview"></div>
                     </div>
-                    <div id="discountPreview" style="
-                        margin-top:14px;
-                        padding:14px;
-                        border-radius:14px;
-                        background:rgba(139,197,63,.1);
-                        border:1px solid rgba(139,197,63,.3);
-                        color:#beee11;
-                        font-weight:900;
-                        display:none;
-                    ">
-                    </div>
+
                     <button type="submit" class="confirm-btn">
                         I Paid with ABA
                     </button>
                 </form>
+
             </div>
         </div>
 
@@ -652,9 +637,7 @@ body{
 
         <h2>Confirm Payment</h2>
 
-        <p>
-            Did you scan the KHQR and complete payment with ABA Mobile?
-        </p>
+        <p>Did you scan the KHQR and complete payment with ABA Mobile?</p>
 
         <div class="popup-actions">
             <button type="button" class="cancel-popup" onclick="closePaymentPopup()">
@@ -716,6 +699,7 @@ function copyRedeemCode(){
         alert("Payment redeem code copied!");
     }
 }
+
 function previewDiscount(input){
     const reward = input.dataset.reward;
     const totalAmount = document.getElementById("totalAmount");
