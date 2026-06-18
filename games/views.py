@@ -536,15 +536,21 @@ def pay_success(request):
         redeem_code = generate_redeem_code()
 
         request.session['redeem_code'] = redeem_code
-        request.session['game_id'] = game.id
+        request.session['buy_game_id'] = game.id
+
+        my_codes = RewardCode.objects.filter(
+            user=request.user,
+            is_used=False
+        ).order_by("-created_at")
 
         return render(request, 'games/pay_success.html', {
             'game': game,
             'game_title': game.title,
             'amount': game.final_price(),
-            'redeem_code': redeem_code
+            'redeem_code': redeem_code,
+            'my_codes': my_codes,
         })
-    
+
     return redirect('/')
 # from .models import Purchase
 # COMPLETE_PAYMENT
