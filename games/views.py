@@ -749,6 +749,11 @@ def cart_payment(request):
     applied_coupon = None
     coupon_error = None
 
+    coupons = RewardCode.objects.filter(
+        user=request.user,
+        is_used=False
+    ).order_by("-created_at")
+
     if request.method == "POST":
         coupon_code = request.POST.get("coupon_code", "").strip()
 
@@ -779,6 +784,7 @@ def cart_payment(request):
                 request.session["cart_coupon_code"] = coupon.code
                 request.session["cart_discount_amount"] = float(discount_amount)
                 request.session["cart_final_total"] = float(final_total)
+
             else:
                 coupon_error = "Invalid or already used Lucky Spin code."
 
@@ -796,9 +802,8 @@ def cart_payment(request):
         "applied_coupon": applied_coupon,
         "coupon_error": coupon_error,
         "redeem_code": redeem_code,
+        "coupons": coupons,
     })
-
-
 @login_required(login_url="/login/")
 def cart_complete_payment(request):
     if request.method == "POST":

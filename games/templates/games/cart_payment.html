@@ -696,16 +696,23 @@ body{
 
                 <form method="POST" class="coupon-form">
                     {% csrf_token %}
-                    <input
-                        type="text"
-                        name="coupon_code"
-                        class="coupon-input"
-                        placeholder="Enter coupon code"
-                        value="{% if applied_coupon %}{{ applied_coupon.code }}{% endif %}"
-                    >
+
+                    <select name="coupon_code" class="coupon-input" required>
+                        <option value="">Select Lucky Spin Coupon</option>
+
+                        {% for coupon in coupons %}
+                        <option value="{{ coupon.code }}"
+                            {% if applied_coupon and applied_coupon.code == coupon.code %}selected{% endif %}
+                        >
+                            {{ coupon.reward }} — {{ coupon.code }}
+                        </option>
+                        {% empty %}
+                        <option value="">No active coupons available</option>
+                        {% endfor %}
+                    </select>
 
                     <button type="submit" class="coupon-btn">
-                        Apply Discount
+                        Apply Selected Coupon
                     </button>
                 </form>
 
