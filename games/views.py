@@ -744,12 +744,57 @@ def cart_payment(request):
 
     total = sum(item.game.final_price() for item in cart_items)
 
-    redeem_code = str(random.randint(100000, 999999))
-    request.session["cart_redeem_code"] = redeem_code
+    discount_amount = 0
+    final_total = total
+    applied_coupon = None
+    coupon_error = None
+
+    if request.method == "POST":
+        coupon_code = request.POST.get("coupon_code", "").strip()
+
+        if coupon_code:
+            coupon = RewardCode.objects.filter(
+                user=request.user,
+                code=coupon_code,
+                is_used=False
+            ).first()
+
+            if coupon:
+                applied_coupon = coupon
+
+                if "10%" in coupon.reward:
+                    discount_amount = total * 10 / 100
+                elif "20%" in coupon.reward:
+                    discount_amount = total * 20 / 100
+                elif "$1" in coupon.reward:
+                    discount_amount = 1
+                elif "$2" in coupon.reward:
+                    discount_amount = 2
+                elif "$5" in coupon.reward:
+                    discount_amount = 5
+
+                discount_amount = min(discount_amount, total)
+                final_total = total - discount_amount
+
+                request.session["cart_coupon_code"] = coupon.code
+                request.session["cart_discount_amount"] = float(discount_amount)
+                request.session["cart_final_total"] = float(final_total)
+            else:
+                coupon_error = "Invalid or already used Lucky Spin code."
+
+    redeem_code = request.session.get("cart_redeem_code")
+
+    if not redeem_code:
+        redeem_code = str(random.randint(100000, 999999))
+        request.session["cart_redeem_code"] = redeem_code
 
     return render(request, "games/cart_payment.html", {
         "cart_items": cart_items,
         "total": total,
+        "discount_amount": discount_amount,
+        "final_total": final_total,
+        "applied_coupon": applied_coupon,
+        "coupon_error": coupon_error,
         "redeem_code": redeem_code,
     })
 
@@ -763,6 +808,13 @@ def cart_complete_payment(request):
         if input_code == session_code:
             cart_items = Cart.objects.filter(user=request.user)
 
+            discount_amount = request.session.get("cart_discount_amount", 0)
+            final_total = request.session.get("cart_final_total", None)
+            coupon_code = request.session.get("cart_coupon_code")
+
+            if final_total is None:
+                final_total = sum(item.game.final_price() for item in cart_items)
+
             for item in cart_items:
                 Purchase.objects.get_or_create(
                     user=request.user,
@@ -770,8 +822,19 @@ def cart_complete_payment(request):
                     defaults={"price": item.game.final_price()}
                 )
 
+            if coupon_code:
+                RewardCode.objects.filter(
+                    user=request.user,
+                    code=coupon_code,
+                    is_used=False
+                ).update(is_used=True)
+
             cart_items.delete()
+
             request.session.pop("cart_redeem_code", None)
+            request.session.pop("cart_coupon_code", None)
+            request.session.pop("cart_discount_amount", None)
+            request.session.pop("cart_final_total", None)
 
             return redirect("library")
 
