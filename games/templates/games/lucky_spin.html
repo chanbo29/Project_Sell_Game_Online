@@ -58,17 +58,35 @@ body{
     box-shadow:0 25px 80px rgba(0,0,0,.45);
 }
 
-.logo{
-    color:white;
+.brand-logo{
+    display:flex;
+    align-items:center;
+    gap:14px;
     text-decoration:none;
-    font-size:29px;
+    color:#66c0f4;
+    font-size:30px;
     font-weight:900;
 }
 
-.logo span{
-    color:var(--blue);
+.brand-logo img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:0.3s;
 }
 
+.brand-logo span{
+    color:white;
+}
+
+.brand-logo:hover img{
+    transform:scale(1.1) rotate(-5deg);
+}
+
+.brand-logo:hover{
+    color:#8bd7ff;
+}
 .top-actions{
     display:flex;
     gap:12px;
@@ -210,12 +228,12 @@ h1{
 
 .case-option.active{
     border-color:var(--blue);
-    box-shadow:0 0 30px rgba(102,192,244,.3);
+    box-shadow:var(--blue);
 }
 
 .case-option.mythic.active{
-    border-color:var(--lime);
-    box-shadow:0 0 36px rgba(190,255,24,.45);
+    border-color:var(--gold);
+    box-shadow:var(--gold);
 }
 
 .case-option.mythic span{
@@ -395,7 +413,7 @@ h1{
 }
 
 .mythic-mode .case-window{
-    border-color:var(--lime);
+    border-color:var(--gold);
     box-shadow:
         inset 0 0 70px rgba(0,0,0,.72),
         0 0 95px rgba(190,255,24,.28);
@@ -441,7 +459,7 @@ h1{
     color:#06111d;
     font-size:17px;
     font-weight:900;
-    background:linear-gradient(135deg,var(--lime),var(--blue));
+    background:linear-gradient(135deg,var(--gold),var(--gold));
     box-shadow:0 0 42px rgba(102,192,244,.32);
     transition:.25s;
 }
@@ -476,7 +494,7 @@ h1{
 }
 
 .result-name{
-    color:var(--lime);
+    color:var(--gold);
     font-size:28px;
     font-weight:900;
     margin-top:12px;
@@ -512,13 +530,13 @@ h1{
 .reward-title{
     font-size:25px;
     font-weight:900;
-    color:var(--lime);
+    color:var(--gold);
     margin-bottom:10px;
 }
 
 .reward-desc,
 .result-note{
-    color:#a8b8ca;
+    color:white;
     line-height:1.7;
     font-size:14px;
 }
@@ -603,9 +621,16 @@ h1{
 <div class="page">
 
     <div class="topbar">
-        <a href="/" class="logo">SELL<span>GAME</span>ONLINE</a>
+        <div class="brand">
+            <a href="/" class="brand-logo">
+                <img src="{% static 'images/logo.avif' %}" alt="SellGame Logo">
+                <div class="brand-text">
+                    SELL<span>GAME</span>ONLINE
+                </div>
+            </a>
+        </div>
         <div class="top-actions">
-            <div class="top-pill">🎮 Premium Case</div>
+            <div class="top-pill">Premium Case</div>
             <a href="/" class="back-btn">Back Store</a>
         </div>
     </div>
@@ -714,7 +739,7 @@ h1{
                 <h2>🎉 Winner</h2>
 
                 <div id="winnerName" class="result-name">
-                    Waiting for open...
+                    Waiting for open...!
                 </div>
 
                 <img id="winnerImage" class="result-img" src="" alt="Winner">
