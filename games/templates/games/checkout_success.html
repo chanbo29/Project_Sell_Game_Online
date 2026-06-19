@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Payment Success - SellGame Online</title>
+<title>Checkout Success - SellGame Online</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -17,44 +17,72 @@
     font-family:'Inter',sans-serif;
 }
 
+:root{
+    --blue:#66c0f4;
+    --blue2:#167ac0;
+    --green:#8bc53f;
+    --green2:#5da51f;
+    --lime:#beff18;
+    --bg:#07111d;
+    --panel:#101827;
+    --text:#c7d5e0;
+    --muted:#8ea3b8;
+    --border:rgba(102,192,244,.25);
+}
+
 body{
     min-height:100vh;
-    background:
-    radial-gradient(circle at 12% 8%,rgba(102,192,244,.26),transparent 30%),
-    radial-gradient(circle at 88% 18%,rgba(139,209,59,.18),transparent 30%),
-    linear-gradient(135deg,#03060b,#07111d 55%,#02040a);
     color:white;
     display:flex;
     align-items:center;
     justify-content:center;
     padding:28px;
+    background:
+        radial-gradient(circle at 12% 8%,rgba(102,192,244,.26),transparent 30%),
+        radial-gradient(circle at 88% 18%,rgba(139,209,59,.18),transparent 30%),
+        linear-gradient(135deg,#03060b,#07111d 55%,#02040a);
 }
 
 .wrapper{
     width:100%;
-    max-width:1040px;
+    max-width:1080px;
     display:grid;
     grid-template-columns:.95fr 1.05fr;
     border-radius:38px;
     overflow:hidden;
-    background:rgba(9,17,29,.88);
-    border:1px solid rgba(102,192,244,.25);
+    background:rgba(9,17,29,.9);
+    border:1px solid var(--border);
     box-shadow:0 40px 120px rgba(0,0,0,.58);
     backdrop-filter:blur(18px);
 }
 
+/* LEFT VISUAL */
 .visual{
     position:relative;
-    min-height:640px;
-    background:
-    linear-gradient(to top,rgba(5,8,13,.95),rgba(5,8,13,.25)),
-    url("https://images.pexels.com/photos/7915437/pexels-photo-7915437.jpeg?auto=compress&cs=tinysrgb&w=1000");
-    background-size:cover;
-    background-position:center;
+    min-height:660px;
     padding:36px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
+    background:
+        linear-gradient(to top,rgba(5,8,13,.96),rgba(5,8,13,.22)),
+        url("https://images.pexels.com/photos/7915437/pexels-photo-7915437.jpeg?auto=compress&cs=tinysrgb&w=1200")
+        center/cover no-repeat;
+}
+
+.visual::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at top left,rgba(102,192,244,.22),transparent 32%),
+        radial-gradient(circle at bottom right,rgba(139,209,59,.18),transparent 36%);
+    pointer-events:none;
+}
+
+.visual > *{
+    position:relative;
+    z-index:2;
 }
 
 .brand-logo{
@@ -62,7 +90,7 @@ body{
     align-items:center;
     gap:14px;
     text-decoration:none;
-    color:#66c0f4;
+    color:var(--blue);
     font-size:30px;
     font-weight:900;
     width:max-content;
@@ -72,7 +100,8 @@ body{
     width:66px;
     height:66px;
     object-fit:cover;
-    border-radius:14px;
+    border-radius:16px;
+    box-shadow:0 0 30px rgba(102,192,244,.35);
     transition:.3s;
 }
 
@@ -85,43 +114,61 @@ body{
 }
 
 .visual-card{
-    padding:26px;
-    border-radius:28px;
+    padding:28px;
+    border-radius:30px;
     background:rgba(6,13,22,.78);
-    border:1px solid rgba(102,192,244,.28);
+    border:1px solid rgba(102,192,244,.3);
     backdrop-filter:blur(16px);
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
 
 .visual-card h3{
-    font-size:25px;
-    margin-bottom:10px;
+    font-size:27px;
+    margin-bottom:12px;
+    color:white;
 }
 
 .visual-card p{
     color:#b7c6d4;
-    line-height:1.75;
+    line-height:1.8;
 }
 
+/* RIGHT SUCCESS */
 .success{
-    padding:56px;
+    padding:58px;
     display:flex;
     flex-direction:column;
     justify-content:center;
+    background:
+        radial-gradient(circle at top right,rgba(102,192,244,.12),transparent 34%),
+        linear-gradient(180deg,rgba(16,29,49,.96),rgba(7,17,29,.96));
 }
 
 .success-icon{
-    width:120px;
-    height:120px;
+    width:126px;
+    height:126px;
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:60px;
-    background:linear-gradient(135deg,#8bd13b,#5da51f);
+    font-size:62px;
+    background:linear-gradient(135deg,var(--green),var(--green2));
     box-shadow:
-    0 0 0 12px rgba(139,209,59,.08),
-    0 0 45px rgba(139,209,59,.36);
-    margin-bottom:28px;
+        0 0 0 12px rgba(139,209,59,.08),
+        0 0 50px rgba(139,209,59,.38);
+    margin-bottom:30px;
+    animation:pop .7s ease;
+}
+
+@keyframes pop{
+    from{
+        transform:scale(.5);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
 }
 
 .badge{
@@ -133,22 +180,25 @@ body{
     color:#9aff4f;
     font-weight:900;
     margin-bottom:20px;
+    letter-spacing:.5px;
 }
 
 h1{
-    font-size:54px;
+    font-size:56px;
     line-height:.98;
     font-weight:900;
     margin-bottom:18px;
+    letter-spacing:-2px;
 }
 
 .subtitle{
-    color:#c7d5e0;
+    color:var(--text);
     font-size:17px;
     line-height:1.85;
-    margin-bottom:30px;
+    margin-bottom:32px;
 }
 
+/* INFO */
 .info-box{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -157,8 +207,8 @@ h1{
 }
 
 .info{
-    padding:18px;
-    border-radius:20px;
+    padding:20px;
+    border-radius:22px;
     background:#07111d;
     border:1px solid rgba(102,192,244,.18);
     transition:.25s;
@@ -166,34 +216,39 @@ h1{
 
 .info:hover{
     transform:translateY(-4px);
-    border-color:#66c0f4;
+    border-color:var(--blue);
+    box-shadow:0 16px 40px rgba(102,192,244,.12);
 }
 
 .info strong{
     display:block;
-    font-size:21px;
+    font-size:22px;
     margin-bottom:6px;
+    color:white;
 }
 
 .info span{
-    color:#8ea3b8;
+    color:var(--muted);
     font-size:13px;
     font-weight:800;
 }
 
+/* ORDER */
 .order-box{
-    padding:20px;
-    border-radius:24px;
-    background:linear-gradient(135deg,rgba(102,192,244,.1),rgba(139,209,59,.08));
-    border:1px solid rgba(102,192,244,.2);
-    margin-bottom:28px;
+    padding:22px;
+    border-radius:26px;
+    background:
+        linear-gradient(135deg,rgba(102,192,244,.11),rgba(139,209,59,.08));
+    border:1px solid rgba(102,192,244,.22);
+    margin-bottom:30px;
 }
 
 .order-row{
     display:flex;
     justify-content:space-between;
-    padding:11px 0;
-    color:#c7d5e0;
+    gap:18px;
+    padding:12px 0;
+    color:var(--text);
     font-weight:800;
     border-bottom:1px solid rgba(255,255,255,.08);
 }
@@ -204,8 +259,10 @@ h1{
 
 .order-row span:last-child{
     color:white;
+    text-align:right;
 }
 
+/* ACTIONS */
 .actions{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -213,8 +270,8 @@ h1{
 }
 
 .btn{
-    height:60px;
-    border-radius:19px;
+    height:62px;
+    border-radius:20px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -225,14 +282,14 @@ h1{
 }
 
 .btn-primary{
-    background:linear-gradient(135deg,#66c0f4,#167ac0);
-    box-shadow:0 14px 34px rgba(102,192,244,.22);
+    background:linear-gradient(135deg,var(--blue),var(--blue2));
+    box-shadow:0 14px 34px rgba(102,192,244,.25);
 }
 
 .btn-secondary{
     background:#142237;
     border:1px solid #2a475e;
-    color:#c7d5e0;
+    color:var(--text);
 }
 
 .btn:hover{
@@ -241,8 +298,8 @@ h1{
 }
 
 .note{
-    margin-top:22px;
-    color:#8ea3b8;
+    margin-top:24px;
+    color:var(--muted);
     font-size:13px;
     line-height:1.7;
     text-align:center;
@@ -254,7 +311,7 @@ h1{
     }
 
     .visual{
-        min-height:320px;
+        min-height:330px;
     }
 }
 
@@ -284,6 +341,14 @@ h1{
     .actions{
         grid-template-columns:1fr;
     }
+
+    .order-row{
+        flex-direction:column;
+    }
+
+    .order-row span:last-child{
+        text-align:left;
+    }
 }
 </style>
 </head>
@@ -299,10 +364,10 @@ h1{
         </a>
 
         <div class="visual-card">
-            <h3>Your games are ready</h3>
+            <h3>Your checkout is complete</h3>
             <p>
-                Purchased games are now connected to your library.
-                You can download, launch, or manage them anytime.
+                Your payment has been confirmed successfully. All purchased games
+                are now available inside your SellGame library.
             </p>
         </div>
     </div>
@@ -311,29 +376,29 @@ h1{
 
         <div class="success-icon">✓</div>
 
-        <div class="badge">PAYMENT COMPLETED</div>
+        <div class="badge">CHECKOUT COMPLETED</div>
 
         <h1>Payment Successful</h1>
 
         <p class="subtitle">
-            Thank you for your purchase. All selected games have been added
-            to your library and are ready to play.
+            Thank you for your purchase. Your selected games have been added
+            to your account and are ready to install or play.
         </p>
 
         <div class="info-box">
             <div class="info">
                 <strong>Paid</strong>
-                <span>Status</span>
+                <span>Order Status</span>
             </div>
 
             <div class="info">
-                <strong>Library</strong>
-                <span>Games Added</span>
+                <strong>Added</strong>
+                <span>To Library</span>
             </div>
 
             <div class="info">
-                <strong>Secure</strong>
-                <span>Payment</span>
+                <strong>Instant</strong>
+                <span>Access</span>
             </div>
         </div>
 
@@ -349,8 +414,13 @@ h1{
             </div>
 
             <div class="order-row">
-                <span>Access</span>
-                <span>Instant</span>
+                <span>Access Type</span>
+                <span>Instant Download</span>
+            </div>
+
+            <div class="order-row">
+                <span>Next Step</span>
+                <span>Open your Library and install games</span>
             </div>
         </div>
 
@@ -365,7 +435,7 @@ h1{
         </div>
 
         <div class="note">
-            🔒 Your payment has been confirmed. Keep your account secure and enjoy your games.
+            🔒 Your checkout has been confirmed. Keep your account secure and enjoy your games.
         </div>
 
     </div>
