@@ -2,6 +2,7 @@ import random
 import string
 import json
 import csv
+import re
 # import requests
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -597,6 +598,10 @@ def complete_payment(request):
                 price = price * 0.90
             elif reward_code.reward == "$5 Wallet":
                 price = price - 5
+            elif reward_code.reward == "$4 Wallet":
+                price = price - 4
+            elif reward_code.reward == "$3 Wallet":
+                price = price - 3
             elif reward_code.reward == "$2 Wallet":
                 price = price - 2
             elif reward_code.reward == "$1 Wallet":
@@ -767,16 +772,18 @@ def cart_payment(request):
             if coupon:
                 applied_coupon = coupon
 
-                if "10%" in coupon.reward:
-                    discount_amount = total * 10 / 100
-                elif "20%" in coupon.reward:
-                    discount_amount = total * 20 / 100
-                elif "$1" in coupon.reward:
-                    discount_amount = 1
-                elif "$2" in coupon.reward:
-                    discount_amount = 2
-                elif "$5" in coupon.reward:
-                    discount_amount = 5
+                if "%" in coupon.reward:
+                    percent_match = re.search(r"(\d+)%", coupon.reward)
+
+                    if percent_match:
+                        percent = int(percent_match.group(1))
+                        discount_amount = total * percent / 100
+
+                elif "$" in coupon.reward:
+                    money_match = re.search(r"\$(\d+)", coupon.reward)
+
+                    if money_match:
+                        discount_amount = int(money_match.group(1))
 
                 discount_amount = min(discount_amount, total)
                 final_total = total - discount_amount
